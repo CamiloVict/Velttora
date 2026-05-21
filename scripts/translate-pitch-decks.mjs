@@ -135,6 +135,12 @@ const PHRASES = [
 
 function translateHtml(html) {
   let out = html.replace(/lang="es"/i, 'lang="en"');
+  if (!out.includes('pitch-deck-mobile.css')) {
+    out = out.replace(
+      '</style>',
+      '</style>\n<link rel="stylesheet" href="/pitch-deck-mobile.css" />',
+    );
+  }
   const sorted = [...PHRASES].sort((a, b) => b[0].length - a[0].length);
   for (const [es, en] of sorted) {
     out = out.split(es).join(en);

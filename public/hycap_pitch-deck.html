@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hycap — Pitch Deck 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+
+:root {
+  --purple:  #5B50C4;
+  --purple2: #7F77DD;
+  --purple3: #AFA9EC;
+  --teal:    #1D9E75;
+  --amber:   #EF9F27;
+  --coral:   #D85A30;
+  --bg:      #0D0B1A;
+  --bg2:     #1A1730;
+  --bg3:     #2A2640;
+  --border:  rgba(255,255,255,0.07);
+  --borderp: rgba(91,80,196,0.25);
+  --text:    #FFFFFF;
+  --text2:   rgba(255,255,255,0.55);
+  --text3:   rgba(255,255,255,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+  cursor: default;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(91,80,196,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,80,196,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none; z-index: 0;
+}
+
+.deck { position:relative; width:100%; height:100vh; overflow:hidden; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transform: translateY(24px);
+  transition: opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1);
+  z-index: 1; overflow: hidden;
+}
+.slide.active  { opacity:1; pointer-events:all; transform:none; z-index:2; }
+.slide.exit    { opacity:0; transform:translateY(-24px); z-index:1; }
+
+/* NAV */
+#nav {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; align-items: center;
+  background: rgba(13,11,26,0.85); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 50px;
+  padding: 10px 20px; z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); cursor: pointer;
+  transition: all .25s; border: none;
+}
+.nav-dot.active { background: var(--purple); width: 24px; border-radius: 4px; }
+.nav-dot:hover  { background: rgba(91,80,196,0.5); }
+#nav-prev, #nav-next {
+  background: none; border: none; color: var(--text2);
+  font-size: 16px; cursor: pointer; padding: 4px 8px;
+  transition: color .2s; font-family: 'Bricolage Grotesque', sans-serif;
+  border-radius: 6px;
+}
+#nav-prev:hover, #nav-next:hover { color: var(--purple3); }
+#slide-counter { font-size: 11px; color: var(--text3); min-width: 36px; text-align:center; font-weight:600; letter-spacing:1px; }
+
+/* SLIDE HEADER */
+.slide-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--purple3);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.slide-label::before { content:''; width:20px; height:2px; background:var(--purple); }
+
+/* TYPOGRAPHY */
+.display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; line-height: .95; }
+.mega { font-size: clamp(72px,10vw,140px); }
+.xl   { font-size: clamp(48px,7vw,96px); }
+.lg   { font-size: clamp(32px,4vw,56px); }
+.md   { font-size: clamp(20px,2.5vw,32px); }
+.body-l { font-size: clamp(14px,1.4vw,18px); font-weight:400; line-height:1.6; }
+.body-m { font-size: clamp(12px,1.2vw,15px); font-weight:400; line-height:1.6; }
+.body-s { font-size: clamp(11px,1vw,13px); font-weight:500; }
+.label  { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+
+.p  { color: var(--purple3); }
+.p2 { color: var(--purple); }
+.t  { color: var(--teal); }
+.a  { color: var(--amber); }
+.c  { color: var(--coral); }
+.d  { color: var(--text2); }
+
+/* LAYOUT */
+.pad    { padding: 48px 72px 80px; flex:1; display:flex; flex-direction:column; }
+.pad-sm { padding: 36px 64px 80px; flex:1; display:flex; flex-direction:column; }
+.row    { display:flex; gap:24px; }
+.col    { display:flex; flex-direction:column; }
+.fill   { flex:1; }
+
+/* CARDS */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(91,80,196,0.04), transparent);
+  pointer-events:none;
+}
+.card-p { border-color: rgba(91,80,196,0.3); }
+.card-t { border-color: rgba(29,158,117,0.3); }
+.card-a { border-color: rgba(239,159,39,0.3); }
+
+/* STAT */
+.stat-val   { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,5vw,72px); line-height:1; color:var(--purple3); }
+.stat-val.t { color:var(--teal); }
+.stat-val.a { color:var(--amber); }
+.stat-val.w { color:var(--text); }
+.stat-label { font-size:12px; font-weight:600; color:var(--text2); margin-top:4px; letter-spacing:0.5px; }
+.stat-sub   { font-size:11px; color:var(--text3); margin-top:2px; }
+
+/* MISC */
+.divider   { height:1px; background:var(--border); margin:20px 0; }
+.divider-v { width:1px; background:var(--border); align-self:stretch; }
+
+.hl   { display:inline-block; background:rgba(91,80,196,0.15); border:1px solid rgba(91,80,196,0.3); border-radius:6px; padding:2px 8px; color:var(--purple3); font-weight:700; }
+.hl-t { background:rgba(29,158,117,0.12); border-color:rgba(29,158,117,0.25); color:var(--teal); }
+.hl-a { background:rgba(239,159,39,0.12); border-color:rgba(239,159,39,0.25); color:var(--amber); }
+
+.pbar  { height:6px; background:rgba(255,255,255,0.07); border-radius:6px; overflow:hidden; margin-top:8px; }
+.pfill { height:100%; border-radius:6px; background:var(--purple); }
+.pfill.t { background:var(--teal); }
+.pfill.a { background:var(--amber); }
+
+.badge   { display:inline-flex; align-items:center; gap:6px; background:rgba(91,80,196,0.12); border:1px solid rgba(91,80,196,0.3); border-radius:20px; padding:5px 12px; font-size:12px; font-weight:700; color:var(--purple3); }
+.badge-t { background:rgba(29,158,117,0.1); border-color:rgba(29,158,117,0.25); color:var(--teal); }
+.badge-a { background:rgba(239,159,39,0.1); border-color:rgba(239,159,39,0.25); color:var(--amber); }
+
+.dot-list { display:flex; flex-direction:column; gap:10px; }
+.dot-item { display:flex; gap:10px; align-items:flex-start; }
+.dot-item::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--purple); flex-shrink:0; margin-top:7px; }
+
+.data-table { width:100%; border-collapse:collapse; }
+.data-table th { text-align:left; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text3); padding:0 16px 10px 0; border-bottom:1px solid var(--border); }
+.data-table td { padding:12px 16px 12px 0; border-bottom:1px solid rgba(255,255,255,0.04); font-size:13px; color:var(--text2); vertical-align:top; }
+.data-table td:first-child { color:var(--text); font-weight:600; }
+.data-table tr:last-child td { border-bottom:none; }
+
+.tl { display:flex; flex-direction:column; gap:0; }
+.tl-item { display:flex; gap:16px; padding-bottom:20px; position:relative; }
+.tl-item:not(:last-child)::after { content:''; position:absolute; left:15px; top:32px; bottom:0; width:1px; background:var(--border); }
+.tl-dot { width:32px; height:32px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; z-index:1; }
+.tl-dot.p { background:rgba(91,80,196,0.15); border:1px solid rgba(91,80,196,0.4); color:var(--purple3); }
+.tl-dot.t { background:rgba(29,158,117,0.15); border:1px solid rgba(29,158,117,0.4); color:var(--teal); }
+.tl-dot.a { background:rgba(239,159,39,0.15); border:1px solid rgba(239,159,39,0.4); color:var(--amber); }
+.tl-title { font-size:14px; font-weight:700; margin-bottom:3px; }
+.tl-sub   { font-size:12px; color:var(--text2); line-height:1.5; }
+
+.glow-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; opacity:0.12; }
+
+/* FLOW STEPS */
+.flow-step { display:flex; gap:14px; align-items:flex-start; background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.fs-num { width:28px; height:28px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:rgba(91,80,196,0.15); border:1px solid rgba(91,80,196,0.35); font-size:12px; font-weight:800; color:var(--purple3); }
+.fs-title { font-size:13px; font-weight:700; margin-bottom:3px; }
+.fs-body  { font-size:12px; color:var(--text2); line-height:1.4; }
+.time-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(91,80,196,0.08); border:1px solid rgba(91,80,196,0.2); border-radius:8px; padding:3px 8px; font-size:11px; font-weight:700; color:var(--purple3); margin-top:6px; }
+
+/* ── SLIDE 1 ── */
+#s1 .bg-grad { position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 70% 50%, rgba(91,80,196,0.07), transparent), radial-gradient(ellipse 40% 60% at 20% 70%, rgba(29,158,117,0.04), transparent); pointer-events:none; z-index:0; }
+#s1 .content { position:relative; z-index:1; padding:0 72px; display:flex; flex-direction:column; justify-content:center; height:100%; }
+#s1 .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+#s1 .version-tag { background:rgba(91,80,196,0.15); border:1px solid rgba(91,80,196,0.35); border-radius:4px; padding:4px 10px; font-size:11px; font-weight:700; letter-spacing:2px; color:var(--purple3); text-transform:uppercase; }
+#s1 .tagline { font-size:clamp(16px,2vw,22px); color:var(--text2); font-weight:300; margin-bottom:40px; max-width:600px; }
+#s1 .meta-row { display:flex; gap:32px; align-items:center; }
+#s1 .meta-item { display:flex; flex-direction:column; gap:2px; }
+#s1 .meta-val { font-size:13px; font-weight:700; color:var(--text); }
+#s1 .meta-key { font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; }
+#s1 .meta-sep { width:1px; height:32px; background:var(--border); }
+#s1 .bg-word { font-family:'Bebas Neue',sans-serif; font-size:280px; color:rgba(91,80,196,0.06); line-height:1; letter-spacing:-8px; white-space:nowrap; position:absolute; right:-20px; top:50%; transform:translateY(-50%); pointer-events:none; z-index:0; user-select:none; }
+
+/* ── SLIDE 2: PROBLEMA ── */
+#s2 .prob-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1; }
+#s2 .prob-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:10px; }
+#s2 .prob-icon  { font-size:26px; }
+#s2 .prob-title { font-size:14px; font-weight:700; }
+#s2 .prob-body  { font-size:12px; color:var(--text2); line-height:1.5; flex:1; }
+#s2 .prob-stat  { font-size:11px; font-weight:700; }
+#s2 .insight-bar { background:rgba(216,90,48,0.06); border:1px solid rgba(216,90,48,0.18); border-radius:12px; padding:18px 24px; display:flex; align-items:center; gap:20px; margin-top:16px; }
+#s2 .ins-num  { font-family:'Bebas Neue',sans-serif; font-size:52px; color:var(--coral); line-height:1; }
+#s2 .ins-text { font-size:14px; color:var(--text2); line-height:1.5; }
+#s2 .ins-text strong { color:var(--text); }
+
+/* ── SLIDE 3: SOLUCIÓN ── */
+#s3 .sol-wrap { display:flex; gap:32px; flex:1; }
+#s3 .sol-left  { width:42%; display:flex; flex-direction:column; gap:16px; }
+#s3 .sol-right { flex:1; display:flex; flex-direction:column; gap:12px; }
+
+/* ── SLIDE 4: BENCHMARK ── */
+#s4 .bench-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; flex:1; }
+#s4 .bench-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px; position:relative; overflow:hidden; }
+#s4 .bench-card.featured { border-color:rgba(91,80,196,0.45); }
+#s4 .bench-card.featured::after { content:'Hycap'; position:absolute; top:14px; right:14px; background:var(--purple); color:#fff; border-radius:4px; font-size:9px; font-weight:800; letter-spacing:1px; padding:3px 7px; }
+#s4 .bc-region { font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+#s4 .bc-name   { font-size:15px; font-weight:800; margin-bottom:10px; }
+#s4 .bc-tags   { display:flex; flex-wrap:wrap; gap:5px; }
+#s4 .bc-tag    { font-size:10px; font-weight:600; padding:2px 7px; border-radius:20px; background:rgba(255,255,255,0.06); color:var(--text2); }
+#s4 .bc-tag.g  { background:rgba(29,158,117,0.12); color:var(--teal); }
+#s4 .bc-tag.r  { background:rgba(216,90,48,0.12); color:var(--coral); }
+#s4 .bc-miss   { font-size:11px; color:var(--text3); margin-top:8px; }
+
+/* ── SLIDE 5: MODELO ── */
+#s5 .rev-grid  { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+#s5 .rev-card  { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:22px; }
+#s5 .rev-icon  { font-size:28px; margin-bottom:12px; }
+#s5 .rev-title { font-size:14px; font-weight:800; margin-bottom:6px; }
+#s5 .rev-price { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--purple3); line-height:1; }
+#s5 .rev-price.t { color:var(--teal); }
+#s5 .rev-price.a { color:var(--amber); }
+#s5 .rev-period { font-size:11px; color:var(--text3); margin-bottom:10px; }
+#s5 .rev-items  { display:flex; flex-direction:column; gap:6px; }
+#s5 .rev-item   { font-size:12px; color:var(--text2); display:flex; gap:6px; }
+#s5 .rev-item::before { content:'→'; color:var(--purple3); flex-shrink:0; }
+
+/* ── SLIDE 6: COSTOS ── */
+#s6 .cost-wrap  { display:flex; gap:24px; flex:1; }
+#s6 .cost-left  { flex:1; }
+#s6 .cost-right { width:38%; display:flex; flex-direction:column; gap:14px; }
+#s6 .cost-phase { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:12px; }
+#s6 .cp-header  { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+#s6 .cp-name    { font-size:13px; font-weight:800; }
+#s6 .cp-items   { display:flex; flex-direction:column; gap:8px; }
+#s6 .cp-item    { display:flex; justify-content:space-between; align-items:center; }
+#s6 .cp-label   { font-size:12px; color:var(--text2); }
+#s6 .cp-val     { font-size:13px; font-weight:700; color:var(--text); }
+#s6 .cp-total   { border-top:1px solid var(--border); margin-top:10px; padding-top:10px; }
+#s6 .cp-total .cp-label { color:var(--text); font-weight:700; }
+#s6 .cp-total .cp-val   { color:var(--purple3); font-size:15px; }
+#s6 .unit-econ  { background:var(--bg2); border:1px solid rgba(91,80,196,0.25); border-radius:12px; padding:18px; }
+
+/* ── SLIDE 7: MÉTRICAS ── */
+#s7 .kpi-grid  { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px; }
+#s7 .kpi-card  { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px; }
+#s7 .rm-grid   { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; flex:1; }
+#s7 .rm-card   { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:8px; }
+#s7 .rm-phase  { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text3); }
+#s7 .rm-title  { font-size:14px; font-weight:800; }
+#s7 .rm-period { font-size:11px; color:var(--text3); }
+#s7 .rm-items  { display:flex; flex-direction:column; gap:4px; margin-top:4px; }
+#s7 .rm-item   { font-size:11px; color:var(--text2); display:flex; gap:5px; }
+#s7 .rm-item::before { content:'·'; color:var(--purple3); }
+#s7 .rm-metric { font-size:12px; font-weight:700; color:var(--purple3); margin-top:auto; padding-top:8px; border-top:1px solid var(--border); }
+
+/* ── SLIDE 8: TECH ── */
+#s8 .tech-grid  { display:grid; grid-template-columns:1.2fr 1fr; gap:24px; flex:1; }
+#s8 .stack-col  { display:flex; flex-direction:column; gap:12px; }
+#s8 .stack-layer{ background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:16px; }
+#s8 .sl-label   { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text3); margin-bottom:10px; }
+#s8 .sl-tags    { display:flex; flex-wrap:wrap; gap:6px; }
+#s8 .sl-tag     { font-size:11px; font-weight:600; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.06); color:var(--text2); }
+#s8 .sl-tag.p   { background:rgba(91,80,196,0.12); color:var(--purple3); }
+#s8 .sl-tag.t   { background:rgba(29,158,117,0.1); color:var(--teal); }
+#s8 .sl-tag.a   { background:rgba(239,159,39,0.1); color:var(--amber); }
+#s8 .ai-card    { background:rgba(91,80,196,0.04); border:1px solid rgba(91,80,196,0.2); border-radius:12px; padding:16px; }
+#s8 .ai-items   { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+#s8 .ai-item    { display:flex; gap:8px; align-items:flex-start; }
+#s8 .ai-dot     { width:6px; height:6px; border-radius:50%; background:var(--purple); flex-shrink:0; margin-top:5px; }
+#s8 .ai-text    { font-size:12px; color:var(--text2); line-height:1.4; }
+#s8 .infra-nums { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+
+/* ── SLIDE 9: MERCADO ── */
+#s9 .market-wrap{ display:flex; gap:24px; flex:1; }
+#s9 .tam-col    { width:42%; display:flex; flex-direction:column; gap:12px; }
+#s9 .tam-card   { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px; }
+#s9 .tam-label  { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; }
+#s9 .tam-val    { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; margin-bottom:4px; }
+#s9 .tam-desc   { font-size:12px; color:var(--text2); line-height:1.4; }
+#s9 .exp-col    { flex:1; display:flex; flex-direction:column; gap:12px; }
+#s9 .city-row   { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
+#s9 .city-name  { font-size:13px; font-weight:600; }
+#s9 .city-pop   { font-size:11px; color:var(--text3); }
+#s9 .city-val   { font-size:13px; font-weight:700; color:var(--purple3); }
+
+/* ── SLIDE 10: INVERSIÓN ── */
+#s10 .ask-wrap   { display:flex; gap:32px; flex:1; }
+#s10 .ask-left   { width:45%; display:flex; flex-direction:column; gap:16px; }
+#s10 .ask-right  { flex:1; display:flex; flex-direction:column; gap:14px; }
+#s10 .big-ask    { background:linear-gradient(135deg,rgba(91,80,196,0.1),rgba(91,80,196,0.03)); border:1px solid rgba(91,80,196,0.35); border-radius:16px; padding:28px; }
+#s10 .ask-label  { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--purple3); margin-bottom:8px; }
+#s10 .ask-amount { font-family:'Bebas Neue',sans-serif; font-size:72px; color:var(--text); line-height:1; }
+#s10 .ask-period { font-size:14px; color:var(--text2); margin-top:4px; }
+#s10 .use-item   { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); }
+#s10 .use-name   { font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px; }
+#s10 .use-pct    { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--purple3); }
+#s10 .return-card{ background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px; }
+
+/* ── SLIDE 11: CIERRE ── */
+#s11 { justify-content:center; align-items:center; }
+#s11 .cta-orbit  { position:absolute; border-radius:50%; border:1px solid rgba(91,80,196,0.07); pointer-events:none; }
+#s11 .founders-row { display:flex; gap:24px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
+#s11 .founder-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:20px 28px; text-align:center; min-width:175px; }
+#s11 .founder-avatar{ font-size:34px; margin-bottom:10px; }
+#s11 .founder-name  { font-size:14px; font-weight:800; margin-bottom:3px; }
+#s11 .founder-role  { font-size:11px; color:var(--text3); }
+#s11 .contact-row   { display:flex; gap:12px; justify-content:center; margin-top:28px; flex-wrap:wrap; }
+#s11 .contact-item  { display:flex; align-items:center; gap:8px; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 16px; font-size:13px; color:var(--text2); font-weight:500; }
+
+@keyframes countUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.slide.active .stat-val { animation: countUp .5s ease .2s both; }
+.slide.active .card     { animation: countUp .4s ease both; }
+</style>
+<link rel="stylesheet" href="/pitch-deck-mobile.css" />
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 1 — PORTADA
+═══════════════════════════════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="bg-grad"></div>
+  <div class="bg-word">Hycap</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="version-tag">PITCH DECK · 2026</div>
+      <span class="d body-s">Confidencial · Pre-seed</span>
+    </div>
+    <h1 class="display mega" style="margin-bottom:8px">HI<span class="p">CAP</span></h1>
+    <div class="tagline">El sistema operativo de las competencias fitness.<br>CrossFit · Hyrox · Iron Race — en un solo lugar.</div>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-val">Sports Tech · SaaS</div>
+        <div class="meta-key">Categoría</div>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-item">
+        <div class="meta-val">Colombia → LATAM</div>
+        <div class="meta-key">Mercado objetivo</div>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-item">
+        <div class="meta-val">$250,000 USD</div>
+        <div class="meta-key">Capital que buscamos</div>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-item">
+        <div class="meta-val">Pre-seed · SAFE</div>
+        <div class="meta-key">Instrumento</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 2 — EL PROBLEMA
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="pad">
+    <div class="slide-label">El problema</div>
+    <div class="display lg" style="margin-bottom:24px">El fitness funcional creció <span class="p">500%</span> en LATAM.<br>La infraestructura de competencias <span class="c">sigue en WhatsApp.</span></div>
+    <div class="prob-grid">
+      <div class="prob-card">
+        <div class="prob-icon">📋</div>
+        <div class="prob-title">Inscripciones en formularios</div>
+        <div class="prob-body">Google Forms, DMs de Instagram, transferencias por Nequi. Sin confirmación, sin trazabilidad, sin datos del atleta.</div>
+        <div class="prob-stat" style="color:var(--coral)">0 automatización en el proceso</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">⚖️</div>
+        <div class="prob-title">Heats desbalanceados</div>
+        <div class="prob-body">RX con principiantes en el mismo heat. Sin clasificación objetiva, las competencias son injustas y los atletas frustrados.</div>
+        <div class="prob-stat" style="color:var(--coral)">Sin criterio de nivel estandarizado</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">📢</div>
+        <div class="prob-title">Comunicación caótica</div>
+        <div class="prob-body">Cambios de horario por story de Instagram. Atletas que no se enteran. Organizadores respondiendo 200 DMs el día del evento.</div>
+        <div class="prob-stat" style="color:var(--amber)">El día del evento es un caos operativo</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">🏆</div>
+        <div class="prob-title">Resultados en papel</div>
+        <div class="prob-body">Tablas de Excel actualizadas a mano. El atleta no sabe su posición hasta horas después. Cero experiencia de competencia profesional.</div>
+        <div class="prob-stat" style="color:var(--amber)">Leaderboard en tiempo real = imposible hoy</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">💸</div>
+        <div class="prob-title">Pagos sin control</div>
+        <div class="prob-body">El organizador persigue pagos manualmente. No sabe quién pagó, quién no. Refunds por DM. Sin facturación ni reportes fiscales.</div>
+        <div class="prob-stat" style="color:var(--amber)">20–30% de ingresos sin trazabilidad</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">📉</div>
+        <div class="prob-title">Sin datos de atletas</div>
+        <div class="prob-body">El organizador no conoce a su comunidad. No sabe los niveles, historial, ni cómo mejorar la experiencia para que vuelvan.</div>
+        <div class="prob-stat" style="color:var(--text3)">Cero inteligencia competitiva</div>
+      </div>
+    </div>
+    <div class="insight-bar">
+      <div class="ins-num">68%</div>
+      <div class="ins-text">de los atletas de CrossFit e Hyrox en LATAM reportaron haber tenido <strong>una experiencia de competencia frustrante o caótica</strong> en el último año. No es un problema de motivación — es un problema de infraestructura.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 3 — LA SOLUCIÓN
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="pad">
+    <div class="slide-label">La solución</div>
+    <div class="display lg" style="margin-bottom:24px">Del registro al podio, <span class="p">todo en una plataforma.</span><br>Para atletas y organizadores.</div>
+    <div class="sol-wrap">
+      <div class="sol-left">
+        <div class="card card-p" style="flex:1">
+          <div class="label d" style="margin-bottom:16px">Para el atleta</div>
+          <div class="dot-list">
+            <div class="dot-item body-m">Perfil deportivo completo con skill score inteligente</div>
+            <div class="dot-item body-m">Inscripción y pago en 60 segundos desde la app</div>
+            <div class="dot-item body-m">Heat asignado automáticamente según nivel real</div>
+            <div class="dot-item body-m">Notificaciones en tiempo real durante el evento</div>
+            <div class="dot-item body-m">Leaderboard live y resultados con historial permanente</div>
+            <div class="dot-item body-m">Academy: guías, planes y gamificación diaria</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="label d" style="margin-bottom:16px">Para el organizador</div>
+          <div class="dot-list">
+            <div class="dot-item body-m">Portal web para gestionar todo el evento</div>
+            <div class="dot-item body-m">Heats balanceados en un clic con IA</div>
+            <div class="dot-item body-m">Pagos y facturación automática (Stripe Connect)</div>
+            <div class="dot-item body-m">Control en tiempo real: delays, anuncios, resultados</div>
+          </div>
+        </div>
+      </div>
+      <div class="sol-right">
+        <div class="flow-step">
+          <div class="fs-num">1</div>
+          <div>
+            <div class="fs-title">El atleta construye su perfil</div>
+            <div class="fs-body">Ingresa métricas deportivas: levantamientos, running pace, gimnasia. El algoritmo calcula un skill score y asigna nivel automáticamente.</div>
+            <div class="time-badge">⚡ Clasificación en segundos</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">2</div>
+          <div>
+            <div class="fs-title">Se inscribe y paga en la app</div>
+            <div class="fs-body">Stripe Checkout integrado. El organizador recibe el pago directo vía Stripe Connect. Sin intermediarios, sin perseguir transferencias.</div>
+            <div class="time-badge">💳 60 segundos de checkout</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">3</div>
+          <div>
+            <div class="fs-title">Heat engine asigna automáticamente</div>
+            <div class="fs-body">El algoritmo agrupa atletas de nivel similar minimizando la varianza de skill score. El organizador revisa y publica con un clic.</div>
+            <div class="time-badge">🎯 Heats justos y balanceados</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">4</div>
+          <div>
+            <div class="fs-title">Experiencia en vivo y resultados</div>
+            <div class="fs-body">WebSockets en tiempo real. El atleta ve su posición actualizada al segundo. Los resultados quedan en su historial permanente.</div>
+            <div class="time-badge">📡 Leaderboard live instantáneo</div>
+          </div>
+        </div>
+        <div class="card card-p" style="text-align:center; padding:16px;">
+          <div class="label p" style="margin-bottom:4px">El diferenciador clave</div>
+          <div style="display:flex; gap:24px; justify-content:center; margin-top:8px;">
+            <div><div class="stat-val" style="font-size:36px">Hoy</div><div class="stat-label">Excel + WhatsApp + caos</div></div>
+            <div style="display:flex;align-items:center;font-size:20px;color:var(--text3)">→</div>
+            <div><div class="stat-val" style="font-size:36px">Hycap</div><div class="stat-label">Una plataforma. Experiencia pro.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 4 — BENCHMARK
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="pad">
+    <div class="slide-label">Benchmark competitivo</div>
+    <div class="display lg" style="margin-bottom:24px">Existen soluciones parciales en el mundo.<br>Nadie lo hace <span class="p">completo en LATAM.</span></div>
+    <div class="bench-grid">
+      <div class="bench-card">
+        <div class="bc-region">EE.UU. — CrossFit</div>
+        <div class="bc-name">CrossFit Games App</div>
+        <div class="bc-tags">
+          <span class="bc-tag g">Leaderboard global</span>
+          <span class="bc-tag g">Brand reconocida</span>
+          <span class="bc-tag r">Solo para afiliados CrossFit</span>
+          <span class="bc-tag r">Sin gestión de eventos locales</span>
+          <span class="bc-tag r">Sin heats inteligentes</span>
+        </div>
+        <div class="bc-miss">Aprendizaje: el leaderboard en tiempo real engancha a los atletas.</div>
+      </div>
+      <div class="bench-card">
+        <div class="bc-region">Global — Endurance</div>
+        <div class="bc-name">Racetec / RunSignup</div>
+        <div class="bc-tags">
+          <span class="bc-tag g">Pagos integrados</span>
+          <span class="bc-tag g">Gestión de corredores</span>
+          <span class="bc-tag r">Solo para running / trail</span>
+          <span class="bc-tag r">Sin clasificación funcional</span>
+          <span class="bc-tag r">Sin Academy ni retención</span>
+        </div>
+        <div class="bc-miss">Factura $25–60 USD por evento. Modelo probado en endurance.</div>
+      </div>
+      <div class="bench-card">
+        <div class="bc-region">LATAM — Básico</div>
+        <div class="bc-name">Eventbrite + WhatsApp</div>
+        <div class="bc-tags">
+          <span class="bc-tag g">Fácil de usar</span>
+          <span class="bc-tag r">Sin clasificación de atletas</span>
+          <span class="bc-tag r">Sin heats ni resultados</span>
+          <span class="bc-tag r">Sin experiencia en tiempo real</span>
+          <span class="bc-tag r">Sin datos deportivos</span>
+        </div>
+        <div class="bc-miss">El estándar actual en la región. La vara está muy baja.</div>
+      </div>
+      <div class="bench-card featured">
+        <div class="bc-region">Colombia → LATAM</div>
+        <div class="bc-name">Hycap</div>
+        <div class="bc-tags">
+          <span class="bc-tag g">Clasificación con IA</span>
+          <span class="bc-tag g">Heats automáticos</span>
+          <span class="bc-tag g">Leaderboard en tiempo real</span>
+          <span class="bc-tag g">Academy + gamificación</span>
+          <span class="bc-tag g">Stripe Connect nativo</span>
+          <span class="bc-tag g">Diseñado para CrossFit, Hyrox, Iron Race</span>
+        </div>
+        <div class="bc-miss" style="color:var(--purple3)">El primero en LATAM con la suite completa. Ventana abierta hoy.</div>
+      </div>
+    </div>
+    <div style="display:flex; gap:16px; margin-top:16px;">
+      <div class="card" style="flex:1; display:flex; gap:20px; align-items:center;">
+        <div style="font-size:36px">🌎</div>
+        <div>
+          <div class="body-s" style="font-weight:700; margin-bottom:4px;">¿Por qué ningún competidor local?</div>
+          <div class="body-s d">Los organizadores en Colombia usan Eventbrite para cobrar y WhatsApp para comunicar. Nadie ha construido la capa de inteligencia deportiva: clasificación, heats, realtime. Ese es el moat de Hycap.</div>
+        </div>
+      </div>
+      <div class="card card-p" style="flex:1; display:flex; gap:20px; align-items:center;">
+        <div style="font-size:36px">🏋️</div>
+        <div>
+          <div class="body-s" style="font-weight:700; margin-bottom:4px; color:var(--purple3);">Timing perfecto</div>
+          <div class="body-s d">El fitness funcional en LATAM creció 500% en 5 años. Hay más de 1,200 boxes CrossFit afiliados en Colombia, Ecuador, Perú y Chile. El mercado está listo. La infraestructura, no.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 5 — MODELO DE NEGOCIO
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="pad">
+    <div class="slide-label">Modelo de negocio</div>
+    <div class="display lg" style="margin-bottom:24px">Tres fuentes de ingreso. <span class="p">Dos son recurrentes.</span><br>Una escala con cada evento.</div>
+    <div class="rev-grid" style="margin-bottom:20px;">
+      <div class="rev-card card-p">
+        <div class="rev-icon">🎟️</div>
+        <div class="rev-title">Comisión por inscripción</div>
+        <div class="rev-price">5–8%</div>
+        <div class="rev-period">por inscripción procesada · Transaction fee</div>
+        <div class="divider"></div>
+        <div class="rev-items">
+          <div class="rev-item">Se descuenta automáticamente del pago del atleta</div>
+          <div class="rev-item">El organizador recibe el neto vía Stripe Connect</div>
+          <div class="rev-item">Evento de 100 atletas × $50k COP = $25–40k COP para Hycap</div>
+          <div class="rev-item">Sin contrato previo — funciona desde el primer evento</div>
+        </div>
+      </div>
+      <div class="rev-card card-t">
+        <div class="rev-icon">🏛️</div>
+        <div class="rev-title">Suscripción organizador</div>
+        <div class="rev-price t">$99 USD</div>
+        <div class="rev-period">USD / mes · Plan Pro · ARR recurrente</div>
+        <div class="divider"></div>
+        <div class="rev-items">
+          <div class="rev-item">Sin límite de eventos y atletas</div>
+          <div class="rev-item">Heat engine automático + analytics avanzados</div>
+          <div class="rev-item">Judge App + pantallas de venue incluidas</div>
+          <div class="rev-item">Plan gratuito hasta 2 eventos/mes (freemium)</div>
+        </div>
+      </div>
+      <div class="rev-card card-a">
+        <div class="rev-icon">🎓</div>
+        <div class="rev-title">Hycap Academy Premium</div>
+        <div class="rev-price a">$12 USD</div>
+        <div class="rev-period">USD / mes · Suscripción del atleta</div>
+        <div class="divider"></div>
+        <div class="rev-items">
+          <div class="rev-item">Tracks de programación avanzada (Hyrox 12 sem.)</div>
+          <div class="rev-item">Planes personalizados de entrenamiento con IA</div>
+          <div class="rev-item">Acceso anticipado a nuevas guías y contenido</div>
+          <div class="rev-item">Fundamentos gratuitos — conversión orgánica</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="gap:16px;">
+      <div class="card" style="flex:1;">
+        <div class="label d" style="margin-bottom:12px;">Proyección ARR</div>
+        <div style="display:flex; gap:24px;">
+          <div><div class="stat-val" style="font-size:32px">$80K</div><div class="stat-label">USD Año 1 · Colombia piloto</div></div>
+          <div><div class="stat-val" style="font-size:32px">$280K</div><div class="stat-label">USD Año 2 · 4 países LATAM</div></div>
+          <div><div class="stat-val" style="font-size:32px">$900K</div><div class="stat-label">USD Año 3 · escala regional</div></div>
+        </div>
+      </div>
+      <div class="card card-p" style="width:220px; text-align:center; justify-content:center; display:flex; flex-direction:column; gap:4px; align-items:center;">
+        <div class="label p">Margen bruto</div>
+        <div class="stat-val" style="font-size:56px;">78%</div>
+        <div class="stat-label">Software puro. Costo marginal<br>cercano a cero por evento nuevo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 6 — COSTOS OPERATIVOS
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="pad-sm">
+    <div class="slide-label">Costos operativos</div>
+    <div class="display md" style="margin-bottom:20px">Transparencia total: <span class="p">qué cuesta construir esto.</span></div>
+    <div class="cost-wrap">
+      <div class="cost-left">
+        <div class="cost-phase">
+          <div class="cp-header">
+            <div class="cp-name">Fase 1 — MVP + Primeros eventos reales (12 meses)</div>
+            <div class="badge">Inversión inicial</div>
+          </div>
+          <div class="cp-items">
+            <div class="cp-item"><div class="cp-label">👨‍💻 Equipo (Backend Lead + Mobile Dev + Product)</div><div class="cp-val">$8–10K USD/mes</div></div>
+            <div class="cp-item"><div class="cp-label">☁️ Infraestructura AWS / GCP</div><div class="cp-val">~$400 USD/mes</div></div>
+            <div class="cp-item"><div class="cp-label">🔑 Clerk + Stripe (auth + pagos)</div><div class="cp-val">~$200 USD/mes</div></div>
+            <div class="cp-item"><div class="cp-label">📱 Apple Developer + Google Play</div><div class="cp-val">$200 USD (único)</div></div>
+            <div class="cp-item"><div class="cp-label">⚖️ Legal (constitución, contratos, TyC)</div><div class="cp-val">$2K USD (único)</div></div>
+            <div class="cp-item"><div class="cp-label">📣 Lanzamiento y marketing inicial</div><div class="cp-val">$5K USD (único)</div></div>
+            <div class="cp-item cp-total"><div class="cp-label">TOTAL 12 MESES (estimado)</div><div class="cp-val">~$120K USD</div></div>
+          </div>
+        </div>
+        <div class="cost-phase">
+          <div class="cp-header">
+            <div class="cp-name">Fase 2 — Escala LATAM (meses 13–24)</div>
+            <div class="badge-a" style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,159,39,0.1);border:1px solid rgba(239,159,39,0.25);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--amber);">Crecimiento</div>
+          </div>
+          <div class="cp-items">
+            <div class="cp-item"><div class="cp-label">👥 Equipo ampliado (+2 devs, +growth, +ops)</div><div class="cp-val">$18–22K USD/mes</div></div>
+            <div class="cp-item"><div class="cp-label">☁️ Infraestructura (más atletas concurrentes)</div><div class="cp-val">~$1.5K USD/mes</div></div>
+            <div class="cp-item"><div class="cp-label">🌎 Expansión a 3 mercados nuevos</div><div class="cp-val">$15K USD (único)</div></div>
+            <div class="cp-item cp-total"><div class="cp-label">TOTAL MESES 13–24 (estimado)</div><div class="cp-val">~$280K USD</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cost-right">
+        <div class="unit-econ">
+          <div class="label p" style="margin-bottom:14px;">Economía unitaria · Por evento activo</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div class="cp-item"><div class="cp-label">Ingreso por evento (100 atletas × $50k COP)</div><div class="cp-val" style="color:var(--purple3)">$1,250 USD</div></div>
+            <div class="cp-item"><div class="cp-label">Costo de infra por evento</div><div class="cp-val">~$12 USD</div></div>
+            <div class="cp-item"><div class="cp-label">Soporte y ops por evento</div><div class="cp-val">~$25 USD</div></div>
+            <div class="cp-item cp-total" style="border-color:rgba(91,80,196,0.25)">
+              <div class="cp-label" style="color:var(--purple3)">Margen por evento</div>
+              <div class="cp-val" style="color:var(--purple3)">~97%</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="label d" style="margin-bottom:10px;">Payback de la inversión inicial</div>
+          <div style="display:flex; gap:16px;">
+            <div><div class="stat-val" style="font-size:32px;">14</div><div class="stat-label">meses al break-even</div></div>
+            <div><div class="stat-val t" style="font-size:32px;">4.2x</div><div class="stat-label">ROI proyectado año 3</div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:10px;">Por qué el costo marginal es mínimo</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div class="cp-item"><div class="cp-label">Evento nuevo en mismo país</div><div class="cp-val" style="color:var(--teal)">$0 extra</div></div>
+            <div class="cp-item"><div class="cp-label">Expansión a nuevo país LATAM</div><div class="cp-val" style="color:var(--amber)">$3–5K USD</div></div>
+            <div class="cp-item cp-total"><div class="cp-label" style="color:var(--purple3)">El mismo stack sirve para toda la región</div><div class="cp-val" style="color:var(--purple3)">1 codebase</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 7 — MÉTRICAS Y ROADMAP
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="pad-sm">
+    <div class="slide-label">Métricas objetivo y roadmap</div>
+    <div class="display md" style="margin-bottom:20px">Los números que <span class="p">definen el éxito</span> en cada fase.</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="stat-val">60s</div>
+        <div class="stat-label">Inscripción completa</div>
+        <div class="stat-sub">KPI de UX · North star móvil</div>
+      </div>
+      <div class="kpi-card">
+        <div class="stat-val">< 5%</div>
+        <div class="stat-label">Varianza de skill score / heat</div>
+        <div class="stat-sub">KPI de calidad del algoritmo</div>
+      </div>
+      <div class="kpi-card">
+        <div class="stat-val a">40+</div>
+        <div class="stat-label">NPS del atleta</div>
+        <div class="stat-sub">Encuesta post-evento</div>
+      </div>
+      <div class="kpi-card">
+        <div class="stat-val t">70%</div>
+        <div class="stat-label">Retención 30 días en Academy</div>
+        <div class="stat-sub">Streak activo · DAU/MAU</div>
+      </div>
+    </div>
+    <div class="rm-grid">
+      <div class="rm-card" style="border-color:rgba(91,80,196,0.3)">
+        <div class="rm-phase">Fase 1</div>
+        <div class="rm-title">MVP · 0–12 meses</div>
+        <div class="rm-period">Colombia · 3 ciudades</div>
+        <div class="rm-items">
+          <div class="rm-item">Auth Clerk + perfiles de atletas</div>
+          <div class="rm-item">Eventos + inscripciones + Stripe</div>
+          <div class="rm-item">Heats manuales + notificaciones push</div>
+          <div class="rm-item">Resultados + leaderboard básico</div>
+          <div class="rm-item">Portal admin completo</div>
+        </div>
+        <div class="rm-metric">🎯 50 eventos · 2,000 atletas · $80K ARR</div>
+      </div>
+      <div class="rm-card" style="border-color:rgba(29,158,117,0.3)">
+        <div class="rm-phase">Fase 2</div>
+        <div class="rm-title">Core · 12–28 meses</div>
+        <div class="rm-period">Colombia + Ecuador + Perú</div>
+        <div class="rm-items">
+          <div class="rm-item">Clasificador inteligente automático</div>
+          <div class="rm-item">Heat engine con IA + WebSockets</div>
+          <div class="rm-item">Judge App + leaderboard en vivo</div>
+          <div class="rm-item">Hycap Academy + gamificación XP</div>
+          <div class="rm-item">Suscripciones Premium</div>
+        </div>
+        <div class="rm-metric" style="color:var(--teal)">📈 300 eventos · 15,000 atletas · $280K ARR</div>
+      </div>
+      <div class="rm-card" style="border-color:rgba(239,159,39,0.3)">
+        <div class="rm-phase">Fase 3</div>
+        <div class="rm-title">Escala · 28–52 meses</div>
+        <div class="rm-period">LATAM · 6 países</div>
+        <div class="rm-items">
+          <div class="rm-item">ML / Elo rating dinámico</div>
+          <div class="rm-item">Wearables (Apple Watch / Garmin)</div>
+          <div class="rm-item">Rankings globales + social features</div>
+          <div class="rm-item">Pantallas de venue + streaming</div>
+          <div class="rm-item">AI Coaching personalizado</div>
+        </div>
+        <div class="rm-metric" style="color:var(--amber)">🚀 1,200 eventos · 80,000 atletas · $900K ARR</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 8 — TECNOLOGÍA
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="pad">
+    <div class="slide-label">Stack tecnológico</div>
+    <div class="display lg" style="margin-bottom:24px">Enterprise-grade desde el día uno.<br><span class="p">Escalable a millones de atletas.</span></div>
+    <div class="tech-grid">
+      <div class="stack-col">
+        <div class="stack-layer">
+          <div class="sl-label">App Mobile — iOS &amp; Android</div>
+          <div class="sl-tags">
+            <span class="sl-tag p">React Native</span>
+            <span class="sl-tag p">Expo</span>
+            <span class="sl-tag p">TypeScript</span>
+            <span class="sl-tag">Zustand</span>
+            <span class="sl-tag">TanStack Query</span>
+            <span class="sl-tag a">Clerk SDK</span>
+            <span class="sl-tag">Deep Links</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <div class="sl-label">Backend API</div>
+          <div class="sl-tags">
+            <span class="sl-tag p">NestJS</span>
+            <span class="sl-tag p">TypeScript</span>
+            <span class="sl-tag">Prisma ORM</span>
+            <span class="sl-tag t">PostgreSQL</span>
+            <span class="sl-tag t">Redis</span>
+            <span class="sl-tag">Socket.io</span>
+            <span class="sl-tag a">Clerk Backend</span>
+            <span class="sl-tag a">Stripe</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <div class="sl-label">Infraestructura</div>
+          <div class="sl-tags">
+            <span class="sl-tag t">AWS / GCP</span>
+            <span class="sl-tag">Docker</span>
+            <span class="sl-tag">TurboRepo</span>
+            <span class="sl-tag">GitHub Actions</span>
+            <span class="sl-tag">S3 / CDN</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <div class="sl-label">Portal Admin Web</div>
+          <div class="sl-tags">
+            <span class="sl-tag p">Next.js</span>
+            <span class="sl-tag p">React</span>
+            <span class="sl-tag">Clerk (web)</span>
+            <span class="sl-tag">Recharts</span>
+            <span class="sl-tag">Stripe Dashboard</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="ai-card">
+          <div class="label p">🧠 Algoritmos diferenciales</div>
+          <div class="ai-items">
+            <div class="ai-item"><div class="ai-dot"></div><div class="ai-text"><strong>Skill Score</strong> — Score ponderado de 4 sub-scores: fuerza (30%), resistencia (30%), gimnasia (25%), historial (15%). Pesos configurables por tipo de competencia.</div></div>
+            <div class="ai-item"><div class="ai-dot"></div><div class="ai-text"><strong>Heat Engine</strong> — Snake-draft + reducción iterativa de varianza. Agrupa atletas minimizando diferencia de nivel dentro del heat. Tests con hasta 500 atletas.</div></div>
+            <div class="ai-item"><div class="ai-dot"></div><div class="ai-text"><strong>Clasificación automática</strong> — Principiante, Intermedio, Avanzado, RX. El mismo algoritmo corre en el backend y en la app (paquete @Hycap/classifier compartido).</div></div>
+            <div class="ai-item"><div class="ai-dot"></div><div class="ai-text"><strong>Roadmap: Elo rating + ML</strong> — Sistema de rating dinámico tipo Elo post-evento. Predicción de performance para sugerencia de categoría. Fase 3.</div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div class="label d" style="margin-bottom:12px;">Costos de infra por fase</div>
+          <div class="infra-nums">
+            <div><div class="stat-val" style="color:var(--teal);font-size:28px;">$150</div><div class="stat-label">USD/mes · MVP</div></div>
+            <div><div class="stat-val" style="font-size:28px;">$600</div><div class="stat-label">USD/mes · Piloto</div></div>
+            <div><div class="stat-val a" style="font-size:28px;">$2K</div><div class="stat-label">USD/mes · Escala</div></div>
+            <div><div class="stat-val" style="font-size:28px;">6 países</div><div class="stat-label">con 1 codebase</div></div>
+          </div>
+        </div>
+        <div class="card card-p" style="padding:16px;">
+          <div class="label p" style="margin-bottom:8px;">Principios de arquitectura</div>
+          <div class="dot-list">
+            <div class="dot-item body-s">Monorepo TurboRepo: apps + API + algoritmos compartidos</div>
+            <div class="dot-item body-s">Screaming Architecture: módulos independientes por dominio</div>
+            <div class="dot-item body-s">Realtime-first: WebSockets con fallback HTTP polling</div>
+            <div class="dot-item body-s">Auth externalizada a Clerk: cero passwords almacenados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 9 — TAMAÑO DE MERCADO
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s9">
+  <div class="pad">
+    <div class="slide-label">Tamaño de mercado</div>
+    <div class="display lg" style="margin-bottom:24px">Un mercado fitness que <span class="p">no para de crecer</span><br>y está completamente <span class="p">sin atender.</span></div>
+    <div class="market-wrap">
+      <div class="tam-col">
+        <div class="tam-card" style="border-color:rgba(255,255,255,0.1)">
+          <div class="tam-label d">TAM · Mercado Total</div>
+          <div class="tam-val" style="color:var(--text)">$96B USD</div>
+          <div class="tam-desc">Mercado global de Sports Tech. CAGR 20% anual. La digitalización de eventos deportivos amateur es el segmento de mayor crecimiento.</div>
+        </div>
+        <div class="tam-card" style="border-color:rgba(239,159,39,0.3)">
+          <div class="tam-label a">SAM · Mercado Accesible</div>
+          <div class="tam-val a">$180M USD</div>
+          <div class="tam-desc">~3,500 boxes CrossFit + 800 organizadores de Hyrox/Iron Race en LATAM. Promedio de 12 eventos/año por organizador a $5K USD/evento.</div>
+        </div>
+        <div class="tam-card" style="border-color:rgba(91,80,196,0.35)">
+          <div class="tam-label p">SOM · Mercado Obtenible · 3 años</div>
+          <div class="tam-val">$3.2M USD</div>
+          <div class="tam-desc">Colombia + Ecuador + Perú + Chile. 1,200 eventos anuales a $900K ARR SaaS + comisiones. Alcanzable en 36 meses.</div>
+        </div>
+      </div>
+      <div class="exp-col">
+        <div class="card" style="padding:18px 20px;">
+          <div class="label d" style="margin-bottom:14px;">LATAM: países objetivo por penetración de fitness funcional</div>
+          <div style="display:flex; flex-direction:column; gap:0;">
+            <div class="city-row">
+              <div><div class="city-name">🇨🇴 Colombia</div><div class="city-pop">+1,200 boxes · Fase 1 ← Ahora</div></div>
+              <div class="city-val">$80K ARR año 1</div>
+            </div>
+            <div class="city-row">
+              <div><div class="city-name">🇲🇽 México</div><div class="city-pop">+2,800 boxes · Mayor mercado</div></div>
+              <div class="city-val">$220K ARR año 3</div>
+            </div>
+            <div class="city-row">
+              <div><div class="city-name">🇨🇱 Chile</div><div class="city-pop">+600 boxes · Alta penetración</div></div>
+              <div class="city-val">$90K ARR año 2</div>
+            </div>
+            <div class="city-row">
+              <div><div class="city-name">🇵🇪 Perú</div><div class="city-pop">+400 boxes · Crecimiento acelerado</div></div>
+              <div class="city-val">$60K ARR año 2</div>
+            </div>
+            <div class="city-row">
+              <div><div class="city-name">🇦🇷 Argentina</div><div class="city-pop">+900 boxes · Mercado maduro</div></div>
+              <div class="city-val">$130K ARR año 3</div>
+            </div>
+            <div class="city-row" style="border:none">
+              <div><div class="city-name">🇧🇷 Brasil</div><div class="city-pop">+5,000 boxes · Mercado enorme</div></div>
+              <div class="city-val" style="color:var(--amber)">Fase 4 · joint venture</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="gap:12px;">
+          <div class="card card-p" style="flex:1; padding:16px; text-align:center;">
+            <div class="stat-val" style="font-size:36px;">14,000+</div>
+            <div class="stat-label">boxes CrossFit activos en LATAM<br>sin solución de gestión dedicada</div>
+          </div>
+          <div class="card" style="flex:1; padding:16px; text-align:center;">
+            <div class="stat-val t" style="font-size:36px;">$96B</div>
+            <div class="stat-label">USD proyección Sports Tech global<br>para 2028 · CAGR 20%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 10 — LA INVERSIÓN
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="pad">
+    <div class="slide-label">La inversión</div>
+    <div class="display lg" style="margin-bottom:24px">Lo que buscamos, <span class="p">para qué,</span><br>y qué <span class="p">retorna.</span></div>
+    <div class="ask-wrap">
+      <div class="ask-left">
+        <div class="big-ask">
+          <div class="ask-label">Ronda Pre-seed · SAFE</div>
+          <div class="ask-amount">$250,000</div>
+          <div style="font-size:13px;color:var(--text2);">USD · ~$1,000M COP</div>
+          <div class="ask-period">18 meses de runway completo</div>
+          <div class="divider"></div>
+          <div class="dot-list">
+            <div class="dot-item body-s">Instrumento: SAFE con cap de valoración</div>
+            <div class="dot-item body-s">Equity a ceder: 10–15% máximo</div>
+            <div class="dot-item body-s">Valoración pre-money: $1.5–2M USD</div>
+            <div class="dot-item body-s">Fuentes: Angels Sports Tech + iNNpulsa + BID Lab</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Hitos que activan el siguiente nivel</div>
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-dot p">1</div>
+              <div>
+                <div class="tl-title" style="font-size:13px;">Primer evento real con Hycap</div>
+                <div class="tl-sub">Mes 3 · Valida el producto con atletas reales</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot a">2</div>
+              <div>
+                <div class="tl-title" style="font-size:13px;">10 organizadores · 500 atletas activos</div>
+                <div class="tl-sub">Mes 8 · Prueba de retención y NPS >40</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot t">3</div>
+              <div>
+                <div class="tl-title" style="font-size:13px;">$80K ARR · Expansión a 2 países</div>
+                <div class="tl-sub">Mes 14 · Seed round o nueva ronda SAFE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ask-right">
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:14px;">Uso del capital</div>
+          <div class="use-item">
+            <div class="use-name">👨‍💻 Equipo técnico (12 meses)</div>
+            <div class="use-pct">58%</div>
+          </div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill" style="width:58%"></div></div></div>
+          <div class="use-item">
+            <div class="use-name">☁️ Infraestructura y herramientas</div>
+            <div class="use-pct">14%</div>
+          </div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill t" style="width:14%"></div></div></div>
+          <div class="use-item">
+            <div class="use-name">📣 Growth y lanzamiento</div>
+            <div class="use-pct">14%</div>
+          </div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill a" style="width:14%"></div></div></div>
+          <div class="use-item">
+            <div class="use-name">⚖️ Legal y operaciones</div>
+            <div class="use-pct">6%</div>
+          </div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill" style="width:6%;background:var(--text2)"></div></div></div>
+          <div class="use-item" style="border:none">
+            <div class="use-name">🛡️ Reserva operativa</div>
+            <div class="use-pct">8%</div>
+          </div>
+          <div style="margin:-8px 0 0;"><div class="pbar"><div class="pfill" style="width:8%;background:rgba(255,255,255,0.2)"></div></div></div>
+        </div>
+        <div class="return-card">
+          <div class="label d" style="margin-bottom:14px;">Retorno proyectado para el inversionista</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div><div class="stat-val" style="font-size:32px;">4.2x</div><div class="stat-label">ROI estimado año 3</div></div>
+            <div><div class="stat-val t" style="font-size:32px;">14m</div><div class="stat-label">Break-even operativo</div></div>
+            <div><div class="stat-val a" style="font-size:32px;">$900K</div><div class="stat-label">USD ARR año 3</div></div>
+            <div><div class="stat-val" style="font-size:32px;">8x</div><div class="stat-label">Múltiplo ARR (SaaS)</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="badge" style="font-size:11px;">Valoración implícita año 3: $7.2M USD</div>
+        </div>
+        <div class="card card-p" style="padding:14px; display:flex; gap:12px; align-items:center;">
+          <div style="font-size:24px;">🏦</div>
+          <div>
+            <div class="body-s" style="font-weight:700; color:var(--purple3);">Capital no dilutivo en paralelo</div>
+            <div class="body-s d">iNNpulsa Capital Semilla + SENA Fondo Emprender pueden sumar $50–100M COP adicionales sin ceder equity. Extiende el runway sin diluir al inversionista.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 11 — CIERRE Y EQUIPO
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s11">
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <div class="cta-orbit" style="width:500px;height:500px;"></div>
+    <div class="cta-orbit" style="width:800px;height:800px;"></div>
+    <div class="glow-orb" style="width:600px;height:600px;background:var(--purple);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.07;filter:blur(120px);"></div>
+  </div>
+  <div style="position:relative;z-index:1;padding:0 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;">
+    <div class="badge" style="margin-bottom:24px; font-size:12px;">Sports Tech · CrossFit · Hyrox · Iron Race · LATAM</div>
+    <div class="display xl" style="text-align:center; line-height:1; margin-bottom:16px;">
+      EL FITNESS FUNCIONAL<br>MERECE UNA <span class="p">PLATAFORMA REAL.</span>
+    </div>
+    <div class="body-l d" style="text-align:center; max-width:640px; margin-bottom:40px;">
+      14,000 boxes en LATAM organizan eventos con WhatsApp y Excel.<br>
+      Hycap es la infraestructura que falta — y la ventana está abierta hoy.
+    </div>
+    <div class="founders-row">
+      <div class="founder-card">
+        <div class="founder-avatar">🏋️</div>
+        <div class="founder-name">Fundador CEO</div>
+        <div class="founder-role">Estrategia · Producto · Negocio</div>
+      </div>
+      <div class="founder-card" style="border-color:rgba(91,80,196,0.35)">
+        <div class="founder-avatar">👨‍💻</div>
+        <div class="founder-name">Co-fundador CTO</div>
+        <div class="founder-role">React Native · NestJS · Algoritmos</div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">📊</div>
+        <div class="founder-name">Co-fundadora CPO</div>
+        <div class="founder-role">UX · Academy · Comunidad atletas</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-item">📍 Cali, Colombia</div>
+      <div class="contact-item">🌐 Hycap.app</div>
+      <div class="contact-item">📧 hola@Hycap.app</div>
+      <div class="contact-item" style="color:var(--purple3);border-color:rgba(91,80,196,0.35);">💬 iNNpulsa · BID Lab · Angels</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end deck -->
+
+<div id="nav">
+  <button id="nav-prev" onclick="prevSlide()">← Ant</button>
+  <div id="dots"></div>
+  <span id="slide-counter">1/11</span>
+  <button id="nav-next" onclick="nextSlide()">Sig →</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total  = slides.length;
+let cur = 0;
+
+const dotsEl = document.getElementById('dots');
+for (let i = 0; i < total; i++) {
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+
+function goTo(idx) {
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('exit');
+  setTimeout(() => slides[cur].classList.remove('exit'), 500);
+  cur = (idx + total) % total;
+  slides[cur].classList.add('active');
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+  document.getElementById('slide-counter').textContent = `${cur + 1}/${total}`;
+}
+
+function nextSlide() { goTo(cur + 1); }
+function prevSlide() { goTo(cur - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    { e.preventDefault(); prevSlide(); }
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
+});
+</script>
+</body>
+</html>

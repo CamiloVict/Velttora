@@ -1,0 +1,445 @@
+/* Pitch deck — mobile & tablet responsive overrides
+   Decks: urbi-*, cobraai-*, Hycap_PitchDeck_2026.html (Hycap) */
+
+@media (max-width: 1024px) {
+  .pad,
+  .pad-sm {
+    padding: 32px 40px 100px !important;
+  }
+
+  #s1 .content,
+  #s11 .cta-content,
+  .cta-content {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+
+  #s1 .city-text,
+  #s1 .bg-word {
+    font-size: 200px !important;
+  }
+
+  #s1 .city-graphic {
+    width: 35%;
+    opacity: 0.5;
+  }
+
+  #s1 .bg-word {
+    right: -40px !important;
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow: hidden;
+    height: 100dvh;
+  }
+
+  .deck {
+    height: 100dvh;
+  }
+
+  /* Active slide scrolls when content is tall */
+  .slide {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .slide.active {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .pad,
+  .pad-sm {
+    padding: 20px 18px 110px !important;
+    min-height: min-content;
+  }
+
+  #s1 .content,
+  #s11 .cta-content,
+  .cta-content,
+  [style*='padding:0 72px'],
+  [style*='padding: 0 72px'],
+  [style*='padding:0 60px'],
+  [style*='padding: 0 60px'] {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  /* Typography */
+  .mega {
+    font-size: clamp(48px, 14vw, 88px) !important;
+  }
+
+  .xl {
+    font-size: clamp(36px, 10vw, 56px) !important;
+  }
+
+  .lg {
+    font-size: clamp(26px, 7vw, 40px) !important;
+    line-height: 1.05 !important;
+  }
+
+  .md {
+    font-size: clamp(18px, 5vw, 24px) !important;
+  }
+
+  #s1 .tagline {
+    font-size: 15px !important;
+    margin-bottom: 24px !important;
+  }
+
+  #s10 .ask-amount {
+    font-size: clamp(48px, 12vw, 72px) !important;
+  }
+
+  /* Layout helpers */
+  .row {
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .w50,
+  .w60,
+  .w40,
+  .w33 {
+    width: 100% !important;
+  }
+
+  .divider-v {
+    display: none;
+  }
+
+  /* Cover slide */
+  #s1 {
+    justify-content: flex-start;
+    padding-top: 24px;
+  }
+
+  #s1 .content {
+    height: auto !important;
+    justify-content: flex-start !important;
+    padding-top: 8px !important;
+  }
+
+  #s1 .eyebrow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #s1 .meta-row {
+    flex-wrap: wrap;
+    gap: 16px 20px;
+  }
+
+  #s1 .meta-sep {
+    display: none;
+  }
+
+  #s1 .meta-item {
+    min-width: calc(50% - 12px);
+  }
+
+  #s1 .city-graphic,
+  #s1 .bg-word {
+    display: none;
+  }
+
+  /* Problem grid (Urbi + Hycap) */
+  #s2 .problems-grid,
+  #s2 .prob-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  #s2 .insight-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 16px !important;
+  }
+
+  #s2 .ins-number {
+    font-size: 40px !important;
+  }
+
+  /* Solution (Urbi + Hycap) */
+  #s3 .solution-wrap,
+  #s3 .sol-wrap {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  #s3 .sol-left,
+  #s3 .sol-right {
+    width: 100% !important;
+  }
+
+  #s3 [style*='justify-content:center'][style*='gap:24'] {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* Benchmark */
+  #s4 .bench-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Revenue */
+  #s5 .rev-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Costs */
+  #s6 .cost-wrap {
+    flex-direction: column !important;
+  }
+
+  #s6 .cost-right,
+  #s6 .cost-left {
+    width: 100% !important;
+  }
+
+  /* KPI / roadmap (Urbi + Hycap) */
+  #s7 .kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  #s7 .roadmap-grid,
+  #s7 .rm-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tech */
+  #s8 .tech-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #s8 .infra-nums {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Market */
+  #s9 .market-wrap {
+    flex-direction: column !important;
+  }
+
+  #s9 .tam-col,
+  #s9 .exp-col {
+    width: 100% !important;
+  }
+
+  #s9 .tam-val {
+    font-size: 36px !important;
+  }
+
+  /* Investment */
+  #s10 .ask-wrap {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  #s10 .ask-left,
+  #s10 .ask-right {
+    width: 100% !important;
+  }
+
+  #s10 .big-ask {
+    padding: 20px !important;
+  }
+
+  /* CTA slide */
+  #s11 .cta-orbit {
+    display: none;
+  }
+
+  #s11 .founders-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-top: 24px !important;
+  }
+
+  #s11 .founder-card {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 280px;
+  }
+
+  #s11 .contact-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  #s11 .contact-item {
+    justify-content: center;
+  }
+
+  /* Hycap — flow steps & benchmark footer cards */
+  .flow-step {
+    flex-direction: row;
+    gap: 12px !important;
+  }
+
+  #s4 [style*='display:flex'][style*='gap:16px'] {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  #s4 [style*='display:flex'][style*='gap:16px'] > .card {
+    width: 100% !important;
+  }
+
+  /* CobraAI-specific (shared class patterns) */
+  #s2 .grid-2,
+  #s2 .grid-3,
+  .grid-2,
+  .grid-3,
+  .cols-2,
+  .cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #s3 .feat-grid,
+  #s4 .comp-grid,
+  #s5 .rev-grid,
+  #s6 .cost-grid,
+  #s7 .kpi-row,
+  #s8 .stack-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .roi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Cards & tables */
+  .card {
+    padding: 16px !important;
+  }
+
+  .data-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 10px 12px 10px 0 !important;
+    font-size: 12px !important;
+  }
+
+  /* Stat rows inline in slides */
+  .stat-val {
+    font-size: clamp(32px, 10vw, 48px) !important;
+  }
+
+  /* Flex rows with gap in cards */
+  [style*='display:flex'][style*='gap:'] {
+    flex-wrap: wrap !important;
+  }
+
+  [style*='display:grid'][style*='grid-template-columns: 1fr 1fr'],
+  [style*='display:grid'][style*='grid-template-columns:1fr 1fr'] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*='display:grid'][style*='repeat(3'] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*='display:grid'][style*='repeat(4'] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Navigation */
+  #nav {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    width: auto;
+    max-width: calc(100vw - 24px);
+    padding: 8px 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    border-radius: 16px;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #nav-prev,
+  #nav-next {
+    font-size: 13px;
+    padding: 6px 10px;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  #dots {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px 0;
+  }
+
+  #slide-counter {
+    font-size: 10px;
+    min-width: 32px;
+  }
+
+  .nav-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .nav-dot.active {
+    width: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pad,
+  .pad-sm {
+    padding: 16px 14px 100px !important;
+  }
+
+  #s7 .kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*='display:grid'][style*='repeat(4'] {
+    grid-template-columns: 1fr !important;
+  }
+
+  #s1 .meta-item {
+    min-width: 100%;
+  }
+
+  .slide-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+}

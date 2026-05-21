@@ -103,6 +103,7 @@ export default {
         status: "MVP en progreso",
         icon: "🏋️",
         name: "Hycap",
+        href: "/hycap_pitch-deck.html",
         tagline: "// OS para competencias fitness",
         description:
           "Hycap es el sistema operativo para competencias de fitness funcional — CrossFit, Hyrox, Iron Race. Perfiles digitales, leaderboards en tiempo real y gamificación. Inscripciones, heats y resultados en vivo desde una sola plataforma.",
