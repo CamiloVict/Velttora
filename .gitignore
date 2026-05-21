@@ -3,6 +3,7 @@ package-lock.json
 server/package-lock.json
 pnpm-debug.log*
 dist
+.vercel
 .DS_Store
 *.local
 .env
