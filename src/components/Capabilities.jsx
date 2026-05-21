@@ -1,24 +1,27 @@
-import { capabilities } from '../data/capabilities';
+import { useI18n } from '../i18n/I18nProvider';
 import { Reveal } from './Reveal';
 
 export function Capabilities() {
+  const { t } = useI18n();
+  const c = t.capabilities;
+  const delays = [null, 1, 2, 3, 4, null];
+
   return (
     <section className="capabilities" id="capabilities">
       <div className="container">
-        <Reveal className="section-eyebrow">What we do</Reveal>
+        <Reveal className="section-eyebrow">{c.eyebrow}</Reveal>
         <Reveal delay={1} className="section-title">
-          Full-stack capability.
+          {c.titleLine1}
           <br />
-          <em>Zero fluff.</em>
+          <em>{c.titleLine2}</em>
         </Reveal>
         <Reveal delay={2} className="section-lead">
-          We design, build, and ship production-grade software. From mobile apps to AI pipelines, we
-          own the full stack.
+          {c.lead}
         </Reveal>
 
         <div className="capabilities-grid">
-          {capabilities.map((cap) => (
-            <Reveal key={cap.title} delay={cap.delay} className="capability-card">
+          {c.items.map((cap, i) => (
+            <Reveal key={cap.title} delay={delays[i]} className="capability-card">
               <span className="capability-icon">{cap.icon}</span>
               <div className="capability-title">{cap.title}</div>
               <p className="capability-desc">{cap.description}</p>

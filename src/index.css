@@ -393,7 +393,8 @@ section { position: relative; z-index: 1; }
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-.products-grid > .reveal {
+.products-grid > .reveal,
+.products-grid > .product-card-reveal {
   height: 100%;
 }
 .product-card {

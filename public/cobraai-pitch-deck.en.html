@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CobraAI — Pitch Deck</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+
+:root {
+  --coral:  #FF6B3D;
+  --coral2: #E8522A;
+  --teal:   #00D4A0;
+  --blue:   #4FC3F7;
+  --amber:  #FFB347;
+  --red:    #FF5252;
+  --bg:     #0A0806;
+  --bg2:    #130E09;
+  --bg3:    #1A1208;
+  --border: rgba(255,255,255,0.07);
+  --border-c: rgba(255,107,61,0.22);
+  --text:   #FFFFFF;
+  --text2:  rgba(255,255,255,0.55);
+  --text3:  rgba(255,255,255,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  cursor: default;
+  user-select: none;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,107,61,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,61,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ── SLIDE ENGINE ── */
+.deck { position:relative; width:100%; height:100vh; overflow:hidden; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transform: translateY(24px);
+  transition: opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1);
+  z-index: 1; overflow: hidden;
+}
+.slide.active  { opacity: 1; pointer-events: all; transform: none; z-index: 2; }
+.slide.exit    { opacity: 0; transform: translateY(-24px); z-index: 1; }
+
+/* ── NAV ── */
+#nav {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; align-items: center;
+  background: rgba(10,8,6,0.88); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 50px;
+  padding: 10px 20px; z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); cursor: pointer;
+  transition: all .25s; border: none;
+}
+.nav-dot.active { background: var(--coral); width: 24px; border-radius: 4px; }
+.nav-dot:hover  { background: rgba(255,107,61,0.55); }
+
+#nav-prev, #nav-next {
+  background: none; border: none; color: var(--text2);
+  font-size: 16px; cursor: pointer; padding: 4px 8px;
+  transition: color .2s; border-radius: 6px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+#nav-prev:hover, #nav-next:hover { color: var(--coral); }
+#slide-counter {
+  font-size: 11px; color: var(--text3); min-width: 36px; text-align: center;
+  font-weight: 600; letter-spacing: 1px;
+}
+
+/* ── SLIDE HEADER ── */
+.slide-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--coral);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.slide-label::before { content:''; width:20px; height:2px; background:var(--coral); }
+
+/* ── TYPOGRAPHY ── */
+.display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; line-height: .95; }
+.mega { font-size: clamp(72px, 10vw, 140px); }
+.xl   { font-size: clamp(48px, 7vw,  96px); }
+.lg   { font-size: clamp(32px, 4vw,  56px); }
+.md   { font-size: clamp(20px, 2.5vw,32px); }
+
+.body-l { font-size: clamp(14px,1.4vw,18px); font-weight:400; line-height:1.6; }
+.body-m { font-size: clamp(12px,1.2vw,15px); font-weight:400; line-height:1.6; }
+.body-s { font-size: clamp(11px,1vw,  13px); font-weight:500; }
+.label  { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+
+.c  { color: var(--coral); }
+.t  { color: var(--teal);  }
+.b  { color: var(--blue);  }
+.a  { color: var(--amber); }
+.d  { color: var(--text2); }
+
+/* ── LAYOUT ── */
+.pad    { padding: 48px 72px 80px; flex:1; display:flex; flex-direction:column; }
+.pad-sm { padding: 36px 64px 80px; flex:1; display:flex; flex-direction:column; }
+.row    { display:flex; gap:24px; }
+.col    { display:flex; flex-direction:column; }
+.center { align-items:center; justify-content:center; }
+.fill   { flex:1; }
+.w50 { width:50%; } .w60 { width:60%; } .w40 { width:40%; } .w33 { width:33.33%; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(255,107,61,0.04), transparent);
+  pointer-events:none;
+}
+.card-c { border-color: rgba(255,107,61,0.28); }
+.card-t { border-color: rgba(0,212,160,0.25); }
+.card-a { border-color: rgba(255,179,71,0.25); }
+
+/* ── STAT BLOCK ── */
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px,5vw,72px);
+  line-height:1; color: var(--coral);
+}
+.stat-val.t { color: var(--teal);  }
+.stat-val.b { color: var(--blue);  }
+.stat-val.a { color: var(--amber); }
+.stat-val.w { color: var(--text);  }
+.stat-label { font-size:12px; font-weight:600; color:var(--text2); margin-top:4px; letter-spacing:.5px; }
+.stat-sub   { font-size:11px; color:var(--text3); margin-top:2px; }
+
+/* ── DIVIDER ── */
+.divider   { height:1px; background:var(--border); margin:20px 0; }
+.divider-v { width:1px;  background:var(--border); align-self:stretch; }
+
+/* ── HIGHLIGHT ── */
+.hl {
+  display:inline-block;
+  background: rgba(255,107,61,0.12);
+  border: 1px solid rgba(255,107,61,0.28);
+  border-radius: 6px; padding: 2px 8px;
+  color: var(--coral); font-weight:700;
+}
+.hl-t { background:rgba(0,212,160,0.1); border-color:rgba(0,212,160,0.25); color:var(--teal); }
+.hl-a { background:rgba(255,179,71,0.1); border-color:rgba(255,179,71,0.25); color:var(--amber); }
+
+/* ── PROGRESS BAR ── */
+.pbar  { height:6px; background:rgba(255,255,255,0.07); border-radius:6px; overflow:hidden; margin-top:8px; }
+.pfill { height:100%; border-radius:6px; background:var(--coral); transition:width 1s ease .3s; }
+.pfill.t { background:var(--teal); }
+.pfill.b { background:var(--blue); }
+.pfill.a { background:var(--amber); }
+
+/* ── BADGE ── */
+.badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(255,107,61,0.1); border:1px solid rgba(255,107,61,0.28);
+  border-radius:20px; padding:5px 12px;
+  font-size:12px; font-weight:700; color:var(--coral);
+}
+.badge-t { background:rgba(0,212,160,0.1);  border-color:rgba(0,212,160,0.25);  color:var(--teal); }
+.badge-a { background:rgba(255,179,71,0.1); border-color:rgba(255,179,71,0.25); color:var(--amber); }
+.badge-r { background:rgba(255,82,82,0.1);  border-color:rgba(255,82,82,0.25);  color:var(--red); }
+
+/* ── DOT LIST ── */
+.dot-list { display:flex; flex-direction:column; gap:10px; }
+.dot-item { display:flex; gap:10px; align-items:flex-start; }
+.dot { width:6px; height:6px; border-radius:50%; background:var(--coral); flex-shrink:0; margin-top:5px; }
+.dot.t { background:var(--teal); }
+.dot.a { background:var(--amber); }
+
+/* ── TIMELINE ── */
+.tl { display:flex; flex-direction:column; gap:14px; }
+.tl-item { display:flex; gap:12px; align-items:flex-start; }
+.tl-dot {
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  background:rgba(255,107,61,0.15); border:1px solid var(--coral);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:800; color:var(--coral); font-family:'Bebas Neue',sans-serif;
+}
+.tl-dot.t { background:rgba(0,212,160,0.15); border-color:var(--teal); color:var(--teal); }
+.tl-dot.a { background:rgba(255,179,71,0.15); border-color:var(--amber); color:var(--amber); }
+.tl-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.tl-sub   { font-size:11px; color:var(--text3); }
+
+/* ── GLOW ── */
+.glow-orb {
+  position:absolute; border-radius:50%; pointer-events:none;
+  filter:blur(100px);
+}
+
+/* ── COMPARISON TABLE ── */
+.comp-table { width:100%; border-collapse:collapse; }
+.comp-table th {
+  font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--text3); padding:8px 12px; text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.comp-table td {
+  font-size:12px; padding:8px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:var(--text2);
+}
+.comp-table tr.us td { color:var(--text); font-weight:600; background:rgba(255,107,61,0.06); }
+.comp-table tr.us td:first-child { color:var(--coral); }
+.check  { color:var(--teal);  font-size:14px; }
+.cross  { color:var(--red);   font-size:14px; }
+.partial{ color:var(--amber); font-size:13px; }
+
+/* ── ORBIT RING ── */
+.orbit {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(255,107,61,0.08);
+  animation: spin linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── ROI CARDS ── */
+.roi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+
+/* ── USE-OF-FUNDS ── */
+.use-item {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:12px; color:var(--text2);
+  padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.use-pct { font-weight:700; color:var(--text); font-size:13px; }
+
+/* ── FOUNDER CARDS ── */
+.founders-row { display:flex; gap:20px; margin:28px 0; }
+.founder-card {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:14px; padding:20px 24px; text-align:center; min-width:180px;
+}
+.founder-avatar { font-size:32px; margin-bottom:8px; }
+.founder-name   { font-size:14px; font-weight:700; margin-bottom:4px; }
+.founder-role   { font-size:11px; color:var(--text3); }
+
+/* ── CONTACT ROW ── */
+.contact-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.contact-item {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:10px; padding:8px 16px;
+  font-size:12px; font-weight:600; color:var(--text2);
+}
+
+/* ── CHANNEL PILLS ── */
+.ch-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:20px; padding:4px 12px;
+  font-size:11px; font-weight:600; color:var(--text2);
+}
+
+/* ── ARCH BOX ── */
+.arch-layer {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:10px; padding:10px 16px;
+  display:flex; align-items:center; gap:12px;
+}
+.arch-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* S1 HERO specific */
+.hero-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(96px,14vw,180px);
+  letter-spacing:-2px; line-height:.88;
+  background: linear-gradient(135deg, #FF6B3D 0%, #FF9A5C 40%, #FFB347 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* CTA orbit */
+.cta-orbit {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(255,107,61,0.08);
+  top:50%; left:50%; transform:translate(-50%,-50%);
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1 — HERO
+═══════════════════════════════════════════ -->
+<div class="slide active" id="s1">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="glow-orb" style="width:700px;height:700px;background:var(--coral);top:-200px;right:-200px;opacity:0.07;"></div>
+    <div class="glow-orb" style="width:400px;height:400px;background:var(--teal);bottom:-100px;left:-100px;opacity:0.05;"></div>
+  </div>
+  <div class="pad" style="justify-content:center;position:relative;z-index:1;">
+    <div class="badge" style="width:fit-content;margin-bottom:24px;">AI-Native · FinTech · LATAM</div>
+    <div class="hero-logo">COBRA<br>AI</div>
+    <div style="margin-top:20px;margin-bottom:32px;max-width:640px;">
+      <div class="display lg" style="color:var(--text2);line-height:1.1;">
+        El sistema operativo de<br>
+        <span style="color:var(--text);">collections inteligente</span><br>
+        para América Latina.
+      </div>
+    </div>
+    <div class="body-l d" style="max-width:560px;margin-bottom:40px;">
+      Recuperamos portfolio morosa con agentes IA autónomos, predicción de comportamiento y orquestación omnicanal — sin call centers, sin formularios estáticos, sin herramientas del siglo pasado.
+    </div>
+    <div class="row" style="gap:32px;">
+      <div>
+        <div class="stat-val" style="font-size:48px;">+30%</div>
+        <div class="stat-label">Tasa de recovery</div>
+      </div>
+      <div class="divider-v"></div>
+      <div>
+        <div class="stat-val t" style="font-size:48px;">-70%</div>
+        <div class="stat-label">Costo operativo</div>
+      </div>
+      <div class="divider-v"></div>
+      <div>
+        <div class="stat-val a" style="font-size:48px;">-14d</div>
+        <div class="stat-label">DSO vs industria</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2 — EL PROBLEMA
+═══════════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="glow-orb" style="width:500px;height:500px;background:var(--red);top:50%;left:50%;transform:translate(-50%,-60%);opacity:0.05;"></div>
+  </div>
+  <div class="pad" style="position:relative;z-index:1;">
+    <div class="slide-label">The problem</div>
+    <div class="display lg" style="margin-bottom:8px;">
+      La collections en LATAM está<br><span class="c">rota por diseño.</span>
+    </div>
+    <div class="body-m d" style="margin-bottom:24px;max-width:600px;">
+      Las empresas pierden miles de millones cada año usando hojas de cálculo, call centers ineficientes y herramientas que no hablan entre sí.
+    </div>
+    <div class="row fill" style="gap:20px;">
+      <div class="col fill" style="gap:16px;">
+        <div class="card card-c">
+          <div class="badge-r" style="margin-bottom:12px;display:inline-flex;">Operacional</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div>Cobradores manuales contactan 40–80 cuentas/día — IA puede gestionar 10,000+</div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div>Sin priorización: llaman a quien tienen arriba en la lista, no a quien más va a pagar</div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div>ERP, CRM y sistemas de cobro no se sincronizan — datos duplicates y erróneos</div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div>DSO promedio: 56 días. Las mejores empresas llegan a 38 con IA</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="badge-a" style="margin-bottom:12px;display:inline-flex;">Financials</div>
+          <div class="row" style="gap:20px;">
+            <div>
+              <div class="stat-val a" style="font-size:44px;">$0.45</div>
+              <div class="stat-label">Costo por $1 cobrado (agencias)</div>
+            </div>
+            <div class="divider-v"></div>
+            <div>
+              <div class="stat-val" style="font-size:44px;">19%</div>
+              <div class="stat-label">Recuperación promedio 3P</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col fill" style="gap:16px;">
+        <div class="card">
+          <div class="badge-r" style="margin-bottom:12px;display:inline-flex;">LATAM específico</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div><strong style="color:var(--text);">Brasil:</strong> 77.5% de familias endebtdas · delinquencia fintech 60%</div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div><strong style="color:var(--text);">México:</strong> 12.57% morosidad préstamos personales (Sep 2024)</div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div><strong style="color:var(--text);">Colombia:</strong> 28% ingreso familiar destinado a debt</div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div>Incumbentes globales (HighRadius, TrueAccord) <span class="hl">sin presencia real en LATAM</span></div>
+            <div class="dot-item body-s"><div class="dot" style="background:var(--red);"></div>91–93% penetración WhatsApp — platforms usan email y SMS como canal principal</div>
+          </div>
+        </div>
+        <div class="card card-c">
+          <div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">What happens without CobraAI</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div><div class="stat-val" style="font-size:36px;">+18d</div><div class="stat-label">Excess DSO</div></div>
+            <div><div class="stat-val" style="font-size:36px;">-40%</div><div class="stat-label">Collector efficiency</div></div>
+            <div><div class="stat-val a" style="font-size:36px;">3×</div><div class="stat-label">Unnecessary legal cost</div></div>
+            <div><div class="stat-val" style="font-size:36px;">68%</div><div class="stat-label">Customers never contacted</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3 — LA SOLUCIÓN
+═══════════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="glow-orb" style="width:600px;height:600px;background:var(--coral);top:-100px;right:-100px;opacity:0.07;"></div>
+  </div>
+  <div class="pad" style="position:relative;z-index:1;">
+    <div class="slide-label">The solution</div>
+    <div class="display lg" style="margin-bottom:8px;">
+      It is not a CRM.<br><span class="c">It is the operating system</span><br>of accounts receivable.
+    </div>
+    <div class="body-m d" style="margin-bottom:20px;max-width:580px;">
+      CobraAI connects directly to the company ERPs, analiza cada debt con IA y orquesta contactos autónomos hasta recuperar el dinero — without human intervention in 80% of cases.
+    </div>
+    <div class="row fill" style="gap:16px;">
+      <div class="col" style="gap:12px;flex:1;">
+        <div class="card card-c" style="padding:18px;">
+          <div style="font-size:20px;margin-bottom:8px;">🧠</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--coral);">Segmentación IA</div>
+          <div class="body-s d">Clasifica cada debt por riesgo, aging, perfil emocional y probabilidad de pago. Score 0–100 en tiempo real.</div>
+        </div>
+        <div class="card card-t" style="padding:18px;">
+          <div style="font-size:20px;margin-bottom:8px;">🎙️</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--teal);">Agente de voz IA</div>
+          <div class="body-s d">Llama, negocia, detecta emociones y crea planes de pago. Latencia &lt;700ms. Español LatAm nativo.</div>
+        </div>
+      </div>
+      <div class="col" style="gap:12px;flex:1;">
+        <div class="card" style="padding:18px;">
+          <div style="font-size:20px;margin-bottom:8px;">📱</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Omnicanal WhatsApp-first</div>
+          <div class="body-s d">WhatsApp · Voz · SMS · Email · Portal. Continuidad de conversación entre canales. Pix, SPEI, PSE integrados.</div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div style="font-size:20px;margin-bottom:8px;">🔌</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">ERP nativo LATAM</div>
+          <div class="body-s d">SAP · NetSuite · Dynamics · Totvs · Contpaqi · Siigo. Sync bidireccional en tiempo real — no por lotes.</div>
+        </div>
+      </div>
+      <div class="col" style="gap:12px;flex:1;">
+        <div class="card" style="padding:18px;">
+          <div style="font-size:20px;margin-bottom:8px;">📊</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Predicción de comportamiento</div>
+          <div class="body-s d">Predice mejor canal, mejor hora, probabilidad de pago y riesgo de escalamiento legal por cada debtor.</div>
+        </div>
+        <div class="card card-c" style="padding:18px;">
+          <div style="font-size:20px;margin-bottom:8px;">⚖️</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--coral);">Compliance por país</div>
+          <div class="body-s d">LGPD · PROFECO · CONDUSEF · Ley 1581. Reglas de contacto por país codificadas en el motor — no configurables.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4 — CÓMO FUNCIONA
+═══════════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="pad">
+    <div class="slide-label">Cómo funciona</div>
+    <div class="display lg" style="margin-bottom:20px;">
+      De la debt morosa al pago<br>en <span class="c">minutos, no semanas.</span>
+    </div>
+    <div class="row fill" style="gap:24px;align-items:flex-start;">
+      <div class="col fill" style="gap:10px;">
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-dot">1</div>
+            <div>
+              <div class="tl-title">Conecta tu ERP o sube el portafolio</div>
+              <div class="tl-sub">CSV · API · SAP · NetSuite · Totvs · Dynamics — listo en minutos</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot t">2</div>
+            <div>
+              <div class="tl-title">IA segmenta y puntúa cada debt</div>
+              <div class="tl-sub">Score 0–100 · riesgo · canal óptimo · hora de contacto · perfil emocional</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot a">3</div>
+            <div>
+              <div class="tl-title">Agente IA inicia contacto autónomo</div>
+              <div class="tl-sub">WhatsApp primero, voz si no responde, email/SMS como respaldo · respeta horarios por país</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">4</div>
+            <div>
+              <div class="tl-title">Negocia, propone y cierra</div>
+              <div class="tl-sub">Pago total o plan de cuotas · link de pago instantáneo · Pix · SPEI · PSE · Mercado Pago</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot t">5</div>
+            <div>
+              <div class="tl-title">ERP y CRM actualizados en tiempo real</div>
+              <div class="tl-sub">Promesas · pagos · transcripciones · score — todo sincronizado automaticmente</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot a">6</div>
+            <div>
+              <div class="tl-title">Escalamiento inteligente si es necesario</div>
+              <div class="tl-sub">Humano · supervisor IA · expediente legal — solo cuando realmente se necesita</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="width:320px;gap:14px;">
+        <div class="card card-t" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Canales orquestados</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <div class="ch-pill" style="border-color:rgba(0,212,160,0.3);color:var(--teal);">WhatsApp</div>
+            <div class="ch-pill">Voz IA</div>
+            <div class="ch-pill">SMS</div>
+            <div class="ch-pill">Email</div>
+            <div class="ch-pill">Portal debtor</div>
+            <div class="ch-pill">Notif. push</div>
+            <div class="ch-pill">Legal</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">ERPs conectados</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <div class="ch-pill" style="border-color:rgba(255,107,61,0.3);color:var(--coral);">SAP B1</div>
+            <div class="ch-pill">NetSuite</div>
+            <div class="ch-pill">Dynamics 365</div>
+            <div class="ch-pill">Totvs</div>
+            <div class="ch-pill">Contpaqi</div>
+            <div class="ch-pill">Siigo</div>
+            <div class="ch-pill">QuickBooks</div>
+            <div class="ch-pill">Odoo</div>
+          </div>
+        </div>
+        <div class="card card-c" style="padding:16px;">
+          <div class="row" style="gap:16px;">
+            <div style="text-align:center;">
+              <div class="stat-val" style="font-size:36px;">80%</div>
+              <div class="stat-label">Casos sin<br>intervención humana</div>
+            </div>
+            <div class="divider-v"></div>
+            <div style="text-align:center;">
+              <div class="stat-val t" style="font-size:36px;">3min</div>
+              <div class="stat-label">De debt cargada<br>a primer contacto</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5 — EL MERCADO
+═══════════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="glow-orb" style="width:500px;height:500px;background:var(--teal);bottom:-100px;right:-100px;opacity:0.06;"></div>
+  </div>
+  <div class="pad" style="position:relative;z-index:1;">
+    <div class="slide-label">The market</div>
+    <div class="display lg" style="margin-bottom:20px;">
+      Un market de <span class="c">$30B</span> globales<br>con LATAM prácticamente <span class="t">virgen.</span>
+    </div>
+    <div class="row fill" style="gap:20px;">
+      <div class="col fill" style="gap:14px;">
+        <div class="row" style="gap:14px;">
+          <div class="card fill" style="padding:18px;">
+            <div class="label d" style="margin-bottom:8px;">TAM Global</div>
+            <div class="stat-val" style="font-size:52px;">$30.5B</div>
+            <div class="stat-label">Debt collection services 2025</div>
+            <div class="stat-sub">→ $11.3B software market</div>
+          </div>
+          <div class="card fill card-c" style="padding:18px;">
+            <div class="label d" style="margin-bottom:8px;">SAM LATAM</div>
+            <div class="stat-val t" style="font-size:52px;">$75M</div>
+            <div class="stat-label">Software collections LATAM 2024</div>
+            <div class="stat-sub">→ $185M para 2033 · CAGR 9.4%</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Tamaño por país (servicios de collections)</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span class="body-s">Brasil</span><span class="body-s c">$620M</span>
+              </div>
+              <div class="pbar"><div class="pfill" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span class="body-s">México</span><span class="body-s c">$480M</span>
+              </div>
+              <div class="pbar"><div class="pfill" style="width:77%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span class="body-s">Colombia</span><span class="body-s t">$180M</span>
+              </div>
+              <div class="pbar"><div class="pfill t" style="width:29%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span class="body-s">Argentina + Chile + Perú</span><span class="body-s a">$210M</span>
+              </div>
+              <div class="pbar"><div class="pfill a" style="width:34%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="width:320px;gap:14px;">
+        <div class="card card-t" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Por qué ahora</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot t"></div>WhatsApp 91–93% penetración CO/BR/AR — incumbentes usan email</div>
+            <div class="dot-item body-s"><div class="dot t"></div>Agentes IA voz en español &lt;700ms latencia — imposible hace 18 meses</div>
+            <div class="dot-item body-s"><div class="dot t"></div>InDebted (único rival relevante) entró a MX en enero 2025 — ventana abierta</div>
+            <div class="dot-item body-s"><div class="dot t"></div>LGPD activa en Brasil: compliance es barrera de entrada para externos</div>
+            <div class="dot-item body-s"><div class="dot t"></div>BNPL/fintech LATAM creciendo 40% anual — portfolio morosa crece igual</div>
+          </div>
+        </div>
+        <div class="card card-c" style="padding:16px;">
+          <div class="label d" style="margin-bottom:10px;">Sectores target</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <div class="ch-pill" style="border-color:rgba(255,107,61,0.3);color:var(--coral);">BNPL / Fintech</div>
+            <div class="ch-pill">Bancos Tier 2</div>
+            <div class="ch-pill">Telco</div>
+            <div class="ch-pill">Retail crédito</div>
+            <div class="ch-pill">Utilities</div>
+            <div class="ch-pill">Salud</div>
+            <div class="ch-pill">B2B manufactura</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 — COMPETENCIA
+═══════════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="pad-sm">
+    <div class="slide-label">Competition</div>
+    <div class="display lg" style="margin-bottom:16px;">
+      Los mejores del mundo<br><span class="c">no están aquí.</span> Nosotros sí.
+    </div>
+    <div class="body-m d" style="margin-bottom:20px;">Análisis de los 6 rivales más relevantes. Ninguno combina IA agéntica + WhatsApp-first + compliance LATAM + ERP en tiempo real.</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Plataforma</th>
+            <th>Voz IA</th>
+            <th>WhatsApp</th>
+            <th>ERP tiempo real</th>
+            <th>Compliance LATAM</th>
+            <th>Autónomo</th>
+            <th>Español nativo</th>
+            <th>Presencia LATAM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="us">
+            <td>CobraAI ✦</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓ 1st class</span></td>
+            <td><span class="check">✓ Real-time</span></td>
+            <td><span class="check">✓ Codificado</span></td>
+            <td><span class="check">✓ Multi-agente</span></td>
+            <td><span class="check">✓ LatAm</span></td>
+            <td><span class="check">✓ Nativo</span></td>
+          </tr>
+          <tr>
+            <td>HighRadius</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Batch</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Workflow</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Limitado</span></td>
+          </tr>
+          <tr>
+            <td>TrueAccord</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ API</span></td>
+            <td><span class="cross">✗ FDCPA only</span></td>
+            <td><span class="partial">~ HeartBeat ML</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Credgenics</td>
+            <td><span class="partial">~ 22 idiomas</span></td>
+            <td><span class="check">✓ ChatR</span></td>
+            <td><span class="partial">~ Parcial</span></td>
+            <td><span class="cross">✗ India only</span></td>
+            <td><span class="partial">~ Parcial</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Symend</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Batch</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Journeys</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>InDebted</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Básico</span></td>
+            <td><span class="partial">~ Receeve</span></td>
+            <td><span class="partial">~ En proceso</span></td>
+            <td><span class="partial">~ Parcial</span></td>
+            <td><span class="partial">~ Básico</span></td>
+            <td><span class="partial">~ MX Jan 25</span></td>
+          </tr>
+          <tr>
+            <td>Kolleno</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓ 150+ integ.</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~ Multi-agent</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:14px;align-items:center;">
+      <div class="badge">Ventana de 18–24 meses antes de consolidación regional</div>
+      <div class="body-s d">InDebted ($235M USD valuation) es el único con plan LATAM claro — llegaron a MX hace 5 meses. Somos nativos.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 7 — TRACCIÓN Y VALIDACIÓN
+═══════════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="glow-orb" style="width:500px;height:500px;background:var(--teal);top:50%;left:60%;transform:translate(-50%,-50%);opacity:0.05;"></div>
+  </div>
+  <div class="pad" style="position:relative;z-index:1;">
+    <div class="slide-label">Traction y validación</div>
+    <div class="display lg" style="margin-bottom:20px;">
+      Modelo validado en India.<br>Nosotros lo <span class="c">construimos para LATAM.</span>
+    </div>
+    <div class="row fill" style="gap:20px;">
+      <div class="col fill" style="gap:14px;">
+        <div class="card card-t" style="padding:20px;">
+          <div class="label d" style="margin-bottom:14px;">Benchmarks de la industria (publicados)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <div class="stat-val t" style="font-size:40px;">-15%</div>
+              <div class="stat-label">Reducción costo de cobro</div>
+              <div class="stat-sub">McKinsey · banco retail India</div>
+            </div>
+            <div>
+              <div class="stat-val" style="font-size:40px;">-25%</div>
+              <div class="stat-label">Reducción NPL</div>
+              <div class="stat-sub">McKinsey · digital-first collections</div>
+            </div>
+            <div>
+              <div class="stat-val a" style="font-size:40px;">+25%</div>
+              <div class="stat-label">Boost engagement cliente</div>
+              <div class="stat-sub">Canal preferido + IA</div>
+            </div>
+            <div>
+              <div class="stat-val t" style="font-size:40px;">+15%</div>
+              <div class="stat-label">Tasa de recovery</div>
+              <div class="stat-sub">Gitnux · IA-driven collections</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Por qué WhatsApp cambia todo</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot t"></div>98% opt-in al integrar Pix en WhatsApp (caso Vai de Bus · Infobip)</div>
+            <div class="dot-item body-s"><div class="dot t"></div>85% conversión en pagos vía link en WhatsApp</div>
+            <div class="dot-item body-s"><div class="dot t"></div>67% de empresas LATAM usando WA Business planean implementar IA — Gartner</div>
+            <div class="dot-item body-s"><div class="dot t"></div>Raiffeisenbank: 10× reducción costo + 19% NPS growth con WA · Infobip</div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="width:300px;gap:14px;">
+        <div class="card card-c" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Credgenics — el blueprint</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot"></div>Mismo modelo en India: $80M recaudados · $340M valuación</div>
+            <div class="dot-item body-s"><div class="dot"></div>150+ instituciones financieras · 98M cuentas</div>
+            <div class="dot-item body-s"><div class="dot"></div>FY25: ₹220 Cr revenue · Rentable</div>
+            <div class="dot-item body-s"><div class="dot"></div>Sin presencia en LATAM — market libre</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">VC signal en el espacio</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot a"></div><strong style="color:var(--text);">InDebted</strong> — A$60M Serie C · Sep 2024</div>
+            <div class="dot-item body-s"><div class="dot a"></div><strong style="color:var(--text);">Moonflow</strong> (LatAm) — $3.4M Seed · Directo rival early-stage</div>
+            <div class="dot-item body-s"><div class="dot a"></div><strong style="color:var(--text);">Celcoin</strong> — Adquirió CobranSaaS Brasil · Señal M&A</div>
+            <div class="dot-item body-s"><div class="dot a"></div>IA capturó <strong style="color:var(--text);">50% del VC global</strong> 2025 — Crunchbase</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 8 — MODELO DE NEGOCIO
+═══════════════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="pad">
+    <div class="slide-label">Modelo de negocio</div>
+    <div class="display lg" style="margin-bottom:20px;">
+      Ganamos cuando<br><span class="c">nuestros clientes cobran.</span>
+    </div>
+    <div class="row fill" style="gap:20px;">
+      <div class="col fill" style="gap:14px;">
+        <div class="card card-c" style="padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <div class="badge">Tier 1 — SMB</div>
+          </div>
+          <div class="stat-val" style="font-size:44px;">$500</div>
+          <div class="stat-label">USD/mes + 2% por cobro</div>
+          <div class="divider"></div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot"></div>Fintechs y SOFOMs pequeñas</div>
+            <div class="dot-item body-s"><div class="dot"></div>Hasta 500 debts activas</div>
+            <div class="dot-item body-s"><div class="dot"></div>WhatsApp + Email + Portal</div>
+            <div class="dot-item body-s"><div class="dot"></div>Score IA básico</div>
+          </div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <div class="badge-a" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,179,71,0.1);border:1px solid rgba(255,179,71,0.25);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--amber);">Tier 2 — Mid-market</div>
+          </div>
+          <div class="stat-val a" style="font-size:44px;">$3K</div>
+          <div class="stat-label">USD/mes + 1.2% por cobro</div>
+          <div class="divider"></div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot a"></div>Bancos Tier 2 y retail crédito</div>
+            <div class="dot-item body-s"><div class="dot a"></div>5,000–50,000 debts</div>
+            <div class="dot-item body-s"><div class="dot a"></div>Voz IA + todos los canales</div>
+            <div class="dot-item body-s"><div class="dot a"></div>ERP connector incluido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col fill" style="gap:14px;">
+        <div class="card card-t" style="padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <div class="badge-t" style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,160,0.1);border:1px solid rgba(0,212,160,0.25);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--teal);">Tier 3 — Enterprise</div>
+          </div>
+          <div class="stat-val t" style="font-size:44px;">$12K+</div>
+          <div class="stat-label">USD/mes + SLA personalizado</div>
+          <div class="divider"></div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot t"></div>Grandes bancos y telcos</div>
+            <div class="dot-item body-s"><div class="dot t"></div>Portafolios +50,000 debts</div>
+            <div class="dot-item body-s"><div class="dot t"></div>Multi-ERP · SSO · custom compliance</div>
+            <div class="dot-item body-s"><div class="dot t"></div>SOC2 · SLA 99.9% · dedicated CS</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:14px;">Proyección ARR</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+            <div style="text-align:center;">
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">AÑO 1</div>
+              <div class="stat-val" style="font-size:32px;">$480K</div>
+              <div class="stat-label">3 mid-market + 8 SMB</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">AÑO 2</div>
+              <div class="stat-val t" style="font-size:32px;">$2.1M</div>
+              <div class="stat-label">MX + CO + BR entry</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">AÑO 3</div>
+              <div class="stat-val a" style="font-size:32px;">$7.8M</div>
+              <div class="stat-label">Regional · 2 enterprise</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div style="display:flex;gap:16px;">
+            <div><span class="body-s d">Gross margin: </span><span class="body-s c" style="font-weight:700;">78%</span></div>
+            <div><span class="body-s d">CAC payback: </span><span class="body-s" style="font-weight:700;color:var(--teal);">4.2 meses</span></div>
+            <div><span class="body-s d">NRR target: </span><span class="body-s a" style="font-weight:700;">125%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 9 — ROI PARA EL CLIENTE
+═══════════════════════════════════════════ -->
+<div class="slide" id="s9">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="glow-orb" style="width:600px;height:600px;background:var(--amber);top:30%;left:70%;opacity:0.04;"></div>
+  </div>
+  <div class="pad" style="position:relative;z-index:1;">
+    <div class="slide-label">ROI para el cliente</div>
+    <div class="display lg" style="margin-bottom:20px;">
+      El cliente recupera su inversión<br>en <span class="c">el primer mes.</span>
+    </div>
+    <div class="row fill" style="gap:20px;">
+      <div class="col fill" style="gap:14px;">
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:14px;">Caso — Fintech mid-market · 10,000 debts activas</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;">
+            <div>
+              <div class="label d" style="margin-bottom:4px;">Sin CobraAI</div>
+              <div class="stat-val" style="font-size:32px;color:var(--text2);">$180K</div>
+              <div class="stat-label">Costo mensual call center</div>
+            </div>
+            <div>
+              <div class="label d" style="margin-bottom:4px;">Con CobraAI</div>
+              <div class="stat-val t" style="font-size:32px;">$18K</div>
+              <div class="stat-label">Plataforma + API costs</div>
+            </div>
+            <div>
+              <div class="label d" style="margin-bottom:4px;">Ahorro neto</div>
+              <div class="stat-val" style="font-size:32px;">$162K</div>
+              <div class="stat-label">Por mes · -90% opex</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <div class="label d" style="margin-bottom:4px;">Recuperación antes</div>
+              <div class="stat-val a" style="font-size:32px;">19%</div>
+              <div class="stat-label">Promedio industria LATAM</div>
+            </div>
+            <div>
+              <div class="label d" style="margin-bottom:4px;">Recuperación con IA</div>
+              <div class="stat-val t" style="font-size:32px;">34%</div>
+              <div class="stat-label">+$2.1M adicionales/mes</div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-c" style="padding:16px;">
+          <div class="row" style="gap:14px;align-items:center;">
+            <div style="font-size:28px;">🏦</div>
+            <div>
+              <div class="body-s" style="font-weight:700;color:var(--coral);">ROI total primer año</div>
+              <div class="body-s d">$162K ahorro mensual × 12 + $2.1M recovery extra = <span class="hl">+$4.1M netos</span> sobre inversión en platform de $36K anuales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="width:290px;gap:14px;">
+        <div class="card card-t" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Métricas de impacto</div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot t"></div><strong style="color:var(--text);">-14 días</strong> DSO vs promedio industria</div>
+            <div class="dot-item body-s"><div class="dot t"></div><strong style="color:var(--text);">-70%</strong> dependencia de call center</div>
+            <div class="dot-item body-s"><div class="dot t"></div><strong style="color:var(--text);">+30%</strong> tasa de recovery</div>
+            <div class="dot-item body-s"><div class="dot t"></div><strong style="color:var(--text);">-60%</strong> costs legales innecesarios</div>
+            <div class="dot-item body-s"><div class="dot t"></div><strong style="color:var(--text);">3×</strong> productividad por cobrador humano</div>
+            <div class="dot-item body-s"><div class="dot t"></div><strong style="color:var(--text);">80%</strong> casos resueltos sin humano</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Costo contacto por canal</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                <span class="body-s">Agente humano (voz)</span>
+                <span class="body-s" style="color:var(--red);">$6–8</span>
+              </div>
+              <div class="pbar"><div class="pfill" style="width:100%;background:var(--red);"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                <span class="body-s">Agente IA (voz)</span>
+                <span class="body-s c">$0.50</span>
+              </div>
+              <div class="pbar"><div class="pfill" style="width:6%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                <span class="body-s">WhatsApp IA</span>
+                <span class="body-s t">$0.05</span>
+              </div>
+              <div class="pbar"><div class="pfill t" style="width:1%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 10 — LA INVERSIÓN
+═══════════════════════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="pad">
+    <div class="slide-label">La inversión</div>
+    <div class="display lg" style="margin-bottom:24px;">Lo que buscamos, <span class="c">para qué,</span><br>y qué <span class="c">retorna.</span></div>
+    <div class="row fill" style="gap:24px;">
+      <div class="col" style="width:360px;gap:16px;">
+        <div class="card card-c" style="padding:22px;">
+          <div class="label d" style="margin-bottom:8px;">Ronda Seed · Equity</div>
+          <div class="stat-val" style="font-size:72px;line-height:1;">$2M</div>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:12px;">USD · 18–24 meses de runway</div>
+          <div class="divider"></div>
+          <div class="dot-list">
+            <div class="dot-item body-s"><div class="dot"></div>Instrumento: Equity o SAFE con cap</div>
+            <div class="dot-item body-s"><div class="dot"></div>Equity a ceder: 12–18% máximo</div>
+            <div class="dot-item body-s"><div class="dot"></div>Valoración pre-money: $8–12M USD</div>
+            <div class="dot-item body-s"><div class="dot"></div>Target: Kaszek · QED · Oak HC/FT · Magma</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:12px;">Hitos que activan Serie A</div>
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-dot">1</div>
+              <div>
+                <div class="tl-title" style="font-size:13px;">3 clientes pagando + $150K ARR</div>
+                <div class="tl-sub">Month 6 · Valida product-market fit</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot t">2</div>
+              <div>
+                <div class="tl-title" style="font-size:13px;">Lanzamiento Brasil + $500K ARR</div>
+                <div class="tl-sub">Month 12 · Mayor market LATAM</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot a">3</div>
+              <div>
+                <div class="tl-title" style="font-size:13px;">$2M ARR + NRR 120%+</div>
+                <div class="tl-sub">Month 18 · Serie A $8–12M target</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col fill" style="gap:16px;">
+        <div class="card" style="padding:18px;">
+          <div class="label d" style="margin-bottom:14px;">Uso del capital</div>
+          <div class="use-item"><div class="use-name">👨‍💻 Equipo técnico (12 meses)</div><div class="use-pct">50%</div></div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill" style="width:50%"></div></div></div>
+          <div class="use-item"><div class="use-name">🚀 GTM · Ventas LATAM · MX + CO</div><div class="use-pct">20%</div></div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill a" style="width:20%"></div></div></div>
+          <div class="use-item"><div class="use-name">☁️ Infraestructura AWS · APIs IA</div><div class="use-pct">15%</div></div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill t" style="width:15%"></div></div></div>
+          <div class="use-item"><div class="use-name">⚖️ Legal · compliance · SOC2</div><div class="use-pct">10%</div></div>
+          <div style="margin:-8px 0 8px;"><div class="pbar"><div class="pfill" style="width:10%;background:var(--text2)"></div></div></div>
+          <div class="use-item" style="border:none;"><div class="use-name">🛡️ Reserva operativa</div><div class="use-pct">5%</div></div>
+          <div style="margin:-8px 0 0;"><div class="pbar"><div class="pfill" style="width:5%;background:rgba(255,255,255,0.2)"></div></div></div>
+        </div>
+        <div class="card card-t" style="padding:18px;">
+          <div class="label d" style="margin-bottom:14px;">Retorno proyectado para el inversionista</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div><div class="stat-val" style="font-size:36px;">8–12x</div><div class="stat-label">ROI estimado año 4</div></div>
+            <div><div class="stat-val t" style="font-size:36px;">20m</div><div class="stat-label">Break-even operativo</div></div>
+            <div><div class="stat-val a" style="font-size:36px;">$7.8M</div><div class="stat-label">ARR año 3</div></div>
+            <div><div class="stat-val" style="font-size:36px;">8×</div><div class="stat-label">Múltiplo ARR (SaaS FinTech)</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="badge-t" style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,160,0.1);border:1px solid rgba(0,212,160,0.25);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--teal);">Valoración implícita año 3: $62M USD · (8× ARR)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 11 — CIERRE Y EQUIPO
+═══════════════════════════════════════════ -->
+<div class="slide" id="s11">
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <div class="cta-orbit" style="width:500px;height:500px;"></div>
+    <div class="cta-orbit" style="width:750px;height:750px;"></div>
+    <div class="cta-orbit" style="width:1000px;height:1000px;"></div>
+    <div class="glow-orb" style="width:500px;height:500px;background:var(--coral);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.07;filter:blur(120px);"></div>
+  </div>
+  <div style="position:relative;z-index:1;padding:0 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;">
+    <div class="badge" style="margin-bottom:24px;font-size:12px;">AI-Native · FinTech · México → Colombia → Brasil → LATAM</div>
+    <div class="display xl" style="text-align:center;line-height:1;margin-bottom:16px;">
+      LA CARTERA MOROSA<br>ES UN <span class="c">PROBLEMA RESUELTO.</span>
+    </div>
+    <div class="body-l d" style="text-align:center;max-width:620px;margin-bottom:40px;">
+      Credgenics lo demostró en India. InDebted en Australia.<br>
+      CobraAI lo hace en América Latina — con el idioma, las regulaciones,<br>los ERPs y los canales correctos desde el día uno.
+    </div>
+    <div class="founders-row">
+      <div class="founder-card">
+        <div class="founder-avatar">👤</div>
+        <div class="founder-name">CEO · Fundador</div>
+        <div class="founder-role">Estrategia · Ventas · FinTech</div>
+      </div>
+      <div class="founder-card" style="border-color:rgba(255,107,61,0.3);">
+        <div class="founder-avatar">👨‍💻</div>
+        <div class="founder-name">CTO · Co-fundador</div>
+        <div class="founder-role">NestJS · Python IA · AWS</div>
+      </div>
+      <div class="founder-card" style="border-color:rgba(0,212,160,0.3);">
+        <div class="founder-avatar">🤖</div>
+        <div class="founder-name">Head of AI</div>
+        <div class="founder-role">LLMs · Voice · Prediction</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-item">📍 Colombia · México · Brasil</div>
+      <div class="contact-item">🌐 cobrai.io</div>
+      <div class="contact-item">📧 hola@cobrai.io</div>
+      <div class="contact-item" style="color:var(--coral);border-color:rgba(255,107,61,0.3);">💼 Seed Round abierta · $2M</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end deck -->
+
+<!-- NAV -->
+<div id="nav">
+  <button id="nav-prev" onclick="prevSlide()">← Prev</button>
+  <div id="dots"></div>
+  <span id="slide-counter">1/11</span>
+  <button id="nav-next" onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total  = slides.length;
+let cur = 0;
+
+const dotsEl = document.getElementById('dots');
+for (let i = 0; i < total; i++) {
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+
+function goTo(idx) {
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('exit');
+  setTimeout(() => slides[cur].classList.remove('exit'), 500);
+  cur = (idx + total) % total;
+  slides[cur].classList.add('active');
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+  document.getElementById('slide-counter').textContent = `${cur + 1}/${total}`;
+}
+
+function nextSlide() { goTo(cur + 1); }
+function prevSlide() { goTo(cur - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
+});
+</script>
+</body>
+</html>

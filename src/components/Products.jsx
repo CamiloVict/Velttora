@@ -1,17 +1,20 @@
-import { products } from '../data/products';
+import { useI18n } from '../i18n/I18nProvider';
 import { Reveal } from './Reveal';
 
 export function Products() {
+  const { t } = useI18n();
+  const p = t.products;
+
   return (
     <section className="products" id="products">
       <div className="container">
         <div className="products-header">
           <div>
-            <Reveal className="section-eyebrow">Our portfolio</Reveal>
+            <Reveal className="section-eyebrow">{p.eyebrow}</Reveal>
             <Reveal delay={1} className="section-title">
-              Four bets.
+              {p.titleLine1}
               <br />
-              <em>One thesis.</em>
+              <em>{p.titleLine2}</em>
             </Reveal>
           </div>
           <Reveal
@@ -19,13 +22,12 @@ export function Products() {
             className="section-lead"
             style={{ maxWidth: 360, textAlign: 'right' }}
           >
-            Each product targets a sector where AI can eliminate friction that has existed for
-            decades.
+            {p.lead}
           </Reveal>
         </div>
 
         <div className="products-grid">
-          {products.map((product) => {
+          {p.items.map((product) => {
             const CardTag = product.href ? 'a' : 'div';
             const isExternal = product.href?.startsWith('http');
             const cardProps = product.href
@@ -35,13 +37,13 @@ export function Products() {
                     ? { target: '_blank', rel: 'noopener noreferrer' }
                     : {}),
                   'aria-label': isExternal
-                    ? `${product.name} — open website`
-                    : `${product.name} — view pitch deck`,
+                    ? `${product.name} — ${p.openWebsite}`
+                    : `${product.name} — ${p.viewPitch}`,
                 }
               : {};
 
             return (
-              <Reveal key={product.name} delay={product.delay}>
+              <Reveal key={product.name} delay={product.delay} className="product-card-reveal">
                 <CardTag
                   className={`product-card${product.href ? ' product-card--link' : ''}`}
                   {...cardProps}

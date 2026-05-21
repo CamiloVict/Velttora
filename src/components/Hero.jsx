@@ -1,4 +1,4 @@
-import { heroStats } from '../data/heroStats';
+import { useI18n } from '../i18n/I18nProvider';
 
 const ArrowIcon = () => (
   <svg
@@ -17,35 +17,35 @@ const ArrowIcon = () => (
 );
 
 export function Hero() {
+  const { t } = useI18n();
+  const h = t.hero;
+
   return (
     <section className="hero" id="home">
       <div className="hero-glow" />
       <div className="hero-glow-2" />
       <div className="container">
-        <div className="hero-label">Wyoming LLC · Est. 2026 · Global</div>
+        <div className="hero-label">{h.label}</div>
         <h1 className="hero-title">
-          We build software
+          {h.titleLine1}
           <br />
-          that moves
+          {h.titleLine2}
           <br />
-          <em>industries forward.</em>
-          <span className="line-2">Powered by AI.</span>
+          <em>{h.titleLine3}</em>
+          <span className="line-2">{h.titleAccent}</span>
         </h1>
-        <p className="hero-desc">
-          Velttora LLC is a technology studio that identifies industries operating on broken,
-          manual, or fragmented systems — and replaces them with intelligent, scalable platforms.
-        </p>
+        <p className="hero-desc">{h.desc}</p>
         <div className="hero-actions">
           <a href="#products" className="btn-primary">
-            See our products
+            {h.ctaPrimary}
             <ArrowIcon />
           </a>
           <a href="#contact" className="btn-secondary">
-            Get in touch
+            {h.ctaSecondary}
           </a>
         </div>
         <div className="hero-stats">
-          {heroStats.map((stat) => (
+          {h.stats.map((stat) => (
             <div key={stat.label}>
               <div className="hero-stat-value">
                 {stat.value}
