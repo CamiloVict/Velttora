@@ -1,10 +1,12 @@
 {
-  "name": "veltora",
+  "name": "velttora",
   "private": true,
   "version": "1.0.0",
+  "packageManager": "pnpm@10.12.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "pnpm --filter veltora-contact-api dev",
     "build": "vite build",
     "preview": "vite preview"
   },
