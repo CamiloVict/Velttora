@@ -8,4 +8,5 @@ dist
 .env
 .env.local
 server/.env
+server/.fly-secrets.env
 src/.env

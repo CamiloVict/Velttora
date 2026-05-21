@@ -13,6 +13,9 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.set('trust proxy', 1);
 
 function logStartupConfig() {
   logger.info('Environment loaded', {
@@ -177,7 +180,7 @@ function formatReason(key) {
   return labels[key] ?? key;
 }
 
-app.listen(PORT, () => {
-  logger.info(`Contact API listening on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  logger.info(`Contact API listening on http://${HOST}:${PORT}`);
   logStartupConfig();
 });

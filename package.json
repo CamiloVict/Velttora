@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "vite",
     "dev:api": "pnpm --filter veltora-contact-api dev",
+    "deploy:api": "fly deploy server",
+    "secrets:sync": "node server/scripts/sync-fly-secrets-from-env.mjs",
+    "secrets:api": "node server/scripts/set-fly-secrets.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
