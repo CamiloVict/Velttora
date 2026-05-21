@@ -28,6 +28,7 @@ export const products = [
     status: 'Active development',
     icon: '🐍',
     name: 'CobraAI',
+    href: '/cobraai-pitch-deck.html',
     tagline: '// Intelligent debt recovery platform',
     description:
       'CobraAI automates the full lifecycle of debt collection — from portfolio ingestion to payment plans, digital outreach, and legal escalation. Lenders and collection agencies replace manual workflows with an AI engine that scores debtors, orchestrates communication, and recovers more, faster.',

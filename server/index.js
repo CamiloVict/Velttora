@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import express from 'express';
 import rateLimit from 'express-rate-limit';
-import { sendContactEmails, isSmtpConfigured, getSmtpConfigSummary } from './mailer.js';
+import { dispatchContactEmails, isSmtpConfigured, getSmtpConfigSummary } from './mailer.js';
 import { CONTACT_EMAIL, GENERIC_SEND_ERROR } from './constants.js';
 import { logger } from './logger.js';
 
@@ -135,36 +135,28 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       submittedAt: new Date().toISOString(),
     };
 
-    logger.info('Validation passed — sending emails…');
-    await sendContactEmails(payload);
+    if (!isSmtpConfigured()) {
+      logger.warn('Contact rejected — SMTP not configured');
+      return res.status(503).json({
+        error: 'Email service is not configured. Add server/.env with your SMTP credentials.',
+      });
+    }
 
-    logger.info('Contact form completed successfully', { email, name });
-    res.status(200).json({
+    logger.info('Validation passed — queuing emails in background', { email, name });
+    dispatchContactEmails(payload);
+
+    res.status(202).json({
       ok: true,
       message: 'Thank you. We received your message and will contact you soon.',
     });
   } catch (err) {
     logger.error('Contact form failed', err);
-
-    const notConfigured = err.message?.includes('SMTP is not configured');
-    const authFailed =
-      err.code === 'EAUTH' ||
-      /authentication failed|invalid login|535/i.test(err.message ?? '');
-
-    let error = GENERIC_SEND_ERROR;
-    if (notConfigured) {
-      error = 'Email service is not configured. Add server/.env with your SMTP credentials.';
-    } else if (authFailed) {
-      error =
-        'Email authentication failed. Check SMTP_USER and SMTP_PASS in server/.env (quote passwords containing #).';
-    }
-
-    const body = { error };
-    if (process.env.NODE_ENV === 'development' && err.message) {
-      body.detail = err.message;
-    }
-
-    res.status(notConfigured ? 503 : 500).json(body);
+    res.status(500).json({
+      error: GENERIC_SEND_ERROR,
+      ...(process.env.NODE_ENV === 'development' && err.message
+        ? { detail: err.message }
+        : {}),
+    });
   }
 });
 

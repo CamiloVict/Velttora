@@ -4,6 +4,8 @@ import { logger } from './logger.js';
 
 const DEFAULT_MAILBOX = 'contact@velttora.com';
 
+let cachedTransport = null;
+
 function normalizeEmail(value, fallback = DEFAULT_MAILBOX) {
   const email = String(value ?? '').trim().toLowerCase();
   return email || fallback;
@@ -51,39 +53,46 @@ export function getSmtpConfigSummary() {
   };
 }
 
-function createTransport() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_SECURE } = process.env;
-
+function getTransport() {
   if (!isSmtpConfigured()) {
-    logger.warn('SMTP not configured', {
-      host: SMTP_HOST || false,
-      user: SMTP_USER || false,
-      passwordSet: Boolean(readSmtpPassword()),
-    });
     return null;
   }
 
+  if (cachedTransport) {
+    return cachedTransport;
+  }
+
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_SECURE } = process.env;
   const user = normalizeEmail(SMTP_USER);
   const pass = readSmtpPassword();
+  const isDebug = process.env.LOG_LEVEL === 'debug';
 
-  logger.debug('Creating SMTP transport', {
+  logger.debug('Creating SMTP transport (pooled)', {
     host: SMTP_HOST,
     port: Number(SMTP_PORT) || 587,
     secure: SMTP_SECURE === 'true',
     user,
   });
 
-  return nodemailer.createTransport({
+  cachedTransport = nodemailer.createTransport({
     host: SMTP_HOST,
     port: Number(SMTP_PORT) || 587,
     secure: SMTP_SECURE === 'true',
     auth: { user, pass },
-    logger: process.env.LOG_LEVEL === 'debug',
-    debug: process.env.LOG_LEVEL === 'debug',
+    pool: true,
+    maxConnections: 2,
+    maxMessages: 50,
+    socketTimeout: 15000,
+    greetingTimeout: 10000,
+    logger: isDebug,
+    debug: isDebug,
   });
+
+  return cachedTransport;
 }
 
 export async function sendContactEmails(payload) {
+  const startedAt = Date.now();
   const from = resolveFromAddress();
   const to = normalizeEmail(process.env.CONTACT_TO, DEFAULT_MAILBOX);
 
@@ -95,7 +104,7 @@ export async function sendContactEmails(payload) {
     reason: payload.reason,
   });
 
-  const transport = createTransport();
+  const transport = getTransport();
   if (!transport) {
     throw new Error('SMTP is not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS in server/.env.');
   }
@@ -104,44 +113,44 @@ export async function sendContactEmails(payload) {
   const userMail = userConfirmationEmail(payload);
 
   try {
-    logger.info('Sending admin notification email…', { to, subject: adminMail.subject });
-    const adminResult = await transport.sendMail({
-      from,
-      to,
-      replyTo: payload.email,
-      subject: adminMail.subject,
-      html: adminMail.html,
-    });
-    logger.info('Admin notification sent', {
-      messageId: adminResult.messageId,
-      accepted: adminResult.accepted,
-      rejected: adminResult.rejected,
+    logger.info('Sending both emails in parallel…');
+    const [adminResult, userResult] = await Promise.all([
+      transport.sendMail({
+        from,
+        to,
+        replyTo: payload.email,
+        subject: adminMail.subject,
+        html: adminMail.html,
+      }),
+      transport.sendMail({
+        from,
+        to: payload.email,
+        subject: userMail.subject,
+        html: userMail.html,
+      }),
+    ]);
+
+    logger.info('Contact emails sent', {
+      durationMs: Date.now() - startedAt,
+      adminMessageId: adminResult.messageId,
+      userMessageId: userResult.messageId,
     });
   } catch (err) {
-    logger.error('Failed to send admin notification', err);
+    logger.error('Contact email send failed', {
+      durationMs: Date.now() - startedAt,
+      err,
+    });
     throw err;
   }
+}
 
-  try {
-    logger.info('Sending visitor confirmation email…', {
-      to: payload.email,
-      subject: userMail.subject,
+/** Fire-and-forget: logs errors; does not throw to the HTTP handler. */
+export function dispatchContactEmails(payload) {
+  sendContactEmails(payload).catch((err) => {
+    logger.error('Background email send failed', {
+      email: payload.email,
+      name: payload.name,
+      err,
     });
-    const userResult = await transport.sendMail({
-      from,
-      to: payload.email,
-      subject: userMail.subject,
-      html: userMail.html,
-    });
-    logger.info('Visitor confirmation sent', {
-      messageId: userResult.messageId,
-      accepted: userResult.accepted,
-      rejected: userResult.rejected,
-    });
-  } catch (err) {
-    logger.error('Failed to send visitor confirmation', err);
-    throw err;
-  }
-
-  logger.info('All contact emails sent successfully');
+  });
 }
