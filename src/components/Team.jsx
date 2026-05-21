@@ -12,7 +12,7 @@ export function Team() {
         <Reveal delay={2} className="founder-card">
           <div className="founder-avatar">CV</div>
           <div>
-            <div className="founder-name">Camilo Arturo Victoria Labrada</div>
+            <div className="founder-name">Camilo A. Victoria L.</div>
             <div className="founder-role">// Founder · CEO · Product Architect</div>
             <p className="founder-bio">
               Builder, product strategist, and entrepreneur from Cali, Colombia. Camilo founded
@@ -26,7 +26,7 @@ export function Team() {
               fintech tools and global education marketplaces.
             </p>
             <div className="founder-links">
-              <a href="mailto:camilo@Velttora.com" className="founder-link">
+              <a href="mailto:camiloavict@gmail.com" className="founder-link">
                 <span>✉</span> camilo@Velttora.com
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="founder-link">
