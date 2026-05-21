@@ -1,6 +1,10 @@
 import { useI18n } from '../i18n/I18nProvider';
 import { Reveal } from './Reveal';
 
+function tagLabel(tag) {
+  return typeof tag === 'string' ? tag : tag.label;
+}
+
 export function Products() {
   const { t } = useI18n();
   const p = t.products;
@@ -28,26 +32,27 @@ export function Products() {
 
         <div className="products-grid">
           {p.items.map((product) => {
-            const CardTag = product.href ? 'a' : 'div';
             const isExternal = product.href?.startsWith('http');
-            const cardProps = product.href
-              ? {
-                  href: product.href,
-                  ...(isExternal
-                    ? { target: '_blank', rel: 'noopener noreferrer' }
-                    : {}),
-                  'aria-label': isExternal
-                    ? `${product.name} — ${p.openWebsite}`
-                    : `${product.name} — ${p.viewPitch}`,
-                }
-              : {};
 
             return (
               <Reveal key={product.name} delay={product.delay} className="product-card-reveal">
-                <CardTag
+                <div
                   className={`product-card${product.href ? ' product-card--link' : ''}`}
-                  {...cardProps}
                 >
+                  {product.href && (
+                    <a
+                      href={product.href}
+                      className="product-card-hit"
+                      {...(isExternal
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
+                      aria-label={
+                        isExternal
+                          ? `${product.name} — ${p.openWebsite}`
+                          : `${product.name} — ${p.viewPitch}`
+                      }
+                    />
+                  )}
                   <div className="product-num">{product.num}</div>
                   <div className="product-status">{product.status}</div>
                   <div className="product-icon">{product.icon}</div>
@@ -58,13 +63,34 @@ export function Products() {
                   <div className="product-tagline">{product.tagline}</div>
                   <p className="product-desc">{product.description}</p>
                   <div className="product-tags">
-                    {product.tags.map((tag) => (
-                      <span key={tag} className="product-tag">
-                        {tag}
-                      </span>
-                    ))}
+                    {product.tags.map((tag) => {
+                      const label = tagLabel(tag);
+                      const href = typeof tag === 'object' ? tag.href : null;
+
+                      if (href) {
+                        return (
+                          <a
+                            key={label}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="product-tag product-tag--link"
+                            aria-label={`${product.name} — ${p.openWebsite}`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {label}
+                          </a>
+                        );
+                      }
+
+                      return (
+                        <span key={label} className="product-tag">
+                          {label}
+                        </span>
+                      );
+                    })}
                   </div>
-                </CardTag>
+                </div>
               </Reveal>
             );
           })}

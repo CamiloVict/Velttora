@@ -1,5 +1,5 @@
 /* Pitch deck — mobile & tablet responsive overrides
-   Decks: urbi-*, cobraai-*, Hycap_PitchDeck_2026.html (Hycap) */
+   Decks: urbi-*, cobraai-*, hycap_pitch-deck.html, Edify_PitchDeck_2026.html */
 
 @media (max-width: 1024px) {
   .pad,
@@ -68,6 +68,8 @@
   .cta-content,
   [style*='padding:0 72px'],
   [style*='padding: 0 72px'],
+  [style*='padding:0 68px'],
+  [style*='padding: 0 68px'],
   [style*='padding:0 60px'],
   [style*='padding: 0 60px'] {
     padding-left: 18px !important;
@@ -323,30 +325,109 @@
     grid-template-columns: 1fr !important;
   }
 
-  /* Cards & tables */
+  /* Cards — allow horizontal scroll when content is wide */
   .card {
     padding: 16px !important;
-  }
-
-  .data-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
     -webkit-overflow-scrolling: touch;
   }
 
-  .data-table thead,
-  .data-table tbody,
-  .data-table tr {
+  /* Tables — scroll wrapper (fixes CobraAI comp-table parent overflow:hidden) */
+  table.data-table,
+  table.comp-table {
     display: table;
     width: max-content;
     min-width: 100%;
+    border-collapse: collapse;
   }
 
-  .data-table th,
-  .data-table td {
-    padding: 10px 12px 10px 0 !important;
+  table.data-table th,
+  table.data-table td,
+  table.comp-table th,
+  table.comp-table td {
+    padding: 10px 14px 10px 0 !important;
     font-size: 12px !important;
+    white-space: nowrap;
+  }
+
+  .slide.active div:has(> table),
+  .slide.active .card:has(table) {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  /* Tabular rows (cost breakdown, investment uses, city list) */
+  .cp-item,
+  #s10 .use-item,
+  #s9 .city-row {
+    flex-wrap: wrap !important;
+    gap: 4px 12px !important;
+  }
+
+  .cp-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .cp-label,
+  #s10 .use-name {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-break: break-word;
+  }
+
+  .cp-val,
+  #s10 .use-pct {
+    flex-shrink: 0 !important;
+  }
+
+  #s6 .cp-header {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Edify (Edify_PitchDeck_2026.html) */
+  #s4 .moat-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  #s5 .unit-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  #s10 .team-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  #s10 .ask-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  #s10 .ask-card [style*='display:flex'][style*='gap:16'] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  #s10 .ask-card [style*='font-size:52px'] {
+    font-size: clamp(40px, 11vw, 52px) !important;
+  }
+
+  #s1 .pillar-row {
+    gap: 6px !important;
+  }
+
+  .pillar-chip {
+    white-space: normal !important;
   }
 
   /* Stat rows inline in slides */

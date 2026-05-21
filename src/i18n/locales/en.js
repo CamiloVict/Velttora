@@ -67,11 +67,17 @@ export default {
         status: "MVP operational",
         icon: "📚",
         name: "Edify",
-        href: "https://www.edifyacademy.co/",
+        href: "/Edify_PitchDeck_2026.html",
         tagline: "// Marketplace for child education & care",
         description:
           "Edify is the global marketplace that connects families with certified providers of education and childcare — underpinned by a science-based annual learning plan. Unlike generic platforms, Edify integrates WHO/AAP/UNICEF methodology, AI matching, KYC verification, and curricular tracking for every child.",
-        tags: ["EdTech", "Marketplace", "AI Matching", "Global"],
+        tags: [
+          "EdTech",
+          "Marketplace",
+          "AI Matching",
+          "Global",
+          { label: "edifyacademy.co", href: "https://www.edifyacademy.co/" },
+        ],
         delay: null,
       },
       {

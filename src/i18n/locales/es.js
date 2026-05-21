@@ -67,11 +67,17 @@ export default {
         status: "MVP operativo",
         icon: "📚",
         name: "Edify",
-        href: "https://www.edifyacademy.co/",
+        href: "/Edify_PitchDeck_2026.html",
         tagline: "// Marketplace de educación y cuidado infantil",
         description:
           "Edify conecta familias con educadores y cuidadores certificados, con un plan anual de aprendizaje basado en ciencia. Integra metodología OMS/AAP/UNICEF, matching con IA, verificación KYC y seguimiento curricular por niño.",
-        tags: ["EdTech", "Marketplace", "IA", "Global"],
+        tags: [
+          "EdTech",
+          "Marketplace",
+          "IA",
+          "Global",
+          { label: "edifyacademy.co", href: "https://www.edifyacademy.co/" },
+        ],
         delay: null,
       },
       {
