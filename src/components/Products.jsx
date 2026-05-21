@@ -25,23 +25,47 @@ export function Products() {
         </div>
 
         <div className="products-grid">
-          {products.map((product) => (
-            <Reveal key={product.name} delay={product.delay} className="product-card">
-              <div className="product-num">{product.num}</div>
-              <div className="product-status">{product.status}</div>
-              <div className="product-icon">{product.icon}</div>
-              <div className="product-name">{product.name}</div>
-              <div className="product-tagline">{product.tagline}</div>
-              <p className="product-desc">{product.description}</p>
-              <div className="product-tags">
-                {product.tags.map((tag) => (
-                  <span key={tag} className="product-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
-          ))}
+          {products.map((product) => {
+            const CardTag = product.href ? 'a' : 'div';
+            const isExternal = product.href?.startsWith('http');
+            const cardProps = product.href
+              ? {
+                  href: product.href,
+                  ...(isExternal
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {}),
+                  'aria-label': isExternal
+                    ? `${product.name} — open website`
+                    : `${product.name} — view pitch deck`,
+                }
+              : {};
+
+            return (
+              <Reveal key={product.name} delay={product.delay}>
+                <CardTag
+                  className={`product-card${product.href ? ' product-card--link' : ''}`}
+                  {...cardProps}
+                >
+                  <div className="product-num">{product.num}</div>
+                  <div className="product-status">{product.status}</div>
+                  <div className="product-icon">{product.icon}</div>
+                  <div className="product-name">
+                    {product.name}
+                    {product.href && <span className="product-external">↗</span>}
+                  </div>
+                  <div className="product-tagline">{product.tagline}</div>
+                  <p className="product-desc">{product.description}</p>
+                  <div className="product-tags">
+                    {product.tags.map((tag) => (
+                      <span key={tag} className="product-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </CardTag>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

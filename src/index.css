@@ -393,13 +393,38 @@ section { position: relative; z-index: 1; }
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
+.products-grid > .reveal {
+  height: 100%;
+}
 .product-card {
+  display: block;
+  height: 100%;
   background: var(--surface);
   padding: 48px 44px;
   position: relative;
   overflow: hidden;
   transition: background var(--transition);
   cursor: default;
+  color: inherit;
+  text-decoration: none;
+}
+.product-card--link {
+  cursor: pointer;
+}
+.product-card--link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.product-external {
+  margin-left: 8px;
+  font-size: 0.875rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.product-card--link:hover .product-external {
+  opacity: 1;
+  transform: translate(2px, -2px);
 }
 .product-card::after {
   content: '';
