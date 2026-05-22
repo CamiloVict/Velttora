@@ -852,6 +852,8 @@ section { position: relative; z-index: 1; }
 .footer-links {
   display: flex;
   gap: 24px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 .footer-links a {
   font-size: 0.8125rem;

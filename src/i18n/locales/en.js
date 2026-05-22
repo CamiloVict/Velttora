@@ -1,6 +1,6 @@
 export default {
   meta: {
-    title: "Velttora LLC — AI-Powered Software for the Real World",
+    title: "Velttora LLC — Software Platforms for the Real World",
     description:
       "Velttora LLC builds AI-powered software platforms that transform slow, fragmented industries — from debt collection to civic tech, education, and fitness.",
   },
@@ -209,5 +209,11 @@ export default {
     about: "About",
     products: "Products",
     contact: "Contact",
+    industryLinks: [
+      { label: "GovTech Platform", href: "/govtech-software-colombia.html" },
+      { label: "FinTech Platform", href: "/debt-collection-software-latam.html" },
+      { label: "EdTech Platform", href: "/edtech-marketplace-software.html" },
+      { label: "SportsTech Platform", href: "/fitness-competition-platform.html" },
+    ],
   },
 };
