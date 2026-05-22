@@ -4,6 +4,28 @@
   "installCommand": "pnpm install",
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/ai-govtech-colombia.html",
+      "destination": "/govtech-software-colombia.html",
+      "permanent": true
+    },
+    {
+      "source": "/ai-debt-collection-latam.html",
+      "destination": "/debt-collection-software-latam.html",
+      "permanent": true
+    },
+    {
+      "source": "/ai-edtech-marketplace.html",
+      "destination": "/edtech-marketplace-software.html",
+      "permanent": true
+    },
+    {
+      "source": "/ai-fitness-competition-platform.html",
+      "destination": "/fitness-competition-platform.html",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!.*\\..*).*)",

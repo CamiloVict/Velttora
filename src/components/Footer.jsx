@@ -14,11 +14,6 @@ export function Footer() {
           <a href="#about">{t.footer.about}</a>
           <a href="#products">{t.footer.products}</a>
           <a href="#contact">{t.footer.contact}</a>
-          {t.footer.industryLinks?.map((link) => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
-          ))}
         </nav>
       </div>
     </footer>

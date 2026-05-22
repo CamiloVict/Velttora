@@ -2,7 +2,7 @@ export default {
   meta: {
     title: "Velttora LLC — Plataformas de software para el mundo real",
     description:
-      "Velttora LLC construye plataformas de software con inteligencia artificial que transforman industrias lentas y fragmentadas — desde cobranza y GovTech hasta educación y fitness.",
+      "Velttora LLC construye plataformas de software que transforman industrias lentas y fragmentadas — desde cobranza y GovTech hasta marketplaces educativos y competencias fitness.",
   },
   nav: {
     about: "Nosotros",
@@ -209,11 +209,5 @@ export default {
     about: "Nosotros",
     products: "Productos",
     contact: "Contacto",
-    industryLinks: [
-      { label: "Plataforma GovTech", href: "/govtech-software-colombia.html" },
-      { label: "Plataforma FinTech", href: "/debt-collection-software-latam.html" },
-      { label: "Plataforma EdTech", href: "/edtech-marketplace-software.html" },
-      { label: "Plataforma SportsTech", href: "/fitness-competition-platform.html" },
-    ],
   },
 };
