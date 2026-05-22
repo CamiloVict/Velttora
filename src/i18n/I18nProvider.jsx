@@ -19,17 +19,16 @@ export function I18nProvider({ children }) {
     if (desc) desc.setAttribute('content', t.meta.description);
 
     const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', locale === 'es' ? 'Velttora LLC' : 'Velttora LLC');
+    if (ogTitle) ogTitle.setAttribute('content', t.meta.title);
 
     const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) {
-      ogDesc.setAttribute(
-        'content',
-        locale === 'es'
-          ? 'Construimos tecnología que hace avanzar las industrias.'
-          : 'We build technology that moves industries forward.',
-      );
-    }
+    if (ogDesc) ogDesc.setAttribute('content', t.meta.description);
+
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', t.meta.title);
+
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDesc) twitterDesc.setAttribute('content', t.meta.description);
   }, [locale, t]);
 
   const value = useMemo(() => ({ locale, t }), [locale, t]);
