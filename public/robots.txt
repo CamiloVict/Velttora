@@ -1,4 +1,11 @@
+# https://www.velttora.com/robots.txt
 User-agent: *
 Allow: /
 
-Sitemap: https://velttora.com/sitemap.xml
+# Legacy AI landing URLs redirect to neutral pages (see vercel.json)
+Disallow: /ai-govtech-colombia.html
+Disallow: /ai-debt-collection-latam.html
+Disallow: /ai-edtech-marketplace.html
+Disallow: /ai-fitness-competition-platform.html
+
+Sitemap: https://www.velttora.com/sitemap.xml

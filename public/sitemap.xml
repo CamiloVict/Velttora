@@ -1,88 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
   <url>
-    <loc>https://velttora.com/</loc>
+    <loc>https://www.velttora.com/</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://velttora.com/urbi-pitch-deck.html</loc>
+    <loc>https://www.velttora.com/urbi-pitch-deck.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/urbi-pitch-deck.es.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/urbi-pitch-deck.en.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/cobraai-pitch-deck.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/cobraai-pitch-deck.es.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/cobraai-pitch-deck.en.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/hycap_pitch-deck.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/Edify_PitchDeck_2026.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.velttora.com/govtech-software-colombia.html</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/govtech-software-colombia.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/govtech-software-colombia.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/govtech-software-colombia.html" />
   </url>
   <url>
-    <loc>https://velttora.com/urbi-pitch-deck.es.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/urbi-pitch-deck.en.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/cobraai-pitch-deck.html</loc>
+    <loc>https://www.velttora.com/govtech-software-colombia.es.html</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/govtech-software-colombia.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/govtech-software-colombia.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/govtech-software-colombia.html" />
   </url>
   <url>
-    <loc>https://velttora.com/cobraai-pitch-deck.es.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/cobraai-pitch-deck.en.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/hycap_pitch-deck.html</loc>
+    <loc>https://www.velttora.com/debt-collection-software-latam.html</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/debt-collection-software-latam.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/debt-collection-software-latam.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/debt-collection-software-latam.html" />
   </url>
   <url>
-    <loc>https://velttora.com/Edify_PitchDeck_2026.html</loc>
+    <loc>https://www.velttora.com/debt-collection-software-latam.es.html</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/debt-collection-software-latam.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/debt-collection-software-latam.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/debt-collection-software-latam.html" />
   </url>
   <url>
-    <loc>https://velttora.com/govtech-software-colombia.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.velttora.com/edtech-marketplace-software.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/edtech-marketplace-software.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/edtech-marketplace-software.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/edtech-marketplace-software.html" />
   </url>
   <url>
-    <loc>https://velttora.com/debt-collection-software-latam.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.velttora.com/edtech-marketplace-software.es.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/edtech-marketplace-software.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/edtech-marketplace-software.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/edtech-marketplace-software.html" />
   </url>
   <url>
-    <loc>https://velttora.com/edtech-marketplace-software.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.velttora.com/fitness-competition-platform.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/fitness-competition-platform.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/fitness-competition-platform.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/fitness-competition-platform.html" />
   </url>
   <url>
-    <loc>https://velttora.com/fitness-competition-platform.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/govtech-software-colombia.es.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/debt-collection-software-latam.es.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/edtech-marketplace-software.es.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://velttora.com/fitness-competition-platform.es.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.velttora.com/fitness-competition-platform.es.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.velttora.com/fitness-competition-platform.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.velttora.com/fitness-competition-platform.es.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.velttora.com/fitness-competition-platform.html" />
   </url>
 </urlset>

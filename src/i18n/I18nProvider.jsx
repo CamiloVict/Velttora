@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo } from 'react';
+import { SITE_ORIGIN } from '../constants/site';
 import { detectLocale } from './detectLocale';
 import en from './locales/en.js';
 import es from './locales/es.js';
@@ -29,6 +30,12 @@ export function I18nProvider({ children }) {
 
     const twitterDesc = document.querySelector('meta[name="twitter:description"]');
     if (twitterDesc) twitterDesc.setAttribute('content', t.meta.description);
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `${SITE_ORIGIN}/`);
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', `${SITE_ORIGIN}/`);
   }, [locale, t]);
 
   const value = useMemo(() => ({ locale, t }), [locale, t]);
