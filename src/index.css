@@ -411,15 +411,10 @@ section { position: relative; z-index: 1; }
 }
 .product-card--link {
   cursor: pointer;
-}
-.product-card-hit {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
   text-decoration: none;
+  color: inherit;
 }
-.product-card-hit:focus-visible,
+.product-card--link:focus-visible,
 .product-tag--link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -442,6 +437,7 @@ section { position: relative; z-index: 1; }
   background: radial-gradient(circle at 80% 20%, var(--accent-dim), transparent 60%);
   opacity: 0;
   transition: opacity var(--transition);
+  pointer-events: none;
 }
 .product-card:hover { background: var(--surface-2); }
 .product-card:hover::after { opacity: 1; }
@@ -471,8 +467,6 @@ section { position: relative; z-index: 1; }
   justify-content: center;
   font-size: 1.375rem;
   margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
 }
 .product-name {
   font-family: var(--font-display);
@@ -481,8 +475,6 @@ section { position: relative; z-index: 1; }
   letter-spacing: -0.02em;
   margin-bottom: 12px;
   color: var(--text-primary);
-  position: relative;
-  z-index: 1;
 }
 .product-tagline {
   font-size: 0.8125rem;
@@ -490,23 +482,17 @@ section { position: relative; z-index: 1; }
   font-family: var(--font-mono);
   letter-spacing: 0.04em;
   margin-bottom: 16px;
-  position: relative;
-  z-index: 1;
 }
 .product-desc {
   font-size: 0.9375rem;
   color: var(--text-secondary);
   line-height: 1.75;
   margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
 }
 .product-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  position: relative;
-  z-index: 2;
 }
 .product-tag {
   font-size: 0.75rem;
@@ -519,8 +505,6 @@ section { position: relative; z-index: 1; }
   transition: all var(--transition);
 }
 .product-tag--link {
-  position: relative;
-  z-index: 2;
   cursor: pointer;
   text-decoration: none;
   background: var(--surface);
@@ -542,8 +526,6 @@ section { position: relative; z-index: 1; }
   color: var(--accent);
   font-family: var(--font-mono);
   margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
 }
 .product-status::before {
   content: '';
