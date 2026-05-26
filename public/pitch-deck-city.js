@@ -15,7 +15,7 @@
         heroTagline:
           'La infraestructura de participación ciudadana digital<br>de Cali — y de toda Colombia.',
         problemHeadline:
-          'Cali tiene <span class="g">2.2 millones</span> de ciudadanos<br>y <span class="a">cero canales digitales</span> que funcionen.',
+          'Cali tiene <span class="g">2.3 millones</span> de ciudadanos<br>y <span class="a">cero canales digitales</span> que funcionen.',
         benchFeatured: 'Cali → Valle del Cauca → Colombia',
         opportunityCities:
           'Medellín, Bogotá, Barranquilla no tienen esto. El primero en entrar al mercado GovTech de reportes ciudadanos en Colombia define el estándar. Ese primero podemos ser nosotros.',
@@ -34,9 +34,9 @@
         somDesc:
           'Cali + 8 ciudades colombianas + 2 ciudades en otro país LATAM. ARR alcanzable en 36 meses.',
         cityNameCali: '🏙️ Cali',
-        cityPopCali: '2.2M hab · Fase 1 ← Ahora',
+        cityPopCali: '2.3M hab · Fase 1 ← Ahora',
         cityNameMedellin: '🏙️ Medellín',
-        cityPopMedellin: '2.9M hab · Fase 3',
+        cityPopMedellin: '2.5M hab · Fase 3',
         cityNameMetro: '🏘️ Municipios del Valle',
         cityPopMetro: '42 mun · Gobernación',
         timelineLetter: 'Carta de intención · Alcaldía Cali',
@@ -49,7 +49,7 @@
         heroTagline:
           'The digital civic participation infrastructure<br>for Cali — and all of Colombia.',
         problemHeadline:
-          'Cali has <span class="g">2.2 million</span> citizens<br>and <span class="a">zero digital channels</span> that actually work.',
+          'Cali has <span class="g">2.3 million</span> citizens<br>and <span class="a">zero digital channels</span> that actually work.',
         benchFeatured: 'Cali → Valle del Cauca → Colombia',
         opportunityCities:
           'Medellín, Bogotá, and Barranquilla do not have this yet. The first mover in Colombia\'s citizen-reporting GovTech market sets the standard — and that can be us.',
@@ -68,9 +68,9 @@
         somDesc:
           'Cali + 8 Colombian cities + 2 cities in another LATAM country. Achievable ARR in 36 months.',
         cityNameCali: '🏙️ Cali',
-        cityPopCali: '2.2M pop · Phase 1 ← Now',
+        cityPopCali: '2.3M pop · Phase 1 ← Now',
         cityNameMedellin: '🏙️ Medellín',
-        cityPopMedellin: '2.9M pop · Phase 3',
+        cityPopMedellin: '2.5M pop · Phase 3',
         cityNameMetro: '🏘️ Valle municipalities',
         cityPopMetro: '42 mun · Regional gov',
         timelineLetter: 'Letter of intent · Cali City Hall',
@@ -104,9 +104,9 @@
         somDesc:
           'Medellín + 8 ciudades colombianas + 2 ciudades en otro país LATAM. ARR alcanzable en 36 meses.',
         cityNameCali: '🏙️ Cali',
-        cityPopCali: '2.2M hab · Fase 3',
+        cityPopCali: '2.3M hab · Fase 3',
         cityNameMedellin: '🏙️ Medellín',
-        cityPopMedellin: '2.9M hab · Fase 1 ← Ahora',
+        cityPopMedellin: '2.5M hab · Fase 1 ← Ahora',
         cityNameMetro: '🏘️ Área Metropolitana',
         cityPopMetro: '10 mun · Gobernación',
         timelineLetter: 'Carta de intención · Alcaldía de Medellín',
@@ -138,9 +138,9 @@
         somDesc:
           'Medellín + 8 Colombian cities + 2 cities in another LATAM country. Achievable ARR in 36 months.',
         cityNameCali: '🏙️ Cali',
-        cityPopCali: '2.2M pop · Phase 3',
+        cityPopCali: '2.3M pop · Phase 3',
         cityNameMedellin: '🏙️ Medellín',
-        cityPopMedellin: '2.9M pop · Phase 1 ← Now',
+        cityPopMedellin: '2.5M pop · Phase 1 ← Now',
         cityNameMetro: '🏘️ Metropolitan Area',
         cityPopMetro: '10 mun · Regional gov',
         timelineLetter: 'Letter of intent · Medellín City Hall',
@@ -272,14 +272,14 @@
       return fromUrl;
     }
 
+    const fromStorage = cityFromStorage();
+    if (fromStorage && SUPPORTED.includes(fromStorage)) return fromStorage;
+
     const fromIP = await cityFromIP();
     if (fromIP && SUPPORTED.includes(fromIP)) {
       persistCity(fromIP);
       return fromIP;
     }
-
-    const fromStorage = cityFromStorage();
-    if (fromStorage && SUPPORTED.includes(fromStorage)) return fromStorage;
 
     return 'cali';
   }
