@@ -6,10 +6,11 @@
 function routePitchDeck(slug) {
   const prefersEs = (navigator.language || 'en').toLowerCase().startsWith('es');
   const suffix = prefersEs ? '.es' : '.en';
-  const target = '/' + slug + '-pitch-deck' + suffix + '.html';
-  const current = window.location.pathname;
+  const search = window.location.search;
+  const target = '/' + slug + '-pitch-deck' + suffix + '.html' + search;
+  const current = window.location.pathname + window.location.search;
 
-  if (!current.endsWith(target)) {
+  if (current !== target) {
     window.location.replace(target);
   }
 }
