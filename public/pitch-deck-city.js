@@ -4,6 +4,8 @@
  */
 (function () {
   const STORAGE_KEY = 'urbi-pitch-city';
+  const STORAGE_AT_KEY = 'urbi-pitch-city-at';
+  const STORAGE_TTL_MS = 6 * 60 * 60 * 1000;
   const SUPPORTED = ['cali', 'medellin'];
 
   const COPY = {
@@ -162,9 +164,20 @@
     'copacabana',
     'barbosa',
     'girardota',
+    'antioquia',
+    'area metropolitana',
+    'área metropolitana',
   ];
 
-  const CALI_MATCH = ['cali', 'palmira', 'yumbo', 'jamundi', 'jamundí', 'candelaria'];
+  const CALI_MATCH = [
+    'cali',
+    'palmira',
+    'yumbo',
+    'jamundi',
+    'jamundí',
+    'candelaria',
+    'valle del cauca',
+  ];
 
   function normalizeCity(value) {
     const slug = String(value || '')
@@ -194,7 +207,11 @@
 
   function cityFromStorage() {
     try {
-      return normalizeCity(localStorage.getItem(STORAGE_KEY));
+      const city = normalizeCity(localStorage.getItem(STORAGE_KEY));
+      const at = Number(localStorage.getItem(STORAGE_AT_KEY) || 0);
+      if (!city) return null;
+      if (!Number.isFinite(at) || Date.now() - at > STORAGE_TTL_MS) return null;
+      return city;
     } catch {
       return null;
     }
@@ -203,23 +220,49 @@
   function persistCity(city) {
     try {
       localStorage.setItem(STORAGE_KEY, city);
+      localStorage.setItem(STORAGE_AT_KEY, String(Date.now()));
     } catch {
       /* ignore */
     }
   }
 
-  async function cityFromIP() {
+  async function fetchJsonWithTimeout(url, timeoutMs) {
+    const hasAbortController = typeof AbortController !== 'undefined';
+    const controller = hasAbortController ? new AbortController() : null;
+    const timer = setTimeout(() => {
+      if (controller) controller.abort();
+    }, timeoutMs);
+
     try {
-      const res = await fetch('https://ipapi.co/json/', {
-        signal: AbortSignal.timeout(4000),
-      });
+      const res = await fetch(url, controller ? { signal: controller.signal } : undefined);
       if (!res.ok) return null;
-      const data = await res.json();
-      if (data.country_code && data.country_code !== 'CO') return null;
-      return matchCityName(data.city) || matchCityName(data.region);
+      return await res.json();
     } catch {
       return null;
+    } finally {
+      clearTimeout(timer);
     }
+  }
+
+  async function cityFromIP() {
+    const ipapi = await fetchJsonWithTimeout('https://ipapi.co/json/', 3500);
+    if (ipapi) {
+      const country = String(ipapi.country_code || '').toUpperCase();
+      if (!country || country === 'CO') {
+        const hit = matchCityName(ipapi.city) || matchCityName(ipapi.region);
+        if (hit) return hit;
+      }
+    }
+
+    const ipwho = await fetchJsonWithTimeout('https://ipwho.is/', 3500);
+    if (ipwho && ipwho.success !== false) {
+      const country = String(ipwho.country_code || '').toUpperCase();
+      if (!country || country === 'CO') {
+        return matchCityName(ipwho.city) || matchCityName(ipwho.region);
+      }
+    }
+
+    return null;
   }
 
   async function resolveCity() {
@@ -229,14 +272,14 @@
       return fromUrl;
     }
 
-    const fromStorage = cityFromStorage();
-    if (fromStorage && SUPPORTED.includes(fromStorage)) return fromStorage;
-
     const fromIP = await cityFromIP();
     if (fromIP && SUPPORTED.includes(fromIP)) {
       persistCity(fromIP);
       return fromIP;
     }
+
+    const fromStorage = cityFromStorage();
+    if (fromStorage && SUPPORTED.includes(fromStorage)) return fromStorage;
 
     return 'cali';
   }
