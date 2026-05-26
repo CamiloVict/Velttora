@@ -101,7 +101,13 @@ export default {
         tagline: "// Intelligent debt recovery platform",
         description:
           "CobraAI automates the full lifecycle of debt collection — from portfolio ingestion to payment plans, digital outreach, and legal escalation. Lenders and collection agencies replace manual workflows with an AI engine that scores debtors, orchestrates communication, and recovers more, faster.",
-        tags: ["FinTech", "AI Orchestration", "B2B SaaS", "LATAM"],
+        tags: [
+          "FinTech",
+          "AI Orchestration",
+          "B2B SaaS",
+          "LATAM",
+          { label: "cobra-ai.com", href: "https://cobra-ai-web.vercel.app" },
+        ],
         delay: null,
       },
       {

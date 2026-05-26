@@ -101,7 +101,13 @@ export default {
         tagline: "// Cobranza inteligente",
         description:
           "CobraAI automatiza todo el ciclo de cobranza — desde la ingesta de cartera hasta planes de pago, contacto digital y escalamiento legal. Reemplaza flujos manuales con un motor de IA que puntúa, orquesta y recupera más y más rápido.",
-        tags: ["FinTech", "Orquestación IA", "B2B SaaS", "LATAM"],
+        tags: [
+          "FinTech",
+          "Orquestación IA",
+          "B2B SaaS",
+          "LATAM",
+          { label: "cobra-ai.com", href: "https://cobra-ai-web.vercel.app" },
+        ],
         delay: null,
       },
       {
