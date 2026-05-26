@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Urbi — Pitch Deck</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
 
@@ -322,6 +323,129 @@ body::before {
   font-size: 11px; font-weight: 700; color: var(--green); margin-top: 6px;
 }
 
+/* ── SLIDE DEMO: PRODUCTO ── */
+
+#s_demo { padding: 0; }
+#s_demo > div { display: flex; flex: 1; gap: 0; min-height: 0; }
+.demo-step-btn {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: left;
+  font-family: inherit;
+  width: 100%;
+  color: inherit;
+}
+.demo-step-btn.active {
+  border-color: rgba(0,229,160,0.4) !important;
+  background: rgba(0,229,160,0.06) !important;
+}
+.demo-step-btn:hover:not(.active) {
+  border-color: rgba(255,255,255,0.15) !important;
+  background: rgba(255,255,255,0.03) !important;
+}
+
+#s_demo .urbi-proto {
+  --font-sans: 'Bricolage Grotesque', sans-serif;
+  --color-text-primary: #0D1B2A;
+  --color-text-secondary: #5C6B7A;
+  --color-text-tertiary: #8B9AAB;
+  --color-text-success: #007A5E;
+  --color-text-warning: #C45A00;
+  --color-text-info: #1565C0;
+  --color-background-primary: #FFFFFF;
+  --color-background-secondary: #F4F6F8;
+  --color-background-tertiary: #EEF1F4;
+  --color-background-success: #E6FBF5;
+  --color-background-warning: #FFF4E6;
+  --color-background-info: #E8F4FD;
+  --color-border-primary: #D8DEE4;
+  --color-border-secondary: #C5CDD6;
+  --color-border-tertiary: #E2E8EE;
+  --color-border-success: rgba(0, 200, 150, 0.35);
+  --color-border-warning: rgba(255, 140, 66, 0.45);
+  --border-radius-md: 10px;
+  --border-radius-lg: 14px;
+  font-family: var(--font-sans);
+}
+#s_demo .urbi-proto .device {
+  width: 280px;
+  height: 580px;
+  border-radius: 40px;
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: var(--bg2);
+  flex-shrink: 0;
+}
+#s_demo .urbi-proto .screen-wrap { border-radius: 34px; }
+#s_demo .urbi-proto .cat-grid-full {
+  max-height: 140px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+#s_demo .urbi-proto .cat-grid-full::-webkit-scrollbar { width: 3px; }
+#s_demo .urbi-proto .cat-grid-full::-webkit-scrollbar-thumb {
+  background: rgba(0, 200, 150, 0.35);
+  border-radius: 3px;
+}
+#s_demo .urbi-proto .screen-wrap{width:100%;height:100%;background:var(--color-background-primary);border-radius:28px;overflow:hidden;position:relative}#s_demo .urbi-proto .screen{position:absolute;inset:0;display:none;flex-direction:column}#s_demo .urbi-proto .screen.active{display:flex;animation:sIn .25s ease}#s_demo .urbi-proto .sbar{height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0}#s_demo .urbi-proto .sbar-time{font-size:13px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .sbar-icons{display:flex;gap:5px;align-items:center}#s_demo .urbi-proto .sbar-icons i{font-size:14px;color:var(--color-text-primary)}#s_demo .urbi-proto .topbar{height:48px;display:flex;align-items:center;padding:0 16px;gap:10px;border-bottom:0.5px solid var(--color-border-tertiary);flex-shrink:0}#s_demo .urbi-proto .back-btn{width:30px;height:30px;border-radius:50%;background:var(--color-background-secondary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}#s_demo .urbi-proto .back-btn i{font-size:16px;color:var(--color-text-secondary)}#s_demo .urbi-proto .topbar-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .topbar-badge{margin-left:auto;background:var(--color-background-success);color:var(--color-text-success);font-size:10px;font-weight:500;padding:3px 8px;border-radius:20px}#s_demo .urbi-proto .scroll{flex:1;overflow-y:auto}#s_demo .urbi-proto .scroll::-webkit-scrollbar{display:none}#s_demo .urbi-proto .tabbar{height:64px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;padding:0 6px 6px;flex-shrink:0}#s_demo .urbi-proto .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:none;cursor:pointer;padding:6px}#s_demo .urbi-proto .tab i{font-size:18px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .tab span{font-size:9px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .tab.on i,#s_demo .urbi-proto .tab.on span{color:var(--color-text-success)}#s_demo .urbi-proto .fab{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:var(--color-background-success);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9}#s_demo .urbi-proto .fab i{font-size:22px;color:var(--color-text-success)}#s_demo .urbi-proto .s-splash{background:var(--color-background-tertiary)}#s_demo .urbi-proto .s-splash .sbar{background:transparent}#s_demo .urbi-proto .s-splash .sbar-time{color:var(--color-text-primary)}#s_demo .urbi-proto .splash-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 24px}#s_demo .urbi-proto .splash-icon-wrap{width:80px;height:80px;border-radius:24px;background:var(--color-background-success);display:flex;align-items:center;justify-content:center;margin-bottom:20px;border:0.5px solid var(--color-border-success)}#s_demo .urbi-proto .splash-icon-wrap i{font-size:36px;color:var(--color-text-success)}#s_demo .urbi-proto .splash-name{font-size:26px;font-weight:500;color:var(--color-text-primary);letter-spacing:-.5px;margin-bottom:4px}#s_demo .urbi-proto .splash-tag{font-size:13px;color:var(--color-text-secondary);margin-bottom:32px;text-align:center}#s_demo .urbi-proto .splash-cta{width:100%;padding:13px;border-radius:var(--border-radius-lg);background:var(--color-background-success);border:none;cursor:pointer;font-size:14px;font-weight:500;color:var(--color-text-success);margin-bottom:10px}#s_demo .urbi-proto .splash-note{font-size:11px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .home-header{background:var(--color-background-tertiary);padding:14px 16px 20px}#s_demo .urbi-proto .hh-sub{font-size:12px;color:var(--color-text-secondary);margin-bottom:2px}#s_demo .urbi-proto .hh-name{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}#s_demo .urbi-proto .hh-loc{font-size:11px;color:var(--color-text-success);display:flex;align-items:center;gap:4px}#s_demo .urbi-proto .hh-loc i{font-size:12px}#s_demo .urbi-proto .stats-row{display:flex;gap:8px;padding:0 12px;margin-top:-14px;position:relative;z-index:2}#s_demo .urbi-proto .stat-c{flex:1;background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;border:0.5px solid var(--color-border-tertiary);text-align:center}#s_demo .urbi-proto .stat-v{font-size:18px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .stat-l{font-size:9px;color:var(--color-text-tertiary);margin-top:1px}#s_demo .urbi-proto .stat-c.g .stat-v{color:var(--color-text-success)}#s_demo .urbi-proto .stat-c.a .stat-v{color:var(--color-text-warning)}#s_demo .urbi-proto .sec-title{font-size:13px;font-weight:500;color:var(--color-text-primary);padding:16px 16px 8px}#s_demo .urbi-proto .qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 12px}#s_demo .urbi-proto .qi{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;border:none;cursor:pointer;transition:background .15s}#s_demo .urbi-proto .qi:hover{background:var(--color-background-success)}#s_demo .urbi-proto .qi i{font-size:20px;color:var(--color-text-secondary)}#s_demo .urbi-proto .qi:hover i{color:var(--color-text-success)}#s_demo .urbi-proto .qi span{font-size:9px;color:var(--color-text-tertiary);font-weight:500}#s_demo .urbi-proto .feed-c{margin:0 12px 8px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px;cursor:pointer;transition:border-color .15s}#s_demo .urbi-proto .feed-c:hover{border-color:var(--color-border-success)}#s_demo .urbi-proto .feed-row{display:flex;align-items:flex-start;gap:9px}#s_demo .urbi-proto .feed-ava{width:32px;height:32px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}#s_demo .urbi-proto .feed-ava i{font-size:16px}#s_demo .urbi-proto .feed-ava.road{background:var(--color-background-warning)}#s_demo .urbi-proto .feed-ava.road i{color:var(--color-text-warning)}#s_demo .urbi-proto .feed-ava.env{background:var(--color-background-success)}#s_demo .urbi-proto .feed-ava.env i{color:var(--color-text-success)}#s_demo .urbi-proto .feed-ava.acc{background:var(--color-background-info)}#s_demo .urbi-proto .feed-ava.acc i{color:var(--color-text-info)}#s_demo .urbi-proto .feed-info{flex:1}#s_demo .urbi-proto .feed-title{font-size:12px;font-weight:500;color:var(--color-text-primary);line-height:1.3;margin-bottom:2px}#s_demo .urbi-proto .feed-meta{font-size:10px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .feed-chip{font-size:9px;font-weight:500;padding:2px 7px;border-radius:20px;flex-shrink:0}#s_demo .urbi-proto .chip-proc{background:var(--color-background-warning);color:var(--color-text-warning)}#s_demo .urbi-proto .chip-res{background:var(--color-background-success);color:var(--color-text-success)}#s_demo .urbi-proto .chip-rec{background:var(--color-background-info);color:var(--color-text-info)}#s_demo .urbi-proto .feed-bar{height:3px;background:var(--color-background-secondary);border-radius:3px;margin-top:9px;overflow:hidden}#s_demo .urbi-proto .fp{height:100%;border-radius:3px}#s_demo .urbi-proto .fp-p{background:var(--color-background-warning);width:55%}#s_demo .urbi-proto .fp-r{background:var(--color-background-success);width:100%}#s_demo .urbi-proto .fp-rec{background:var(--color-background-info);width:20%}#s_demo .urbi-proto .level-c{margin:0 12px 16px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px;border:0.5px solid var(--color-border-tertiary)}#s_demo .urbi-proto .lc-top{display:flex;justify-content:space-between;align-items:flex-start}#s_demo .urbi-proto .lc-badge{font-size:11px;font-weight:500;background:var(--color-background-success);color:var(--color-text-success);padding:3px 8px;border-radius:20px;margin-bottom:6px;display:inline-block}#s_demo .urbi-proto .lc-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .lc-pts{font-size:11px;color:var(--color-text-secondary);margin-top:2px}#s_demo .urbi-proto .lc-next{font-size:10px;color:var(--color-text-success);margin-top:3px}#s_demo .urbi-proto .lc-icon{font-size:28px}#s_demo .urbi-proto .lc-bar{height:5px;background:var(--color-border-tertiary);border-radius:5px;margin-top:10px;overflow:hidden}#s_demo .urbi-proto .lc-fill{height:100%;width:38%;background:var(--color-background-success);border-radius:5px}#s_demo .urbi-proto .photo-zone{margin:12px;height:160px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);border:0.5px dashed var(--color-border-secondary);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;position:relative;overflow:hidden;transition:border-color .2s}#s_demo .urbi-proto .photo-zone:hover,#s_demo .urbi-proto .photo-zone.filled{border-color:var(--color-border-success)}#s_demo .urbi-proto .photo-zone.filled{background:var(--color-background-success)}#s_demo .urbi-proto .pz-icon i{font-size:28px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .pz-text{font-size:12px;color:var(--color-text-secondary)}#s_demo .urbi-proto .pz-sub{font-size:10px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .pz-filled{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px}#s_demo .urbi-proto .pz-filled.show{display:flex}#s_demo .urbi-proto .pz-big-icon i{font-size:40px;color:var(--color-text-success)}#s_demo .urbi-proto .pz-loc{font-size:10px;font-weight:500;color:var(--color-text-success);background:var(--color-background-success);padding:3px 8px;border-radius:20px}#s_demo .urbi-proto .ai-badge{margin:0 12px 10px;background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:var(--border-radius-lg);padding:11px 13px;display:none;align-items:center;gap:9px}#s_demo .urbi-proto .ai-badge.show{display:flex;animation:popIn .25s ease}#s_demo .urbi-proto .ai-ic i{font-size:18px;color:var(--color-text-success)}#s_demo .urbi-proto .ai-body{flex:1}#s_demo .urbi-proto .ai-lbl{font-size:9px;font-weight:500;color:var(--color-text-success);letter-spacing:.5px;text-transform:uppercase}#s_demo .urbi-proto .ai-val{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-top:1px}#s_demo .urbi-proto .ai-conf{font-size:10px;color:var(--color-text-secondary)}#s_demo .urbi-proto .ai-chk i{font-size:16px;color:var(--color-text-success)}#s_demo .urbi-proto .inp-group{margin:0 12px 10px}#s_demo .urbi-proto .inp-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}#s_demo .urbi-proto .inp-field{width:100%;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;font-size:12px;color:var(--color-text-primary);outline:none;resize:none;font-family:var(--font-sans)}#s_demo .urbi-proto .inp-field:focus{border-color:var(--color-border-success)}#s_demo .urbi-proto .inp-loc{background:var(--color-background-success);border-color:var(--color-border-success);color:var(--color-text-success);font-size:12px;padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-success)}#s_demo .urbi-proto .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 12px;margin-bottom:10px}#s_demo .urbi-proto .cat-btn{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:9px 10px;display:flex;align-items:center;gap:7px;cursor:pointer;transition:all .15s}#s_demo .urbi-proto .cat-btn:hover,#s_demo .urbi-proto .cat-btn.sel{background:var(--color-background-success);border-color:var(--color-border-success)}#s_demo .urbi-proto .cat-btn i{font-size:16px;color:var(--color-text-secondary)}#s_demo .urbi-proto .cat-btn.sel i,#s_demo .urbi-proto .cat-btn:hover i{color:var(--color-text-success)}#s_demo .urbi-proto .cat-name{font-size:11px;font-weight:500;color:var(--color-text-secondary);line-height:1.2}#s_demo .urbi-proto .cat-btn.sel .cat-name,#s_demo .urbi-proto .cat-btn:hover .cat-name{color:var(--color-text-success)}#s_demo .urbi-proto .cta-btn{margin:4px 12px 14px;width:calc(100% - 24px);padding:13px;border-radius:var(--border-radius-lg);background:var(--color-background-success);border:none;cursor:pointer;font-size:13px;font-weight:500;color:var(--color-text-success);display:flex;align-items:center;justify-content:center;gap:6px}#s_demo .urbi-proto .cta-btn i{font-size:16px}#s_demo .urbi-proto .cta-btn:disabled{opacity:.4}#s_demo .urbi-proto .dup-zone{margin:12px;background:var(--color-background-warning);border:0.5px solid var(--color-border-warning);border-radius:var(--border-radius-lg);padding:14px;display:flex;flex-direction:column;gap:10px}#s_demo .urbi-proto .dup-hdr{display:flex;align-items:center;gap:8px}#s_demo .urbi-proto .dup-hdr i{font-size:20px;color:var(--color-text-warning)}#s_demo .urbi-proto .dup-t{font-size:13px;font-weight:500;color:var(--color-text-warning)}#s_demo .urbi-proto .dup-s{font-size:11px;color:var(--color-text-secondary)}#s_demo .urbi-proto .map-prev{height:100px;background:var(--color-background-info);border-radius:var(--border-radius-md);position:relative;overflow:hidden}#s_demo .urbi-proto .map-dot{position:absolute;width:12px;height:12px;border-radius:50%;border:2px solid var(--color-background-primary)}#s_demo .urbi-proto .map-dot.ex{background:var(--color-background-warning);top:48px;left:70px}#s_demo .urbi-proto .map-dot.nr{background:var(--color-background-success);top:56px;left:96px}#s_demo .urbi-proto .map-ring{position:absolute;width:64px;height:64px;border-radius:50%;border:1px dashed var(--color-border-warning);top:16px;left:38px}#s_demo .urbi-proto .map-lbl{position:absolute;bottom:6px;right:9px;font-size:9px;font-weight:500;color:var(--color-text-secondary)}#s_demo .urbi-proto .dup-card{background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:10px;border:0.5px solid var(--color-border-tertiary)}#s_demo .urbi-proto .dup-ct{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}#s_demo .urbi-proto .dup-cm{font-size:10px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .dup-cs{display:flex;align-items:center;gap:5px;margin-top:6px}#s_demo .urbi-proto .dup-dot-s{width:6px;height:6px;border-radius:50%;background:var(--color-background-warning)}#s_demo .urbi-proto .dup-cs span{font-size:10px;font-weight:500;color:var(--color-text-warning)}#s_demo .urbi-proto .dup-actions{display:flex;flex-direction:column;gap:6px}#s_demo .urbi-proto .dup-pri{background:var(--color-background-success);border:none;border-radius:var(--border-radius-md);padding:11px;font-size:12px;font-weight:500;color:var(--color-text-success);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}#s_demo .urbi-proto .dup-pri i{font-size:14px}#s_demo .urbi-proto .pts-badge{background:var(--color-background-primary);color:var(--color-text-success);font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px}#s_demo .urbi-proto .dup-sec{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:11px;font-size:12px;font-weight:500;color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}#s_demo .urbi-proto .dup-sec i{font-size:14px}#s_demo .urbi-proto .why-card{margin:0 12px 10px;background:var(--color-background-success);border-radius:var(--border-radius-lg);padding:11px 13px;border:0.5px solid var(--color-border-success)}#s_demo .urbi-proto .why-lbl{font-size:10px;font-weight:500;color:var(--color-text-success);margin-bottom:4px}#s_demo .urbi-proto .why-txt{font-size:11px;color:var(--color-text-secondary);line-height:1.5}#s_demo .urbi-proto .success-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px}#s_demo .urbi-proto .ok-ring{width:72px;height:72px;border-radius:50%;background:var(--color-background-success);border:0.5px solid var(--color-border-success);display:flex;align-items:center;justify-content:center;margin-bottom:14px}#s_demo .urbi-proto .ok-ring i{font-size:32px;color:var(--color-text-success)}#s_demo .urbi-proto .ok-code{font-size:15px;font-weight:500;color:var(--color-text-primary);letter-spacing:.5px}#s_demo .urbi-proto .ok-lbl{font-size:12px;color:var(--color-text-secondary);margin-top:2px}#s_demo .urbi-proto .steps-c{width:100%;margin-top:20px;display:flex;flex-direction:column;gap:0}#s_demo .urbi-proto .sst{display:flex;gap:12px;align-items:flex-start;padding:10px 0;position:relative}#s_demo .urbi-proto .sst:not(:last-child)::after{content:'';position:absolute;left:13px;top:34px;bottom:0;width:0.5px;background:var(--color-border-tertiary)}#s_demo .urbi-proto .sst-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}#s_demo .urbi-proto .sst-dot.done{background:var(--color-background-success);border:0.5px solid var(--color-border-success)}#s_demo .urbi-proto .sst-dot.done i{font-size:13px;color:var(--color-text-success)}#s_demo .urbi-proto .sst-dot.pend{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)}#s_demo .urbi-proto .sst-dot.pend i{font-size:13px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .sst-t{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:1px}#s_demo .urbi-proto .sst-s{font-size:10px;color:var(--color-text-secondary)}#s_demo .urbi-proto .pts-toast{width:100%;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-top:14px;display:flex;align-items:center;gap:10px;border:0.5px solid var(--color-border-tertiary)}#s_demo .urbi-proto .pts-ic i{font-size:22px;color:var(--color-text-warning)}#s_demo .urbi-proto .pts-lbl{font-size:10px;color:var(--color-text-secondary)}#s_demo .urbi-proto .pts-val{font-size:18px;font-weight:500;color:var(--color-text-warning)}#s_demo .urbi-proto .pts-right{margin-left:auto;text-align:right}#s_demo .urbi-proto .pts-tl{font-size:10px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .pts-tv{font-size:14px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .ok-nav{width:100%;margin-top:12px;padding:12px;border-radius:var(--border-radius-lg);background:var(--color-background-success);border:none;cursor:pointer;font-size:13px;font-weight:500;color:var(--color-text-success);display:flex;align-items:center;justify-content:center;gap:6px}#s_demo .urbi-proto .ok-nav i{font-size:15px}#s_demo .urbi-proto .track-hdr{background:var(--color-background-tertiary);padding:14px 16px 16px}#s_demo .urbi-proto .th-code{font-size:10px;color:var(--color-text-tertiary);letter-spacing:.5px;margin-bottom:3px}#s_demo .urbi-proto .th-title{font-size:16px;font-weight:500;color:var(--color-text-primary);line-height:1.3;margin-bottom:3px}#s_demo .urbi-proto .th-meta{font-size:11px;color:var(--color-text-secondary);display:flex;align-items:center;gap:4px}#s_demo .urbi-proto .th-meta i{font-size:12px}#s_demo .urbi-proto .th-chip{display:inline-flex;align-items:center;gap:5px;background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:20px;padding:4px 10px;margin-top:8px}#s_demo .urbi-proto .th-dot{width:6px;height:6px;border-radius:50%;background:var(--color-text-success);animation:bl 1.5s infinite}#s_demo .urbi-proto .th-chip span{font-size:10px;font-weight:500;color:var(--color-text-success)}#s_demo .urbi-proto .votes-c{margin:10px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:12px;display:flex;align-items:center;gap:10px;border:0.5px solid var(--color-border-tertiary)}#s_demo .urbi-proto .vc-num{font-size:24px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .vc-info{}#s_demo .urbi-proto .vc-lbl{font-size:11px;font-weight:500;color:var(--color-text-primary)}#s_demo .urbi-proto .vc-sub{font-size:10px;color:var(--color-text-secondary)}#s_demo .urbi-proto .vc-btn{margin-left:auto;background:var(--color-background-success);border:none;border-radius:var(--border-radius-md);padding:7px 12px;font-size:11px;font-weight:500;color:var(--color-text-success);cursor:pointer;display:flex;align-items:center;gap:5px}#s_demo .urbi-proto .vc-btn i{font-size:13px}#s_demo .urbi-proto .dept-c{margin:0 12px 10px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px}#s_demo .urbi-proto .dept-lbl{font-size:9px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}#s_demo .urbi-proto .dept-n{font-size:13px;font-weight:500;color:var(--color-text-primary);display:flex;align-items:center;gap:6px}#s_demo .urbi-proto .dept-n i{font-size:14px;color:var(--color-text-secondary)}#s_demo .urbi-proto .dept-sla{font-size:10px;color:var(--color-text-secondary);margin-top:3px}#s_demo .urbi-proto .sla-bar{height:4px;background:var(--color-background-secondary);border-radius:4px;margin-top:7px;overflow:hidden}#s_demo .urbi-proto .sla-fill{height:100%;width:40%;background:var(--color-background-success);border-radius:4px}#s_demo .urbi-proto .timeline{padding:0 16px 16px}#s_demo .urbi-proto .tl-item{display:flex;gap:12px;align-items:flex-start;padding-bottom:16px;position:relative}#s_demo .urbi-proto .tl-item:not(:last-child)::after{content:'';position:absolute;left:13px;top:28px;bottom:0;width:0.5px;background:var(--color-border-tertiary)}#s_demo .urbi-proto .tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}#s_demo .urbi-proto .tl-dot.done{background:var(--color-background-success);border:0.5px solid var(--color-border-success)}#s_demo .urbi-proto .tl-dot.done i{font-size:13px;color:var(--color-text-success)}#s_demo .urbi-proto .tl-dot.act{background:var(--color-background-warning);border:0.5px solid var(--color-border-warning)}#s_demo .urbi-proto .tl-dot.act i{font-size:13px;color:var(--color-text-warning)}#s_demo .urbi-proto .tl-dot.pend{background:var(--color-background-secondary);border:0.5px dashed var(--color-border-secondary)}#s_demo .urbi-proto .tl-dot.pend i{font-size:13px;color:var(--color-text-tertiary)}#s_demo .urbi-proto .tl-t{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:1px}#s_demo .urbi-proto .tl-s{font-size:10px;color:var(--color-text-secondary)}#s_demo .urbi-proto .tl-time{font-size:9px;color:var(--color-text-tertiary);margin-top:1px}#s_demo .urbi-proto .load-dots{display:flex;gap:4px;justify-content:center;padding:6px 0}#s_demo .urbi-proto .load-dots span{width:5px;height:5px;border-radius:50%;background:var(--color-background-success);animation:ld 1.2s infinite}#s_demo .urbi-proto .load-dots span:nth-child(2){animation-delay:.2s}#s_demo .urbi-proto .load-dots span:nth-child(3){animation-delay:.4s}
+
+@keyframes sIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}
+
+@keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}
+
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}
+
+@keyframes ld{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}
+
+/* ── s_reportes: navegación entre categorías ── */
+
+
+
+
+#s_reportes .cat-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+#s_reportes .cat-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+#s_reportes .cat-nav-btn:hover { border-color: rgba(0,229,160,0.4); color: var(--green); }
+#s_reportes .cat-nav-counter { font-size: 12px; font-weight: 600; color: var(--text2); flex: 1; text-align: center; }
+#s_reportes .cat-demo-link {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#s_reportes .cat-demo-link:hover { color: var(--green2); }
+
 /* ── SLIDE 4: BENCHMARK ── */
 #s4 .bench-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; flex: 1; }
 #s4 .bench-card {
@@ -342,6 +466,66 @@ body::before {
 #s4 .bc-tag.g { background: rgba(0,229,160,0.1); color: var(--green); }
 #s4 .bc-tag.r { background: rgba(255,82,82,0.1); color: var(--red); }
 #s4 .bc-miss  { font-size: 11px; color: var(--text3); margin-top: 8px; }
+
+/* ── SLIDE 4.5: REPORT ECOSYSTEM ── */
+#s_reportes .cat-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  flex: 1;
+}
+#s_reportes .cat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 8px;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+#s_reportes .cat-card:hover,
+#s_reportes .cat-card.active {
+  border-color: rgba(0,229,160,0.4);
+  background: rgba(0,229,160,0.04);
+}
+#s_reportes .cat-icon { font-size: 22px; }
+#s_reportes .cat-name { font-size: 10px; font-weight: 600; color: var(--text2); line-height: 1.3; }
+#s_reportes .cat-badge { font-size: 9px; padding: 2px 6px; border-radius: 20px; margin-top: 2px; }
+#s_reportes .cb-global { background: rgba(255,179,71,0.15); color: var(--amber); }
+#s_reportes .cb-new    { background: rgba(79,195,247,0.15); color: var(--blue); }
+#s_reportes .cb-unique { background: rgba(0,229,160,0.15); color: var(--green); animation: pulseGreen 2s infinite; }
+@keyframes pulseGreen { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+#s_reportes .detail-panel {
+  background: var(--bg2);
+  border: 1px solid rgba(0,229,160,0.25);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: none;
+  gap: 24px;
+  margin-top: 12px;
+}
+#s_reportes .detail-panel.show { display: flex; animation: fadeSlideIn .25s ease; }
+@keyframes fadeSlideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+#s_reportes .detail-col { flex: 1; }
+#s_reportes .detail-receptor { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 6px; }
+#s_reportes .stats-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  flex-shrink: 0;
+}
+#s_reportes .stat-block {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
 
 /* ── SLIDE 5: MODELO NEGOCIO ── */
 #s5 .rev-grid  { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
@@ -656,6 +840,319 @@ body::before {
       </div>
     </div>
   </div>
+  </div>
+</div><!-- end s3 -->
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3.5 — DEMO EN VIVO
+═══════════════════════════════════════════ -->
+<div class="slide" id="s_demo">
+  <div style="display:flex;flex:1;gap:0;min-height:0">
+    <div style="width:42%;padding:48px 36px 80px 72px;display:flex;flex-direction:column">
+      <div class="slide-label">Product</div>
+      <div class="display lg" style="margin-bottom:16px">This is how URBI works.<br>Live, <span class="g">right now.</span></div>
+      <div class="body-m d" style="margin-bottom:24px;max-width:340px">Not a wireframe. Not a video. The app running in real time. Navigate the full flow — from report to tracking.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;flex:1">
+        <button type="button" class="demo-step-btn active" onclick="urbiGoTo(1)">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--green);flex-shrink:0">1</div>
+          <div style="flex:1"><div class="body-s" style="color:var(--text)">Splash · Identidad URBI</div></div>
+          <div class="badge" style="font-size:10px;padding:3px 8px">Bienvenida</div>
+        </button>
+        <button type="button" class="demo-step-btn" onclick="urbiGoTo(2)">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--green);flex-shrink:0">2</div>
+          <div style="flex:1"><div class="body-s" style="color:var(--text)">Home · Feed + estadísticas</div></div>
+          <div class="badge" style="font-size:10px;padding:3px 8px">Dashboard</div>
+        </button>
+        <button type="button" class="demo-step-btn" onclick="urbiGoTo(3)" style="border-color:rgba(255,179,71,0.3)">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,179,71,0.15);border:1px solid rgba(255,179,71,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--amber);flex-shrink:0">3</div>
+          <div style="flex:1"><div class="body-s" style="color:var(--text)">Nuevo reporte · Foto + IA</div></div>
+          <div class="badge-a" style="font-size:10px;padding:3px 8px">⚡ El momento clave</div>
+        </button>
+        <button type="button" class="demo-step-btn" onclick="urbiGoTo(4)">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--green);flex-shrink:0">4</div>
+          <div style="flex:1"><div class="body-s" style="color:var(--text)">Duplicado detectado · IA geográfica</div></div>
+          <div class="badge" style="font-size:10px;padding:3px 8px">Validación</div>
+        </button>
+        <button type="button" class="demo-step-btn" onclick="urbiGoTo(5)">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--green);flex-shrink:0">5</div>
+          <div style="flex:1"><div class="body-s" style="color:var(--text)">Confirmación · Puntos + código</div></div>
+          <div class="badge" style="font-size:10px;padding:3px 8px">Éxito</div>
+        </button>
+        <button type="button" class="demo-step-btn" onclick="urbiGoTo(6)">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--green);flex-shrink:0">6</div>
+          <div style="flex:1"><div class="body-s" style="color:var(--text)">Seguimiento · Timeline en vivo</div></div>
+          <div class="badge" style="font-size:10px;padding:3px 8px">Transparencia</div>
+        </button>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px 72px 80px 0;position:relative">
+      <div style="position:absolute;width:300px;height:300px;background:var(--green);opacity:0.04;filter:blur(60px);border-radius:50%;pointer-events:none"></div>
+      <div class="urbi-proto">
+        <div class="device">
+          <div class="screen-wrap">
+<div class="screen active" id="s-splash">
+      <div class="sbar" style="background:var(--color-background-tertiary)">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <i class="ti ti-signal-3g" aria-hidden="true"></i>
+          <i class="ti ti-wifi" aria-hidden="true"></i>
+          <i class="ti ti-battery-2" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="splash-body">
+        <div class="splash-icon-wrap">
+          <i class="ti ti-building-community" aria-hidden="true"></i>
+        </div>
+        <div class="splash-name">URBI</div>
+        <div class="splash-tag">Tu ciudad, tu voz.<br>En tiempo real.</div>
+        <button class="splash-cta" onclick="urbiGoTo(2)">Ingresar con celular <i class="ti ti-arrow-right" style="font-size:14px;vertical-align:-2px" aria-hidden="true"></i></button>
+        <div class="splash-note">Gratis para todos los ciudadanos</div>
+      </div>
+      <div style="padding:0 16px 16px;text-align:center">
+        <div style="font-size:10px;color:var(--color-text-tertiary)">by Velttora · velttora.com</div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-home">
+      <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><i class="ti ti-wifi" aria-hidden="true"></i><i class="ti ti-battery-2" aria-hidden="true"></i></div></div>
+      <div class="home-header">
+        <div class="hh-sub">Buenos días,</div>
+        <div class="hh-name">Carlos Rodríguez</div>
+        <div class="hh-loc"><i class="ti ti-map-pin" aria-hidden="true"></i> Comuna 2 · El Peñón</div>
+      </div>
+      <div class="scroll">
+        <div class="stats-row">
+          <div class="stat-c g"><div class="stat-v">3</div><div class="stat-l">Mis reportes</div></div>
+          <div class="stat-c a"><div class="stat-v">185</div><div class="stat-l">Mis puntos</div></div>
+          <div class="stat-c"><div class="stat-v">2</div><div class="stat-l">Resueltos</div></div>
+        </div>
+        <div class="sec-title">Reportar rápido</div>
+        <div class="qgrid">
+          <button class="qi" onclick="urbiQuickCat('vial')"><i class="ti ti-road" aria-hidden="true"></i><span>Vías</span></button>
+          <button class="qi" onclick="urbiQuickCat('luz')"><i class="ti ti-bulb" aria-hidden="true"></i><span>Luminaria</span></button>
+          <button class="qi" onclick="urbiQuickCat('arboles')"><i class="ti ti-trees" aria-hidden="true"></i><span>Árbol</span></button>
+          <button class="qi" onclick="urbiGoTo(3)"><i class="ti ti-plus" aria-hidden="true"></i><span>Otro</span></button>
+        </div>
+        <div class="sec-title">Mis reportes</div>
+        <div class="feed-c" onclick="urbiGoTo(6)">
+          <div class="feed-row">
+            <div class="feed-ava road"><i class="ti ti-road" aria-hidden="true"></i></div>
+            <div class="feed-info">
+              <div class="feed-title">Hueco en Av. 6N con Calle 34</div>
+              <div class="feed-meta">Infraestructura Vial · hace 2 días</div>
+            </div>
+            <div class="feed-chip chip-proc">En proceso</div>
+          </div>
+          <div class="feed-bar"><div class="fp fp-p"></div></div>
+        </div>
+        <div class="feed-c">
+          <div class="feed-row">
+            <div class="feed-ava env"><i class="ti ti-trees" aria-hidden="true"></i></div>
+            <div class="feed-info">
+              <div class="feed-title">Árbol caído bloquea andén Calle 12</div>
+              <div class="feed-meta">Medio Ambiente · hace 5 días</div>
+            </div>
+            <div class="feed-chip chip-res">Resuelto</div>
+          </div>
+          <div class="feed-bar"><div class="fp fp-r"></div></div>
+        </div>
+        <div class="feed-c">
+          <div class="feed-row">
+            <div class="feed-ava acc"><i class="ti ti-accessible" aria-hidden="true"></i></div>
+            <div class="feed-info">
+              <div class="feed-title">Rampa peatonal deteriorada Calle 5N</div>
+              <div class="feed-meta">Peatonal · hace 1 día</div>
+            </div>
+            <div class="feed-chip chip-rec">Recibido</div>
+          </div>
+          <div class="feed-bar"><div class="fp fp-rec"></div></div>
+        </div>
+        <div class="sec-title">Tu nivel ciudadano</div>
+        <div class="level-c">
+          <div class="lc-top">
+            <div>
+              <div class="lc-badge">Ciudadano activo</div>
+              <div class="lc-name">185 / 500 puntos</div>
+              <div class="lc-next"><i class="ti ti-arrow-right" style="font-size:10px" aria-hidden="true"></i> 315 pts para Guardián del Barrio</div>
+            </div>
+            <i class="lc-icon ti ti-medal" aria-hidden="true" style="color:var(--color-text-warning)"></i>
+          </div>
+          <div class="lc-bar"><div class="lc-fill"></div></div>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <button class="fab" onclick="urbiGoTo(3)" aria-label="Nuevo reporte"><i class="ti ti-plus" aria-hidden="true"></i></button>
+      <div class="tabbar">
+        <button class="tab on"><i class="ti ti-home" aria-hidden="true"></i><span>Inicio</span></button>
+        <button class="tab"><i class="ti ti-map-2" aria-hidden="true"></i><span>Mapa</span></button>
+        <div style="flex:1"></div>
+        <button class="tab"><i class="ti ti-clipboard-list" aria-hidden="true"></i><span>Reportes</span></button>
+        <button class="tab"><i class="ti ti-user-circle" aria-hidden="true"></i><span>Perfil</span></button>
+      </div>
+    </div>
+
+    <div class="screen" id="s-report">
+      <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><i class="ti ti-battery-2" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <button class="back-btn" onclick="urbiGoTo(2)" aria-label="Volver"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+        <span class="topbar-title">Nuevo reporte</span>
+        <span class="topbar-badge">Paso 1 de 2</span>
+      </div>
+      <div class="scroll">
+        <div class="photo-zone" id="pzone" onclick="urbiSimPhoto()">
+          <div class="pz-icon"><i class="ti ti-camera" aria-hidden="true"></i></div>
+          <div class="pz-text">Toca para tomar foto</div>
+          <div class="pz-sub">o selecciona de la galería</div>
+          <div class="pz-filled" id="pzfilled">
+            <div class="pz-big-icon"><i class="ti ti-barrier-block" aria-hidden="true"></i></div>
+            <div class="load-dots" id="ldots" style="display:none"><span></span><span></span><span></span></div>
+            <div class="pz-loc" id="pzloc" style="display:none"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i> Calle 34 · El Peñón</div>
+          </div>
+        </div>
+        <div class="ai-badge" id="aibadge">
+          <div class="ai-ic"><i class="ti ti-robot" aria-hidden="true"></i></div>
+          <div class="ai-body">
+            <div class="ai-lbl">IA detectó automáticamente</div>
+            <div class="ai-val" id="urbi-ai-cat">Hueco en vía · Infraestructura Vial</div>
+            <div class="ai-conf">Confianza 91% · Av. 6N con Calle 34</div>
+          </div>
+          <div class="ai-chk"><i class="ti ti-circle-check" aria-hidden="true"></i></div>
+        </div>
+        <div style="padding:0 12px 6px;font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.5px;text-transform:uppercase">¿Es correcta la categoría?</div>
+        <div class="cat-grid cat-grid-full" id="urbi-catgrid"></div>
+        <div class="inp-group">
+          <div class="inp-label">Descripción (opcional)</div>
+          <textarea class="inp-field" rows="3">Hueco de aprox. 40cm en la calzada, riesgo para vehículos y motos en hora pico.</textarea>
+        </div>
+        <div class="inp-group">
+          <div class="inp-label"><i class="ti ti-map-pin" style="font-size:11px" aria-hidden="true"></i> Ubicación detectada</div>
+          <div class="inp-loc">Av. 6N con Calle 34 · El Peñón, Cali</div>
+        </div>
+        <button class="cta-btn" onclick="urbiGoTo(4)">Verificar y continuar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <div class="screen" id="s-dup">
+      <div class="sbar"><span class="sbar-time">9:41</span><div class="sbar-icons"><i class="ti ti-battery-2" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <button class="back-btn" onclick="urbiGoTo(3)" aria-label="Volver"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+        <span class="topbar-title">Verificando...</span>
+      </div>
+      <div class="scroll">
+        <div class="dup-zone">
+          <div class="dup-hdr">
+            <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+            <div>
+              <div class="dup-t">Reporte similar encontrado</div>
+              <div class="dup-s">Hay un reporte a 48m de tu ubicación</div>
+            </div>
+          </div>
+          <div class="map-prev">
+            <div class="map-ring"></div>
+            <div class="map-dot ex"></div>
+            <div class="map-dot nr"></div>
+            <div class="map-lbl">Radio 50m · 2 reportes</div>
+          </div>
+          <div class="dup-card">
+            <div class="dup-ct"><i class="ti ti-road" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>Hueco Av. 6N — reportado hace 3 días</div>
+            <div class="dup-cm">usuario anónimo · 12 personas confirmaron</div>
+            <div class="dup-cs"><div class="dup-dot-s"></div><span>En proceso · Secretaría de Infraestructura</span></div>
+          </div>
+          <div class="dup-actions">
+            <button class="dup-pri" onclick="urbiGoTo(5)"><i class="ti ti-thumb-up" aria-hidden="true"></i> Unirme a este reporte <span class="pts-badge">+8 pts</span></button>
+            <button class="dup-sec" onclick="urbiGoTo(5)"><i class="ti ti-file-plus" aria-hidden="true"></i> Enviar reporte nuevo igualmente</button>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-lbl"><i class="ti ti-info-circle" style="font-size:11px;vertical-align:-1px" aria-hidden="true"></i> ¿Por qué esto importa?</div>
+          <div class="why-txt">Al unirte al reporte existente, aumentas su prioridad y ayudas a que se resuelva más rápido. El sistema evita que la Alcaldía reciba el mismo reporte 10 veces.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-success">
+      <div class="sbar"><span class="sbar-time">9:42</span><div class="sbar-icons"><i class="ti ti-battery-2" aria-hidden="true"></i></div></div>
+      <div class="success-body">
+        <div class="ok-ring"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="ok-code">#URB-2026-00847</div>
+        <div class="ok-lbl">Tu reporte fue enviado</div>
+        <div class="steps-c">
+          <div class="sst">
+            <div class="sst-dot done"><i class="ti ti-check" aria-hidden="true"></i></div>
+            <div><div class="sst-t">Recibido y validado</div><div class="sst-s">IA verificó el contenido · Ahora mismo</div></div>
+          </div>
+          <div class="sst">
+            <div class="sst-dot done"><i class="ti ti-check" aria-hidden="true"></i></div>
+            <div><div class="sst-t">Asignado automáticamente</div><div class="sst-s">Secretaría de Infraestructura</div></div>
+          </div>
+          <div class="sst">
+            <div class="sst-dot pend"><i class="ti ti-clock" aria-hidden="true"></i></div>
+            <div><div class="sst-t">En proceso</div><div class="sst-s">SLA: 5 días hábiles</div></div>
+          </div>
+          <div class="sst">
+            <div class="sst-dot pend"><i class="ti ti-bell" aria-hidden="true"></i></div>
+            <div><div class="sst-t">Notificación al resolver</div><div class="sst-s">Con foto de evidencia adjunta</div></div>
+          </div>
+        </div>
+        <div class="pts-toast">
+          <div class="pts-ic"><i class="ti ti-star" aria-hidden="true"></i></div>
+          <div><div class="pts-lbl">Puntos ganados</div><div class="pts-val">+23 pts</div></div>
+          <div class="pts-right"><div class="pts-tl">Total</div><div class="pts-tv">208 pts</div></div>
+        </div>
+        <button class="ok-nav" onclick="urbiGoTo(6)">Ver seguimiento <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <div class="screen" id="s-track">
+      <div class="sbar"><span class="sbar-time">9:45</span><div class="sbar-icons"><i class="ti ti-battery-2" aria-hidden="true"></i></div></div>
+      <div class="topbar">
+        <button class="back-btn" onclick="urbiGoTo(2)" aria-label="Volver"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+        <span class="topbar-title">Seguimiento</span>
+      </div>
+      <div class="scroll">
+        <div class="track-hdr">
+          <div class="th-code">#URB-2026-00847</div>
+          <div class="th-title">Hueco en Av. 6N con Calle 34</div>
+          <div class="th-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> El Peñón · Infraestructura Vial</div>
+          <div class="th-chip"><div class="th-dot"></div><span>En proceso · Secretaría Infraestructura</span></div>
+        </div>
+        <div class="votes-c">
+          <div class="vc-num">14</div>
+          <div class="vc-info"><div class="vc-lbl">ciudadanos confirmaron</div><div class="vc-sub">este problema en su zona</div></div>
+          <button class="vc-btn"><i class="ti ti-thumb-up" aria-hidden="true"></i> Confirmar</button>
+        </div>
+        <div class="dept-c">
+          <div class="dept-lbl">Responsable asignado</div>
+          <div class="dept-n"><i class="ti ti-building-government" aria-hidden="true"></i> Secretaría de Infraestructura</div>
+          <div class="dept-sla">SLA: 5 días hábiles · 2 días transcurridos</div>
+          <div class="sla-bar"><div class="sla-fill"></div></div>
+        </div>
+        <div class="sec-title" style="padding-top:6px">Historial del reporte</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot done"><i class="ti ti-check" aria-hidden="true"></i></div>
+            <div><div class="tl-t">Reporte recibido</div><div class="tl-s">Validado por IA · Score 91%</div><div class="tl-time">Hoy 9:42 AM</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot done"><i class="ti ti-check" aria-hidden="true"></i></div>
+            <div><div class="tl-t">Asignado</div><div class="tl-s">Secretaría Infraestructura · Zona Norte</div><div class="tl-time">Hoy 9:43 AM</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot act"><i class="ti ti-tool" aria-hidden="true"></i></div>
+            <div><div class="tl-t">En proceso</div><div class="tl-s">Cuadrilla programada para zona El Peñón</div><div class="tl-time">Hoy 11:20 AM</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot pend"><i class="ti ti-camera" aria-hidden="true"></i></div>
+            <div><div class="tl-t">Resuelto</div><div class="tl-s">El funcionario adjuntará foto de evidencia</div><div class="tl-time">Pendiente</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -728,6 +1225,66 @@ body::before {
           <div class="body-s" style="font-weight:700; margin-bottom:4px; color:var(--green);">Ventana de oportunidad</div>
           <div class="body-s d" data-city="opportunityCities">Medellín, Bogotá, Barranquilla no tienen esto. El primero en entrar al market GovTech de reports citizens en Colombia define el estándar. Ese primero podemos ser nosotros.</div>
         </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end s4 -->
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4.5 — REPORT ECOSYSTEM
+═══════════════════════════════════════════ -->
+<div class="slide" id="s_reportes">
+  <div class="pad">
+    <div class="slide-label">Report ecosystem</div>
+    <div class="display lg" style="margin-bottom:16px">14 report categories.<br>Each one, <span class="g">real value.</span></div>
+    <div class="cat-nav">
+      <button type="button" class="cat-nav-btn" onclick="pitchCatPrev()" aria-label="Previous category">←</button>
+      <span class="cat-nav-counter" id="cat-nav-counter">1 / 14 · 🛣️ Vías</span>
+      <button type="button" class="cat-nav-btn" onclick="pitchCatNext()" aria-label="Next category">→</button>
+      <button type="button" class="cat-demo-link" onclick="goToDemoWithCat(pitchCatIndex)">Try in demo →</button>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" data-cat="1" data-urbi="vial"><span class="cat-icon">🛣️</span><span class="cat-name">Roads &amp; infrastructure</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="2" data-urbi="andenes"><span class="cat-icon">🚶</span><span class="cat-name">Public spaces &amp; sidewalks</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="3" data-urbi="luz"><span class="cat-icon">💡</span><span class="cat-name">Street lighting</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="4" data-urbi="arboles"><span class="cat-icon">🌳</span><span class="cat-name">Environment &amp; trees</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="5" data-urbi="basura"><span class="cat-icon">🗑️</span><span class="cat-name">Trash &amp; waste</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="6" data-urbi="vehiculo"><span class="cat-icon">🚗</span><span class="cat-name">Abandoned vehicles</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="7" data-urbi="ruido"><span class="cat-icon">🔊</span><span class="cat-name">Noise pollution</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="8" data-urbi="animal"><span class="cat-icon">🐾</span><span class="cat-name">Urban wildlife &amp; animals</span><span class="cat-badge cb-new">New LATAM</span></div>
+      <div class="cat-card" data-cat="9" data-urbi="agua"><span class="cat-icon">🌊</span><span class="cat-name">Flooding &amp; pooling</span><span class="cat-badge cb-new">New LATAM</span></div>
+      <div class="cat-card" data-cat="10" data-urbi="grafiti"><span class="cat-icon">🎨</span><span class="cat-name">Graffiti &amp; vandalism</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="11" data-urbi="obra"><span class="cat-icon">🏗️</span><span class="cat-name">Illegal construction</span><span class="cat-badge cb-new">New LATAM</span></div>
+      <div class="cat-card" data-cat="12" data-urbi="fuga"><span class="cat-icon">💧</span><span class="cat-name">Water leaks</span><span class="cat-badge cb-global">Top global</span></div>
+      <div class="cat-card" data-cat="13" data-urbi="seguridad"><span class="cat-icon">🔒</span><span class="cat-name">Unsafe areas</span><span class="cat-badge cb-new">New LATAM</span></div>
+      <div class="cat-card" data-cat="14" data-urbi="evento"><span class="cat-icon">🎉</span><span class="cat-name">Community events</span><span class="cat-badge cb-unique">WORLD-FIRST</span></div>
+    </div>
+    <div class="detail-panel" id="cat-detail-panel">
+      <div class="detail-col">
+        <div class="label d">Report routed to</div>
+        <div class="detail-receptor" id="cat-detail-receptor"></div>
+      </div>
+      <div class="detail-col">
+        <div class="label d">Value for government</div>
+        <div class="dot-list" id="cat-detail-gov"></div>
+      </div>
+      <div class="detail-col">
+        <div class="label d">Value for citizens</div>
+        <div class="dot-list" id="cat-detail-cit"></div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-block">
+        <div class="stat-val">14</div>
+        <div class="stat-label">report categories</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-val a">45K</div>
+        <div class="stat-label">vehicle reports/year in San Diego alone — proven demand</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-val">#1</div>
+        <div class="stat-label">only platform in Colombia with a full ecosystem</div>
       </div>
     </div>
   </div>
@@ -1277,7 +1834,7 @@ body::before {
 <div id="nav">
   <button id="nav-prev" onclick="prevSlide()">← Prev</button>
   <div id="dots"></div>
-  <span id="slide-counter">1/11</span>
+  <span id="slide-counter">1/13</span>
   <button id="nav-next" onclick="nextSlide()">Next →</button>
 </div>
 
@@ -1297,6 +1854,7 @@ for (let i = 0; i < total; i++) {
   d.onclick = () => goTo(i);
   dotsEl.appendChild(d);
 }
+document.getElementById('slide-counter').textContent = `1/${total}`;
 
 function goTo(idx) {
   slides[cur].classList.remove('active');
@@ -1325,6 +1883,192 @@ document.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - tx;
   if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
 });
+
+// ── URBI PROTOTYPE LOGIC ──
+const urbiCats = [
+  {id:'vial', icon:'ti-road', name:'Vías', receptor:'Sec. Infraestructura'},
+  {id:'andenes', icon:'ti-walk', name:'Andenes', receptor:'Sec. Infraestructura'},
+  {id:'luz', icon:'ti-bulb', name:'Luminaria', receptor:'EMCALI'},
+  {id:'arboles', icon:'ti-trees', name:'Arbolado', receptor:'DAGMA'},
+  {id:'basura', icon:'ti-trash', name:'Residuos', receptor:'Sec. Salud'},
+  {id:'vehiculo', icon:'ti-car', name:'Vehículos', receptor:'Tránsito'},
+  {id:'ruido', icon:'ti-volume', name:'Ruido', receptor:'Sec. Salud / Policía'},
+  {id:'animal', icon:'ti-paw', name:'Fauna', receptor:'DAGMA'},
+  {id:'agua', icon:'ti-droplet', name:'Inundación', receptor:'Gest. Riesgo'},
+  {id:'grafiti', icon:'ti-spray', name:'Grafiti', receptor:'Sec. Convivencia'},
+  {id:'obra', icon:'ti-building', name:'Const. Ilegal', receptor:'Curaduría'},
+  {id:'fuga', icon:'ti-droplet-half', name:'Fugas', receptor:'EMCALI'},
+  {id:'seguridad', icon:'ti-lock', name:'Inseguridad', receptor:'Sec. Seguridad'},
+  {id:'evento', icon:'ti-confetti', name:'Comunidad', receptor:'Sec. Cultura'}
+];
+
+const pitchCatToUrbi = { 1:'vial', 2:'andenes', 3:'luz', 4:'arboles', 5:'basura', 6:'vehiculo', 7:'ruido', 8:'animal', 9:'agua', 10:'grafiti', 11:'obra', 12:'fuga', 13:'seguridad', 14:'evento' };
+
+const urbiScreenNames = ['splash','home','report','dup','success','track'];
+let urbiCurrentScreen = 1;
+let urbiPhotoSim = false;
+let urbiSelectedCat = 'vial';
+let pitchCatIndex = 1;
+
+const urbiRoot = () => document.querySelector('#s_demo .urbi-proto');
+
+function urbiRenderCats() {
+  const grid = document.getElementById('urbi-catgrid');
+  if (!grid) return;
+  grid.innerHTML = urbiCats.map(c => `
+    <button type="button" class="cat-btn${urbiSelectedCat === c.id ? ' sel' : ''}" onclick="urbiSelCat('${c.id}')">
+      <i class="ti ${c.icon}" aria-hidden="true"></i>
+      <span class="cat-name">${c.name}</span>
+    </button>
+  `).join('');
+}
+
+function urbiSelCat(id) {
+  const c = urbiCats.find(x => x.id === id);
+  if (!c) return;
+  urbiSelectedCat = id;
+  const aiCat = document.getElementById('urbi-ai-cat');
+  if (aiCat) aiCat.textContent = c.name + ' · ' + c.receptor;
+  urbiRenderCats();
+}
+
+function urbiQuickCat(id) {
+  urbiSelCat(id);
+  urbiGoTo(3);
+}
+
+function urbiGoTo(n) {
+  const root = urbiRoot();
+  if (!root) return;
+  const name = urbiScreenNames[n - 1];
+  root.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = root.querySelector('#s-' + name);
+  if (target) {
+    target.classList.add('active');
+    urbiCurrentScreen = n;
+  }
+  document.querySelectorAll('#s_demo .demo-step-btn').forEach((b, i) => {
+    b.classList.toggle('active', i + 1 === n);
+  });
+  if (n === 3) {
+    urbiRenderCats();
+    if (!urbiPhotoSim) {
+      const filled = document.getElementById('pzfilled');
+      const badge = document.getElementById('aibadge');
+      if (filled) filled.classList.remove('show');
+      if (badge) badge.classList.remove('show');
+      const pz = document.getElementById('pzone');
+      if (pz) pz.classList.remove('filled');
+    }
+  }
+}
+
+function urbiSimPhoto() {
+  if (urbiPhotoSim) return;
+  const pz = document.getElementById('pzone');
+  const filled = document.getElementById('pzfilled');
+  const ldots = document.getElementById('ldots');
+  const loc = document.getElementById('pzloc');
+  if (!pz || !filled) return;
+  pz.classList.add('filled');
+  filled.classList.add('show');
+  if (ldots) ldots.style.display = 'flex';
+  const big = filled.querySelector('.pz-big-icon');
+  if (big) big.style.display = 'none';
+  setTimeout(() => {
+    if (ldots) ldots.style.display = 'none';
+    if (big) big.style.display = 'flex';
+    if (loc) loc.style.display = 'block';
+    setTimeout(() => {
+      const badge = document.getElementById('aibadge');
+      if (badge) badge.classList.add('show');
+      urbiPhotoSim = true;
+      urbiRenderCats();
+    }, 300);
+  }, 1100);
+}
+
+function goToPitchSlide(id) {
+  const idx = [...slides].findIndex(s => s.id === id);
+  if (idx >= 0) goTo(idx);
+}
+
+function goToDemoWithCat(pitchNum) {
+  goToPitchSlide('s_demo');
+  urbiSelCat(pitchCatToUrbi[pitchNum] || 'vial');
+  urbiGoTo(3);
+}
+
+function selectPitchCat(num, openPanel) {
+  pitchCatIndex = num;
+  const card = document.querySelector(`#s_reportes .cat-card[data-cat="${num}"]`);
+  if (!card) return;
+  const wasActive = card.classList.contains('active') && !openPanel;
+  document.querySelectorAll('#s_reportes .cat-card').forEach(c => c.classList.remove('active'));
+  if (wasActive) {
+    catPanel.classList.remove('show');
+    updateCatNavCounter();
+    return;
+  }
+  const d = catData[num];
+  if (!d) return;
+  card.classList.add('active');
+  catReceptor.textContent = d.receptor;
+  catGov.innerHTML = d.gov.map(t => `<div class="dot-item body-s d">${t}</div>`).join('');
+  catCit.innerHTML = d.cit.map(t => `<div class="dot-item body-s d">${t}</div>`).join('');
+  catPanel.classList.add('show');
+  updateCatNavCounter();
+}
+
+function updateCatNavCounter() {
+  const el = document.getElementById('cat-nav-counter');
+  if (!el) return;
+  const c = urbiCats.find(x => x.id === pitchCatToUrbi[pitchCatIndex]);
+  el.textContent = `${pitchCatIndex} / 14 · ${c ? c.name : ''}`;
+}
+
+function pitchCatPrev() {
+  pitchCatIndex = pitchCatIndex <= 1 ? 14 : pitchCatIndex - 1;
+  selectPitchCat(pitchCatIndex, true);
+}
+
+function pitchCatNext() {
+  pitchCatIndex = pitchCatIndex >= 14 ? 1 : pitchCatIndex + 1;
+  selectPitchCat(pitchCatIndex, true);
+}
+
+urbiGoTo(1);
+
+// Report categories slide
+const catData = {
+  1: { receptor:'Infrastructure Dept.', gov:['Geospatial road deterioration data','Investment prioritization based on report frequency'], cit:['Official channel without queues or travel','Real-time repair status tracking'] },
+  2: { receptor:'Infrastructure Dept.', gov:['First real pedestrian accessibility map','Identification of zones violating accessibility standards'], cit:['Channel for communities underrepresented in traditional PQRs','Measurable contribution to a more inclusive city'] },
+  3: { receptor:'EMCALI (utilities)', gov:['Real-time streetlight failure network','Data for LED replacement programs'], cit:['Safer neighborhoods at night — direct impact on perceived safety','Notification when the light is fixed'] },
+  4: { receptor:'DAGMA (environment)', gov:['Vegetation cover and at-risk tree dataset','Input for pruning ops and fallen-tree emergencies'], cit:['Visible contribution to neighborhood green space','Official channel for environmental emergencies'] },
+  5: { receptor:'Public Health / EMCALI', gov:['Illegal dumping hotspot map for cleanup ops','Data to optimize collection routes'], cit:['Real channel for the city\'s most visible daily problem','Photo evidence with timestamp — not just verbal complaints'] },
+  6: { receptor:'Transit / Mobility Dept.', gov:['Tow operations with precise geolocation','Map of chronic vehicle abandonment points'], cit:['Frees sidewalks and public space in the neighborhood','Direct channel without unanswered hotlines'] },
+  7: { receptor:'Public Health / Police', gov:['Neighborhood noise conflict map for inspections','Data for nightlife licensing policy'], cit:['Official channel for nighttime noise — before, only calling the precinct','Timestamp and GPS-valid evidence on record'] },
+  8: { receptor:'DAGMA / Animal Welfare', gov:['Animal colony map for sterilization programs','Data for zoonosis and pest prevention'], cit:['Direct connection to certified shelters and rescuers','High virality — drives organic mass adoption'] },
+  9: { receptor:'Risk Management / EMCALI', gov:['Predictive real-time hydrological risk map','History for sewer investment in critical zones'], cit:['Early alert before the problem becomes an emergency','Info on zones to avoid during heavy rain'] },
+  10: { receptor:'Coexistence / Culture Dept.', gov:['Vandalism recurrence points for preventive intervention','AI differentiation between cultural graffiti and vandalism'], cit:['Clear channel for a problem everyone sees but no one knows how to report','Participation in defending neighborhood heritage'] },
+  11: { receptor:'Urban Planning / Curatorship', gov:['Early detection of illegal construction before completion','Map of neighborhoods with highest informal building'], cit:['Channel to report neighborhood impact without knowing who to call','Traceability of enforcement — citizens know what happened'] },
+  12: { receptor:'EMCALI / Water utility', gov:['Reduction of non-billed water — direct savings for EMCALI','Pipe network with frequent failure points'], cit:['Fast channel to report leaks wasting thousands of liters','Notification when EMCALI repairs — real loop closure'] },
+  13: { receptor:'Security Dept. / Police', gov:['Citizen insecurity perception map by zone','Input for data-driven preventive patrols'], cit:['Anonymous channel to report without fear of retaliation','Aggregated data validating neighborhood safety perception'] },
+  14: { receptor:'Culture Dept. / City Hall', gov:['Measurable active social capital per neighborhood','Input for decentralized cultural programming'], cit:['Highlight what\'s positive in the neighborhood — not just complaints','Connect neighbors with local events and activities'] }
+};
+
+const catPanel = document.getElementById('cat-detail-panel');
+const catReceptor = document.getElementById('cat-detail-receptor');
+const catGov = document.getElementById('cat-detail-gov');
+const catCit = document.getElementById('cat-detail-cit');
+
+document.querySelectorAll('#s_reportes .cat-card').forEach(card => {
+  card.addEventListener('click', () => {
+    pitchCatIndex = parseInt(card.dataset.cat, 10);
+    selectPitchCat(pitchCatIndex, true);
+  });
+});
+updateCatNavCounter();
 </script>
 </body>
 </html>
