@@ -42,6 +42,7 @@
 
 .scroll{flex:1;overflow-y:auto}
 .scroll::-webkit-scrollbar{display:none}
+.scroll-end-gap{height:80px;flex-shrink:0}
 
 .tabbar{height:64px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;padding:0 6px 6px;flex-shrink:0}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:none;cursor:pointer;padding:6px}
@@ -384,7 +385,7 @@
           </div>
           <div class="lc-bar"><div class="lc-fill"></div></div>
         </div>
-        <div style="height:80px"></div>
+        <div class="scroll-end-gap" aria-hidden="true"></div>
       </div>
       <button class="fab" onclick="goTo('report',2)" aria-label="Nuevo reporte"><i class="ti ti-plus" aria-hidden="true"></i></button>
       <div class="tabbar">
@@ -439,6 +440,7 @@
           <div class="inp-loc">Av. 6N con Calle 34 · El Peñón, Cali</div>
         </div>
         <button class="cta-btn" onclick="goTo('dup',3)">Verificar y continuar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        <div class="scroll-end-gap" aria-hidden="true"></div>
       </div>
     </div>
 
@@ -477,6 +479,7 @@
           <div class="why-lbl"><i class="ti ti-info-circle" style="font-size:11px;vertical-align:-1px" aria-hidden="true"></i> ¿Por qué esto importa?</div>
           <div class="why-txt">Al unirte al reporte existente, aumentas su prioridad y ayudas a que se resuelva más rápido. El sistema evita que la Alcaldía reciba el mismo reporte 10 veces.</div>
         </div>
+        <div class="scroll-end-gap" aria-hidden="true"></div>
       </div>
     </div>
 
@@ -556,6 +559,7 @@
             <div><div class="tl-t">Resuelto</div><div class="tl-s">El funcionario adjuntará foto de evidencia</div><div class="tl-time">Pendiente</div></div>
           </div>
         </div>
+        <div class="scroll-end-gap" aria-hidden="true"></div>
       </div>
     </div>
 

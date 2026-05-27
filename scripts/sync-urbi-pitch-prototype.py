@@ -180,9 +180,10 @@ def scope_prototype_css(raw: str) -> str:
 
     css = re.sub(r"([^{}@]+)\{([^}]*)\}", repl, raw)
     css = re.sub(r"\n{3,}", "\n\n", css).strip()
+    css = css.replace("}}", "}")
     if keyframes:
         css += "\n\n" + keyframes
-    return css.replace("}}", "}")
+    return css
 
 
 def extract_proto_parts() -> tuple[str, str]:

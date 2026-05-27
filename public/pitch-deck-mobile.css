@@ -1,6 +1,21 @@
 /* Pitch deck — mobile & tablet responsive overrides
    Decks: urbi-*, cobraai-*, hycap_pitch-deck.html, Edify_PitchDeck_2026.html */
 
+/* Demo slide (4/13): scroll + altura real del contenido (todas las vistas) */
+#s_demo.slide.active {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+#s_demo.slide.active .demo-slide-layout {
+  flex: none !important;
+  min-height: min-content !important;
+  height: auto !important;
+}
+
 @media (max-width: 1024px) {
   .pad,
   .pad-sm {
@@ -30,31 +45,60 @@
   }
 
   /* Urbi demo slide — prototype (tablet) */
-  #s_demo > div {
-    flex-direction: column !important;
-    min-height: min-content !important;
+  #s_demo.slide.active {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
   }
 
-  #s_demo > div > div:last-child {
+  #s_demo .demo-slide-layout {
+    flex-direction: column !important;
+    flex: none !important;
+    min-height: min-content !important;
+    height: auto !important;
+    padding-bottom: 110px;
+  }
+
+  #s_demo .demo-slide-copy {
     order: 1;
     width: 100% !important;
-    padding: 24px 40px 12px !important;
+    padding: 24px 40px 20px !important;
   }
 
-  #s_demo > div > div:first-child {
-    order: 2;
-    width: 100% !important;
-    padding: 12px 40px 80px !important;
-  }
-
-  #s_demo > div > div:first-child .body-m {
+  #s_demo .demo-slide-copy .body-m {
     max-width: none !important;
   }
 
-  #s_demo .urbi-proto .device {
-    width: min(280px, calc(100vw - 80px));
-    height: min(580px, calc((100vw - 80px) * 580 / 280), 50dvh);
+  #s_demo .demo-slide-scroll-gap {
+    height: 48px;
+  }
+
+  #s_demo .demo-slide-phone {
+    order: 2;
+    width: 100% !important;
+    padding: 16px 40px 32px !important;
+    justify-content: center !important;
+  }
+
+  #s_demo .urbi-proto {
+    --proto-scale: min(1, (100vw - 80px) / 280, 40dvh / 580);
+    width: 280px;
+    height: 580px;
+    transform: scale(var(--proto-scale));
+    transform-origin: top center;
     margin: 0 auto;
+    margin-bottom: 0;
+  }
+
+  #s_demo .urbi-proto .device {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+
+  #s_demo .urbi-proto .screen-wrap {
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
   }
 }
 
@@ -463,9 +507,13 @@
     font-size: clamp(32px, 10vw, 48px) !important;
   }
 
-  /* Flex rows with gap in cards */
+  /* Flex rows with gap in cards (exclude live app mockup inside #s_demo) */
   [style*='display:flex'][style*='gap:'] {
     flex-wrap: wrap !important;
+  }
+
+  #s_demo .urbi-proto [style*='display:flex'][style*='gap:'] {
+    flex-wrap: nowrap !important;
   }
 
   [style*='display:grid'][style*='grid-template-columns: 1fr 1fr'],
@@ -482,41 +530,55 @@
   }
 
   /* Urbi demo slide — live prototype (#s_demo) */
-  #s_demo {
-    min-height: min-content !important;
+  #s_demo.slide.active {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
   }
 
-  #s_demo > div {
+  #s_demo .demo-slide-layout {
     flex-direction: column !important;
     flex: none !important;
     min-height: min-content !important;
+    height: auto !important;
     gap: 0 !important;
+    padding-bottom: max(110px, calc(80px + env(safe-area-inset-bottom, 0px)));
   }
 
-  /* Phone first, then copy + step nav */
-  #s_demo > div > div:last-child {
+  /* Texto + pasos primero (debajo del título se ve todo al hacer scroll) */
+  #s_demo .demo-slide-copy {
     order: 1;
     flex: none !important;
     width: 100% !important;
-    padding: 16px 18px 8px !important;
+    padding: 20px 18px 12px !important;
     min-height: auto !important;
+    overflow: visible !important;
   }
 
-  #s_demo > div > div:first-child {
-    order: 2;
-    width: 100% !important;
-    padding: 12px 18px 110px !important;
-    flex: none !important;
-  }
-
-  #s_demo > div > div:first-child .body-m {
+  #s_demo .demo-slide-copy .body-m {
     max-width: none !important;
     margin-bottom: 16px !important;
   }
 
-  #s_demo > div > div:first-child > div:last-child {
+  #s_demo .demo-slide-steps {
     flex: none !important;
-    gap: 4px !important;
+    gap: 6px !important;
+  }
+
+  #s_demo .demo-slide-scroll-gap {
+    height: 32px;
+    min-height: 32px;
+  }
+
+  #s_demo .demo-slide-phone {
+    order: 2;
+    flex: none !important;
+    width: 100% !important;
+    padding: 8px 18px 24px !important;
+    min-height: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    overflow: visible !important;
   }
 
   #s_demo .demo-step-btn {
@@ -536,15 +598,57 @@
   }
 
   #s_demo .urbi-proto {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    --proto-scale: min(1, (100vw - 36px) / 280, 38dvh / 580);
+    width: 280px;
+    height: 580px;
+    flex-shrink: 0;
+    transform: scale(var(--proto-scale));
+    transform-origin: top center;
+    margin: 0 auto;
+    margin-bottom: 0;
   }
 
   #s_demo .urbi-proto .device {
-    width: min(280px, calc(100vw - 36px), calc(52dvh * 280 / 580));
-    height: min(580px, calc((100vw - 36px) * 580 / 280), 52dvh);
-    margin: 0 auto;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  #s_demo .urbi-proto .screen-wrap {
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    box-sizing: border-box;
+  }
+
+  /* Aislar el mockup de reglas globales del pitch */
+  #s_demo .urbi-proto .qgrid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+
+  #s_demo .urbi-proto .cat-grid,
+  #s_demo .urbi-proto .cat-grid-full {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  #s_demo .urbi-proto .stats-row {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+
+  #s_demo .urbi-proto .stat-v {
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+
+  #s_demo .urbi-proto .stat-l {
+    font-size: 9px !important;
+  }
+
+  #s_demo .urbi-proto .fab {
+    transform: translateX(-50%) !important;
   }
 
   /* Urbi report categories slide (#s_reportes) */
@@ -653,9 +757,11 @@
     letter-spacing: 2px;
   }
 
+  #s_demo .urbi-proto {
+    --proto-scale: min(1, (100vw - 28px) / 280, 48dvh / 580);
+  }
+
   #s_demo .urbi-proto .device {
-    width: min(260px, calc(100vw - 28px), calc(48dvh * 280 / 580));
-    height: min(540px, calc((100vw - 28px) * 580 / 280), 48dvh);
     border-radius: 32px;
     padding: 6px;
   }
