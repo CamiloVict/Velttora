@@ -30,7 +30,7 @@ const REASON_TEMPLATES = {
       title: "New partnership inquiry",
       preheader: (d) => `${d.name} is interested in partnering with Velttora`,
       intro:
-        "A potential partner reached out through the website. Review their organization and message to assess fit across our portfolio (Urbi, Edify, CobraAI, Hycap).",
+        "A potential partner reached out through the website. Review their organization and message to assess fit across our portfolio (Urbi, Eudify, CobraAI, Hycap).",
       subject: (d) =>
         `[Velttora] Partnership — ${d.name}${
           d.organization ? ` · ${d.organization}` : ""
@@ -156,7 +156,7 @@ const REASON_TEMPLATES = {
       preheader: "Velttora received your press request.",
       subject: "Your media inquiry — Velttora",
       intro:
-        'Thank you for contacting <strong style="color:#f0efe8;">Velttora</strong> for press or media purposes. We’re happy to support accurate coverage of our products and mission — Urbi, Edify, CobraAI, and Hycap.',
+        'Thank you for contacting <strong style="color:#f0efe8;">Velttora</strong> for press or media purposes. We’re happy to support accurate coverage of our products and mission — Urbi, Eudify, CobraAI, and Hycap.',
       nextSteps: [
         'We prioritize press requests and aim to respond within <strong style="color:#f0efe8;">1 business day</strong> when a deadline is noted.',
         "Share any publication date, format (interview, written Q&A), and topics of interest in your follow-up.",

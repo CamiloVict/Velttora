@@ -1,5 +1,5 @@
 /* Pitch deck — mobile & tablet responsive overrides
-   Decks: urbi-*, cobraai-*, hycap_pitch-deck.html, Edify_PitchDeck_2026.html */
+   Decks: urbi-*, cobraai-*, hycap_pitch-deck.html, Eudify_PitchDeck_2026.html */
 
 /* Demo slide (4/13): scroll + altura real del contenido (todas las vistas) */
 #s_demo.slide.active {
@@ -464,7 +464,7 @@
     align-items: flex-start !important;
   }
 
-  /* Edify (Edify_PitchDeck_2026.html) */
+  /* Eudify (Eudify_PitchDeck_2026.html) */
   #s4 .moat-row {
     flex-direction: column !important;
     gap: 10px !important;
