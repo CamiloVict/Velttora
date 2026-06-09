@@ -106,7 +106,7 @@ export default {
           "Orquestación IA",
           "B2B SaaS",
           "LATAM",
-          { label: "cobra-ai.com", href: "https://cobra-ai-web.vercel.app" },
+          { label: "cobra-ai.com", href: "https://cobraai.com.co" },
         ],
         delay: null,
       },
