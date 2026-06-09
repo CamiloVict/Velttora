@@ -82,19 +82,7 @@ export default {
       },
       {
         num: "02",
-        status: "Pre-seed · Pilot ready",
-        icon: "🏙️",
-        name: "Urbi",
-        href: "/urbi-pitch-deck.html",
-        tagline: "// AI civic reporting platform",
-        description:
-          "Urbi lets citizens report urban problems in under 60 seconds. AI classifies the report, detects duplicates, geolocates it, and routes it to the right city department automatically. Built for modern cities across Colombia and Latin America, designed to become the GovTech standard.",
-        tags: ["GovTech", "Computer Vision", "Smart Cities", "B2G SaaS"],
-        delay: 1,
-      },
-      {
-        num: "03",
-        status: "Active development",
+        status: "MVP operational",
         icon: "🐍",
         name: "CobraAI",
         href: "/cobraai-pitch-deck.html",
@@ -106,8 +94,20 @@ export default {
           "AI Orchestration",
           "B2B SaaS",
           "LATAM",
-          { label: "cobra-ai.com", href: "https://cobraai.com.co" },
+          { label: "cobraai.com.co", href: "https://cobraai.com.co" },
         ],
+        delay: 1,
+      },
+      {
+        num: "03",
+        status: "Pre-seed · Pilot ready",
+        icon: "🏙️",
+        name: "Urbi",
+        href: "/urbi-pitch-deck.html",
+        tagline: "// AI civic reporting platform",
+        description:
+          "Urbi lets citizens report urban problems in under 60 seconds. AI classifies the report, detects duplicates, geolocates it, and routes it to the right city department automatically. Built for modern cities across Colombia and Latin America, designed to become the GovTech standard.",
+        tags: ["GovTech", "Computer Vision", "Smart Cities", "B2G SaaS"],
         delay: null,
       },
       {
