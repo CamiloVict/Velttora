@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velttora — Technology Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090f;
+    --bg-alt: #0c0c13;
+    --surface: #111118;
+    --surface-2: #16161f;
+    --accent: #00e5a0;
+    --accent-dim: #00c985;
+    --text: #f0efe8;
+    --text-dim: #9a9aa8;
+    --text-faint: #55556a;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  .progress {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: var(--accent); z-index: 1000; width: 0%;
+  }
+
+  .navdots {
+    position: fixed; right: 32px; top: 50%; transform: translateY(-50%);
+    z-index: 900; display: flex; flex-direction: column; gap: 13px;
+  }
+  .navdot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border-strong); cursor: pointer;
+    transition: all 0.3s; border: none; padding: 0;
+  }
+  .navdot.active { background: var(--accent); box-shadow: 0 0 0 3px rgba(0,229,160,0.15); }
+  .navdot:hover { background: var(--text-dim); }
+  @media (max-width: 900px) { .navdots { display: none; } }
+
+  .section {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 130px 90px; position: relative;
+  }
+  @media (max-width: 900px) { .section { padding: 90px 24px; } }
+
+  .section-inner { max-width: 1180px; margin: 0 auto; width: 100%; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 30px;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01em; color: var(--text); }
+
+  .lede { font-size: 19px; font-weight: 300; color: var(--text-dim); line-height: 1.75; max-width: 640px; }
+
+  .divider { height: 1px; background: var(--border); width: 100%; }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ═══════════ SECTION 1 — COVER ═══════════ */
+  .cover {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: space-between; padding: 56px 90px;
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 900px) { .cover { padding: 40px 24px; } }
+
+  .cover-glow {
+    position: absolute; top: -20%; right: -10%;
+    width: 900px; height: 900px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 68%);
+    pointer-events: none;
+  }
+  .cover-grid {
+    position: absolute; inset: 0; opacity: 0.035; pointer-events: none;
+    background-image:
+      linear-gradient(var(--text) 1px, transparent 1px),
+      linear-gradient(90deg, var(--text) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .cover-top {
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .cover-logo { display: flex; align-items: center; gap: 10px; }
+  .cover-logo-mark {
+    width: 32px; height: 32px; background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cover-logo-word {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em;
+    color: var(--text);
+  }
+  .cover-logo-word em { color: var(--accent); font-style: normal; }
+  .cover-date {
+    font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.08em;
+  }
+
+  .cover-mid {
+    position: relative; z-index: 2; max-width: 980px;
+    margin: auto 0;
+  }
+  .cover-kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 32px;
+  }
+  .cover-title {
+    font-size: clamp(42px, 6.4vw, 84px);
+    line-height: 1.04; font-weight: 500; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 32px;
+  }
+  .cover-title .italic { font-style: italic; color: var(--accent); font-weight: 400; }
+  .cover-sub {
+    font-size: 18px; color: var(--text-dim); max-width: 560px;
+    line-height: 1.7; font-weight: 300;
+  }
+
+  .cover-bottom {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .cover-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover-tag {
+    font-family: var(--mono); font-size: 10.5px; padding: 6px 13px;
+    border: 1px solid var(--border); border-radius: 20px;
+    color: var(--text-faint); letter-spacing: 0.04em;
+  }
+  .cover-scroll {
+    font-family: var(--mono); font-size: 10.5px; color: var(--text-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cover-scroll-line {
+    width: 28px; height: 1px; background: var(--text-faint);
+    position: relative; overflow: hidden;
+  }
+  .cover-scroll-line::after {
+    content: ''; position: absolute; left: -100%; top: 0;
+    width: 100%; height: 100%; background: var(--accent);
+    animation: scrollline 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollline { 0% { left: -100%; } 50% { left: 0; } 100% { left: 100%; } }
+
+  /* ═══════════ SECTION 2 — PROBLEM ═══════════ */
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    margin-top: 64px; align-items: start;
+  }
+  @media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .problem-list { display: flex; flex-direction: column; }
+  .problem-item {
+    padding: 26px 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: 20px; align-items: baseline;
+  }
+  .problem-item:first-child { border-top: 1px solid var(--border); }
+  .problem-num {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    flex-shrink: 0; width: 24px;
+  }
+  .problem-text { font-size: 16px; color: var(--text-dim); line-height: 1.6; font-weight: 300; }
+  .problem-text strong { color: var(--text); font-weight: 500; }
+
+  .problem-callout {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 36px 38px; border-radius: 4px;
+  }
+  .problem-callout-label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
+  }
+  .problem-callout-quote {
+    font-family: var(--serif); font-style: italic; font-size: 24px;
+    line-height: 1.5; color: var(--text); font-weight: 400;
+  }
+
+  /* ═══════════ SECTION 3 — WHO WE ARE ═══════════ */
+  .identity-grid {
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px;
+    margin-top: 56px; align-items: start;
+  }
+  @media (max-width: 900px) { .identity-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+  .identity-statement {
+    font-family: var(--serif); font-size: 30px; line-height: 1.5;
+    color: var(--text); font-weight: 400; margin-bottom: 30px;
+  }
+  .identity-statement em { color: var(--accent); font-style: italic; }
+
+  .identity-body { font-size: 16px; color: var(--text-dim); line-height: 1.85; font-weight: 300; }
+  .identity-body + .identity-body { margin-top: 18px; }
+
+  .identity-stats { display: flex; flex-direction: column; gap: 0; }
+  .identity-stat {
+    padding: 24px 0; border-bottom: 1px solid var(--border);
+  }
+  .identity-stat:first-child { padding-top: 0; }
+  .identity-stat-num {
+    font-family: var(--serif); font-size: 40px; color: var(--accent);
+    font-weight: 500; letter-spacing: -0.01em; line-height: 1.1;
+  }
+  .identity-stat-label {
+    font-family: var(--mono); font-size: 11.5px; color: var(--text-faint);
+    letter-spacing: 0.04em; margin-top: 8px; line-height: 1.5;
+  }
+
+  /* ═══════════ SECTION 4 — METHOD ═══════════ */
+  .method-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    margin-top: 60px; border-radius: 6px; overflow: hidden;
+  }
+  @media (max-width: 900px) { .method-steps { grid-template-columns: 1fr; } }
+
+  .method-step { background: var(--bg); padding: 40px 30px; position: relative; }
+  .method-step-num {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    margin-bottom: 22px; letter-spacing: 0.06em;
+  }
+  .method-step-title {
+    font-family: var(--serif); font-size: 21px; color: var(--text);
+    margin-bottom: 14px; font-weight: 500; line-height: 1.3;
+  }
+  .method-step-desc {
+    font-size: 14px; color: var(--text-dim); line-height: 1.7; font-weight: 300;
+  }
+
+  /* ═══════════ SECTION 5 — PROOF / PORTFOLIO ═══════════ */
+  .portfolio-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    margin-top: 56px; border-radius: 6px; overflow: hidden;
+  }
+  @media (max-width: 900px) { .portfolio-grid { grid-template-columns: 1fr; } }
+
+  .portfolio-card { background: var(--bg); padding: 42px 40px; transition: background 0.3s; }
+  .portfolio-card:hover { background: var(--surface); }
+
+  .portfolio-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+  .portfolio-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 5px 11px; border-radius: 20px;
+    border: 1px solid var(--border-strong); color: var(--text-dim);
+  }
+  .portfolio-status {
+    font-family: var(--mono); font-size: 10px; color: var(--accent);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .portfolio-status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+
+  .portfolio-name {
+    font-family: var(--serif); font-size: 26px; color: var(--text);
+    font-weight: 500; margin-bottom: 12px;
+  }
+  .portfolio-desc {
+    font-size: 14.5px; color: var(--text-dim); line-height: 1.7;
+    font-weight: 300; margin-bottom: 22px;
+  }
+  .portfolio-metrics { display: flex; gap: 28px; }
+  .portfolio-metric-val {
+    font-family: var(--serif); font-size: 20px; color: var(--accent); font-weight: 500;
+  }
+  .portfolio-metric-label {
+    font-family: var(--mono); font-size: 9.5px; color: var(--text-faint);
+    letter-spacing: 0.04em; margin-top: 4px;
+  }
+
+  /* ═══════════ SECTION 6 — ENGAGEMENT MODEL ═══════════ */
+  .engage-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    margin-top: 56px;
+  }
+  @media (max-width: 900px) { .engage-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  .engage-card { border-top: 1px solid var(--border-strong); padding-top: 26px; }
+  .engage-phase {
+    font-family: var(--mono); font-size: 10.5px; color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .engage-title {
+    font-family: var(--serif); font-size: 22px; color: var(--text);
+    margin-bottom: 14px; font-weight: 500;
+  }
+  .engage-desc { font-size: 14.5px; color: var(--text-dim); line-height: 1.75; font-weight: 300; }
+
+  /* ═══════════ SECTION 7 — TEAM ═══════════ */
+  .team-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    margin-top: 56px; border-radius: 6px; overflow: hidden;
+  }
+  @media (max-width: 900px) { .team-grid { grid-template-columns: 1fr; } }
+
+  .team-card { background: var(--bg); padding: 38px 34px; }
+  .team-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 18px; color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .team-name { font-family: var(--serif); font-size: 19px; color: var(--text); margin-bottom: 4px; font-weight: 500; }
+  .team-role {
+    font-family: var(--mono); font-size: 10.5px; color: var(--accent);
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .team-desc { font-size: 13.5px; color: var(--text-dim); line-height: 1.7; font-weight: 300; }
+
+  /* ═══════════ SECTION 8 — CLOSE ═══════════ */
+  .close-section {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: flex-start; text-align: left;
+  }
+  .close-title {
+    font-family: var(--serif); font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.15; font-weight: 500; letter-spacing: -0.02em;
+    max-width: 820px; margin-bottom: 40px;
+  }
+  .close-title em { color: var(--accent); font-style: italic; font-weight: 400; }
+
+  .close-contact {
+    display: flex; gap: 48px; flex-wrap: wrap; margin-top: 20px;
+  }
+  .close-contact-item { display: flex; flex-direction: column; gap: 6px; }
+  .close-contact-label {
+    font-family: var(--mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .close-contact-value {
+    font-family: var(--mono); font-size: 15px; color: var(--text);
+    text-decoration: none; border-bottom: 1px solid var(--border-strong);
+    padding-bottom: 3px; transition: border-color 0.2s;
+  }
+  .close-contact-value:hover { border-color: var(--accent); color: var(--accent); }
+
+  .close-footer {
+    margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .close-footer-brand { display: flex; align-items: center; gap: 8px; }
+  .close-footer-text {
+    font-family: var(--mono); font-size: 10.5px; color: var(--text-faint);
+    letter-spacing: 0.04em;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="navdots" id="navdots"></div>
+
+<main id="main">
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — COVER
+       ═══════════════════════════════════════════ -->
+  <section class="cover" data-section="0">
+    <div class="cover-glow"></div>
+    <div class="cover-grid"></div>
+
+    <div class="cover-top reveal">
+      <div class="cover-logo">
+        <div class="cover-logo-mark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <line x1="5" y1="3" x2="12" y2="21" stroke="#f0efe8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="19" y1="3" x2="12" y2="21" stroke="#f0efe8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="6.5" y1="17" x2="19.5" y2="4" stroke="#00e5a0" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="19.5" cy="4" r="2" fill="#00e5a0"/>
+          </svg>
+        </div>
+        <span class="cover-logo-word">VELTTORA<em>.</em></span>
+      </div>
+      <span class="cover-date">Technology Studio — Wyoming, USA</span>
+    </div>
+
+    <div class="cover-mid">
+      <div class="cover-kicker reveal reveal-delay-1">Quiénes somos</div>
+      <h1 class="cover-title reveal reveal-delay-2">
+        La distancia entre tener<br>
+        la idea correcta y tener<br>
+        el producto <span class="italic">funcionando.</span>
+      </h1>
+      <p class="cover-sub reveal reveal-delay-3">
+        Velttora es un estudio de tecnología que construye software con inteligencia artificial aplicada — de la arquitectura al producto en producción, sin intermediarios entre el diseño y la ejecución.
+      </p>
+    </div>
+
+    <div class="cover-bottom reveal reveal-delay-4">
+      <div class="cover-tags">
+        <span class="cover-tag">Software</span>
+        <span class="cover-tag">Inteligencia artificial</span>
+        <span class="cover-tag">Producto</span>
+        <span class="cover-tag">LATAM</span>
+      </div>
+      <div class="cover-scroll">
+        Desplázate <div class="cover-scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — THE PROBLEM
+       ═══════════════════════════════════════════ -->
+  <section class="section" data-section="1">
+    <div class="section-inner">
+      <div class="eyebrow reveal">El problema</div>
+      <h2 style="font-size: clamp(30px,4vw,44px); max-width: 780px; line-height: 1.25;" class="reveal reveal-delay-1">
+        La mayoría de las industrias siguen operando sobre la infraestructura de hace veinte años.
+      </h2>
+
+      <div class="problem-grid">
+        <div class="problem-list reveal reveal-delay-2">
+          <div class="problem-item">
+            <span class="problem-num">01</span>
+            <span class="problem-text"><strong>Procesos manuales</strong> que deberían tomar segundos toman días — hojas de cálculo, PDFs sueltos, WhatsApp como sistema de gestión.</span>
+          </div>
+          <div class="problem-item">
+            <span class="problem-num">02</span>
+            <span class="problem-text"><strong>Datos fragmentados</strong> entre sistemas que no se hablan entre sí, generando fricción operativa constante y decisiones a ciegas.</span>
+          </div>
+          <div class="problem-item">
+            <span class="problem-num">03</span>
+            <span class="problem-text"><strong>Tecnología premium fuera de alcance</strong> — las herramientas que existen fueron construidas para el 5% del mercado que puede pagarlas.</span>
+          </div>
+          <div class="problem-item">
+            <span class="problem-num">04</span>
+            <span class="problem-text"><strong>Inteligencia artificial sin aplicar</strong> — la mayoría de las organizaciones no tiene ni la capacidad ni el equipo para implementarla por su cuenta.</span>
+          </div>
+        </div>
+
+        <div class="problem-callout reveal reveal-delay-3">
+          <div class="problem-callout-label">La brecha que vemos en toda la industria</div>
+          <p class="problem-callout-quote">
+            "Solo el 20% de las organizaciones que invierten en IA capturan la mayor parte del valor generado. El resto queda atrapado entre la estrategia y la ejecución."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — WHO WE ARE
+       ═══════════════════════════════════════════ -->
+  <section class="section" data-section="2">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Nuestra identidad</div>
+
+      <div class="identity-grid">
+        <div class="reveal reveal-delay-1">
+          <p class="identity-statement">
+            No competimos con quien define la estrategia. Existimos para el momento exacto en que la estrategia necesita convertirse en <em>producto real</em>.
+          </p>
+          <p class="identity-body">
+            Velttora nace de una convicción simple: las ideas y las hojas de ruta no valen nada sin ejecución, y la mayoría de las organizaciones — internamente o a través de sus firmas asesoras — llegan hasta el diagnóstico correcto pero no tienen el equipo técnico propio para construir la solución de punta a punta.
+          </p>
+          <p class="identity-body">
+            Operamos como un venture studio — identificamos la fricción real de una industria, diseñamos la solución con inteligencia artificial aplicada, y construimos el producto de principio a fin. No entregamos un documento de recomendaciones. Entregamos software funcionando, en manos de usuarios reales.
+          </p>
+          <p class="identity-body">
+            Trabajamos directamente con equipos internos de innovación y también como brazo de ejecución técnica de firmas de consultoría y transformación que necesitan un socio que construya, no solo que recomiende.
+          </p>
+        </div>
+
+        <div class="identity-stats reveal reveal-delay-2">
+          <div class="identity-stat">
+            <div class="identity-stat-num">4</div>
+            <div class="identity-stat-label">PRODUCTOS ACTIVOS EN EL PORTAFOLIO — FINTECH, GOVTECH, EDTECH Y SPORTSTECH</div>
+          </div>
+          <div class="identity-stat">
+            <div class="identity-stat-num">100%</div>
+            <div class="identity-stat-label">DEL EQUIPO TÉCNICO ES PROPIO — SIN SUBCONTRATACIÓN NI ROTACIÓN DE DESARROLLADORES</div>
+          </div>
+          <div class="identity-stat">
+            <div class="identity-stat-num">1</div>
+            <div class="identity-stat-label">INFRAESTRUCTURA DE IA COMPARTIDA — REUTILIZABLE ENTRE INDUSTRIAS Y CASOS DE USO</div>
+          </div>
+          <div class="identity-stat">
+            <div class="identity-stat-num">CO</div>
+            <div class="identity-stat-label">CONSTRUIDO DESDE LATINOAMÉRICA — PARA RESOLVER PROBLEMAS QUE ENTENDEMOS DE PRIMERA MANO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — METHOD
+       ═══════════════════════════════════════════ -->
+  <section class="section" data-section="3">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Cómo trabajamos</div>
+      <h2 style="font-size: clamp(28px,3.6vw,40px); max-width: 720px; line-height: 1.3;" class="reveal reveal-delay-1">
+        Un método repetible, no un proceso improvisado en cada proyecto.
+      </h2>
+
+      <div class="method-steps reveal reveal-delay-2">
+        <div class="method-step">
+          <div class="method-step-num">01 — DIAGNÓSTICO</div>
+          <div class="method-step-title">Entender la fricción real</div>
+          <div class="method-step-desc">Mapeamos el proceso actual, identificamos dónde se pierde tiempo, dinero o información, y definimos qué se puede automatizar con IA sin romper lo que ya funciona.</div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-num">02 — ARQUITECTURA</div>
+          <div class="method-step-title">Diseñar antes de construir</div>
+          <div class="method-step-desc">Definimos la arquitectura técnica completa — datos, integraciones, modelos de IA — validada contigo antes de escribir una sola línea de código de producción.</div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-num">03 — CONSTRUCCIÓN</div>
+          <div class="method-step-title">Ejecución con equipo propio</div>
+          <div class="method-step-desc">Construimos en ciclos cortos con entregas visibles cada semana. Sin cajas negras — acceso directo al progreso real del producto en cada momento.</div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-num">04 — OPERACIÓN</div>
+          <div class="method-step-title">Nos quedamos después del lanzamiento</div>
+          <div class="method-step-desc">El software que no se mantiene se degrada. Seguimos operando, iterando y escalando el producto junto a tu equipo — no desaparecemos en la entrega.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — PROOF / PORTFOLIO
+       ═══════════════════════════════════════════ -->
+  <section class="section" data-section="4">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Lo que hemos construido</div>
+      <h2 style="font-size: clamp(28px,3.6vw,40px); max-width: 720px; line-height: 1.3;" class="reveal reveal-delay-1">
+        Verticales distintos. Un mismo método de ejecución.
+      </h2>
+
+      <div class="portfolio-grid reveal reveal-delay-2">
+        <div class="portfolio-card">
+          <div class="portfolio-top">
+            <span class="portfolio-tag">FinTech</span>
+            <span class="portfolio-status"><span class="portfolio-status-dot"></span>En operación</span>
+          </div>
+          <div class="portfolio-name">CobraAI</div>
+          <div class="portfolio-desc">Motor de cobranza inteligente que automatiza el ciclo completo de recuperación de cartera — scoring, contacto multicanal y planes de pago — para entidades financieras en Latinoamérica.</div>
+          <div class="portfolio-metrics">
+            <div><div class="portfolio-metric-val">IA</div><div class="portfolio-metric-label">SCORING PREDICTIVO</div></div>
+            <div><div class="portfolio-metric-val">Multi</div><div class="portfolio-metric-label">CANAL AUTOMATIZADO</div></div>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-top">
+            <span class="portfolio-tag">GovTech</span>
+            <span class="portfolio-status"><span class="portfolio-status-dot"></span>Piloto en curso</span>
+          </div>
+          <div class="portfolio-name">Urbi</div>
+          <div class="portfolio-desc">Plataforma de reportes ciudadanos con inteligencia artificial. Los ciudadanos reportan un problema urbano en menos de 60 segundos; la IA clasifica, geolocaliza y enruta automáticamente a la entidad responsable.</div>
+          <div class="portfolio-metrics">
+            <div><div class="portfolio-metric-val">87–94%</div><div class="portfolio-metric-label">PRECISIÓN DE CLASIFICACIÓN</div></div>
+            <div><div class="portfolio-metric-val">&lt;60s</div><div class="portfolio-metric-label">TIEMPO DE REPORTE</div></div>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-top">
+            <span class="portfolio-tag">EdTech</span>
+            <span class="portfolio-status"><span class="portfolio-status-dot"></span>MVP operativo</span>
+          </div>
+          <div class="portfolio-name">Edify</div>
+          <div class="portfolio-desc">Marketplace de educación y cuidado infantil respaldado por un currículo científico. Conecta familias con proveedores certificados mediante matching inteligente y verificación biométrica.</div>
+          <div class="portfolio-metrics">
+            <div><div class="portfolio-metric-val">KYC</div><div class="portfolio-metric-label">VERIFICACIÓN BIOMÉTRICA</div></div>
+            <div><div class="portfolio-metric-val">IA</div><div class="portfolio-metric-label">MATCHING CURRICULAR</div></div>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-top">
+            <span class="portfolio-tag">Enterprise SaaS</span>
+            <span class="portfolio-status"><span class="portfolio-status-dot"></span>En desarrollo</span>
+          </div>
+          <div class="portfolio-name">ReqFlow</div>
+          <div class="portfolio-desc">Plataforma de gestión de requerimientos para equipos de consultoría y transformación digital. Centraliza, prioriza y da trazabilidad a los requerimientos de un proyecto desde el levantamiento hasta la entrega — eliminando el caos de correos, hojas de cálculo y documentos desconectados.</div>
+          <div class="portfolio-metrics">
+            <div><div class="portfolio-metric-val">E2E</div><div class="portfolio-metric-label">TRAZABILIDAD COMPLETA</div></div>
+            <div><div class="portfolio-metric-val">IA</div><div class="portfolio-metric-label">PRIORIZACIÓN INTELIGENTE</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 6 — ENGAGEMENT MODEL
+       ═══════════════════════════════════════════ -->
+  <section class="section" data-section="5">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Cómo trabajamos con clientes</div>
+      <h2 style="font-size: clamp(28px,3.6vw,40px); max-width: 780px; line-height: 1.3;" class="reveal reveal-delay-1">
+        Reducimos el riesgo antes de pedir el compromiso completo.
+      </h2>
+      <p class="lede reveal reveal-delay-2" style="margin-top: 18px;">
+        No creemos en comprometerte a un contrato de 12 meses sin haber demostrado valor primero. Nuestro modelo de trabajo está diseñado para que cada etapa se gane la siguiente.
+      </p>
+
+      <div class="engage-grid reveal reveal-delay-3">
+        <div class="engage-card">
+          <div class="engage-phase">Etapa 1</div>
+          <div class="engage-title">Diagnóstico</div>
+          <div class="engage-desc">Un sprint corto y acotado para mapear el problema, validar la oportunidad técnica y entregar una arquitectura de solución concreta — con o sin compromiso de continuar.</div>
+        </div>
+        <div class="engage-card">
+          <div class="engage-phase">Etapa 2</div>
+          <div class="engage-title">Piloto</div>
+          <div class="engage-desc">Construimos una versión funcional acotada a un caso de uso real, con usuarios reales. El objetivo es demostrar el valor antes de escalar la inversión.</div>
+        </div>
+        <div class="engage-card">
+          <div class="engage-phase">Etapa 3</div>
+          <div class="engage-title">Escala</div>
+          <div class="engage-desc">Con el piloto validado, construimos la versión completa del producto y nos quedamos operando, iterando y escalando junto a tu equipo de forma continua.</div>
+        </div>
+      </div>
+
+      <div class="problem-callout reveal reveal-delay-4" style="margin-top: 48px;">
+        <div class="problem-callout-label">Dos formas de trabajar con nosotros</div>
+        <p style="font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 300; margin-top: 4px;">
+          <strong style="color: var(--text); font-weight: 500;">Directo:</strong> tu organización nos trae el problema y construimos la solución completa, de principio a fin.<br>
+          <strong style="color: var(--text); font-weight: 500;">Como socio técnico:</strong> tu firma ya definió la estrategia y el roadmap — nosotros somos el equipo que la construye y la pone en producción, integrados a tu equipo y tu cronograma.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 7 — TEAM
+       ═══════════════════════════════════════════ -->
+  <section class="section" data-section="6">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Equipo</div>
+      <h2 style="font-size: clamp(28px,3.6vw,40px); max-width: 720px; line-height: 1.3;" class="reveal reveal-delay-1">
+        Un equipo pequeño, deliberadamente.
+      </h2>
+      <p class="lede reveal reveal-delay-2" style="margin-top: 18px;">
+        Cada persona en Velttora construye — no gestiona a otros que construyen. Eso significa decisiones más rápidas y cero pérdida de contexto entre quien diseña y quien ejecuta.
+      </p>
+
+      <div class="team-grid reveal reveal-delay-3">
+        <div class="team-card">
+          <div class="team-avatar">CV</div>
+          <div class="team-name">Camilo Victoria</div>
+          <div class="team-role">Founder &amp; CEO</div>
+          <div class="team-desc">Lidera visión, producto y estrategia. Responsable de la arquitectura de negocio de cada vertical del portafolio y de las relaciones con clientes estratégicos.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#00e5a0" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#00e5a0" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="team-name">Ingeniería &amp; IA</div>
+          <div class="team-role">Arquitectura técnica</div>
+          <div class="team-desc">Diseño y construcción de la infraestructura de inteligencia artificial compartida entre productos — el motor técnico detrás de cada solución del portafolio.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="8" r="3.2" stroke="#00e5a0" stroke-width="1.4"/>
+              <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#00e5a0" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="team-name">Comercial &amp; Alianzas</div>
+          <div class="team-role">Desarrollo de negocio</div>
+          <div class="team-desc">Relaciones comerciales, expansión de cuentas y conocimiento de industria aplicado a cada vertical — el puente entre lo que construimos y quién lo necesita.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 8 — CLOSE
+       ═══════════════════════════════════════════ -->
+  <section class="section close-section" data-section="7">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Próximo paso</div>
+      <h2 class="close-title reveal reveal-delay-1">
+        Cada gran producto empezó con una <em>conversación honesta</em> sobre un problema real.
+      </h2>
+      <p class="lede reveal reveal-delay-2">
+        Si hay un proceso en tu organización que hoy depende de hojas de cálculo, correos sueltos o trabajo manual repetitivo — probablemente ya sabemos cómo empezar a resolverlo.
+      </p>
+
+      <div class="close-contact reveal reveal-delay-3">
+        <div class="close-contact-item">
+          <span class="close-contact-label">Correo</span>
+          <a class="close-contact-value" href="mailto:contact@velttora.com">contact@velttora.com</a>
+        </div>
+        <div class="close-contact-item">
+          <span class="close-contact-label">Web</span>
+          <a class="close-contact-value" href="https://velttora.com">velttora.com</a>
+        </div>
+        <div class="close-contact-item">
+          <span class="close-contact-label">Sede</span>
+          <span class="close-contact-value" style="border-bottom:none; cursor:default;">Wyoming, USA · Cali, Colombia</span>
+        </div>
+      </div>
+
+      <div class="close-footer reveal reveal-delay-4">
+        <div class="close-footer-brand">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <line x1="5" y1="3" x2="12" y2="21" stroke="#55556a" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="19" y1="3" x2="12" y2="21" stroke="#55556a" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="6.5" y1="17" x2="19.5" y2="4" stroke="#00e5a0" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="19.5" cy="4" r="1.8" fill="#00e5a0"/>
+          </svg>
+          <span class="close-footer-text">VELTTORA LLC</span>
+        </div>
+        <span class="close-footer-text">TECHNOLOGY STUDIO — EST. 2026 — CONFIDENCIAL</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function() {
+  const sections = document.querySelectorAll('[data-section]');
+  const navdots = document.getElementById('navdots');
+  const progress = document.getElementById('progress');
+
+  sections.forEach((sec, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'navdot';
+    dot.setAttribute('aria-label', 'Ir a sección ' + (i+1));
+    dot.addEventListener('click', () => sec.scrollIntoView({ behavior: 'smooth' }));
+    navdots.appendChild(dot);
+  });
+  const dots = navdots.querySelectorAll('.navdot');
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const secIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = parseInt(entry.target.getAttribute('data-section'));
+      if (entry.isIntersecting) {
+        dots.forEach(d => d.classList.remove('active'));
+        if (dots[idx]) dots[idx].classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(sec => secIO.observe(sec));
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progress.style.width = scrolled + '%';
+  });
+})();
+</script>
+
+</body>
+</html>

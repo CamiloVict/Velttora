@@ -23,6 +23,11 @@ export function About() {
             <Reveal delay={3} className="section-lead" style={{ marginTop: 0 }}>
               {a.lead2}
             </Reveal>
+            <Reveal delay={4}>
+              <a href={a.pitchDeckHref} target="_blank" rel="noopener noreferrer" className="about-pitch-link">
+                {a.pitchDeck} <span>↗</span>
+              </a>
+            </Reveal>
           </div>
           <div className="about-right">
             {a.cards.map((card, i) => (

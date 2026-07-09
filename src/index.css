@@ -370,6 +370,30 @@ section { position: relative; z-index: 1; }
   color: var(--text-secondary);
   line-height: 1.75;
 }
+.about-pitch-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-hover);
+  padding-bottom: 4px;
+  transition: color var(--transition), border-color var(--transition);
+}
+.about-pitch-link span {
+  color: var(--accent);
+  transition: transform var(--transition);
+}
+.about-pitch-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.about-pitch-link:hover span {
+  transform: translate(2px, -2px);
+}
 
 /* ── Products / Projects ────────────────────────────────────── */
 .products {

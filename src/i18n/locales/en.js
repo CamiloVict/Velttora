@@ -35,6 +35,8 @@ export default {
       "Velttora LLC is a software studio headquartered in Wyoming, USA, founded by Camilo Arturo Victoria Labrada from Cali, Colombia. We don't chase trends — we identify sectors where technology has been absent too long, then build the platform that becomes the new standard.",
     lead2:
       "Every product we launch is a deliberate bet on an industry ready to change. We work lean, we ship fast, and we build for global scale from day one.",
+    pitchDeck: "View company pitch deck",
+    pitchDeckHref: "/Velttora_Presentacion_Comercial.html",
     cards: [
       {
         title: "🎯 Our Mission",
